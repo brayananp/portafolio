@@ -1,4 +1,8 @@
 ---
+import EmailIcon from "../../icons/EmailIcon.astro";
+import GithubIcon from "../../icons/GithubIcon.astro";
+import LinkedinIcon from "../../icons/LinkedinIcon.astro";
+import WhatsappIcon from "../../icons/WhatsappIcon.astro";
 import type { UiKey } from "../../i18n/ui";
 import type { PortfolioData } from "../../types/portfolio";
 
@@ -9,11 +13,20 @@ interface Props {
 
 const { data, t } = Astro.props;
 
-const links = [
-	{ href: data.email, label: t("contact.email") },
-	{ href: data.whatsapp, label: t("contact.whatsapp") },
-	{ href: data.linkedin, label: t("contact.linkedin") },
-	{ href: data.github, label: t("contact.github") },
+type ContactIconKey = "email" | "whatsapp" | "linkedin" | "github";
+
+const iconMap = {
+	email: EmailIcon,
+	whatsapp: WhatsappIcon,
+	linkedin: LinkedinIcon,
+	github: GithubIcon,
+} as const;
+
+const links: { href: string; label: string; icon: ContactIconKey }[] = [
+	{ href: data.email, label: t("contact.email"), icon: "email" },
+	{ href: data.whatsapp, label: t("contact.whatsapp"), icon: "whatsapp" },
+	{ href: data.linkedin, label: t("contact.linkedin"), icon: "linkedin" },
+	{ href: data.github, label: t("contact.github"), icon: "github" },
 ];
 ---
 
@@ -31,18 +44,23 @@ const links = [
 
 		<ul class="flex flex-wrap gap-x-5 gap-y-2 font-mono text-sm">
 			{
-				links.map((link) => (
-					<li>
-						<a
-							href={link.href}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="text-secondary hover:text-amber transition-colors"
-						>
-							{link.label}
-						</a>
-					</li>
-				))
+				links.map((link) => {
+					const Icon = iconMap[link.icon];
+
+					return (
+						<li>
+							<a
+								href={link.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-1.5 text-secondary hover:text-amber transition-colors"
+							>
+								<Icon class="shrink-0" aria-hidden="true" />
+								{link.label}
+							</a>
+						</li>
+					);
+				})
 			}
 		</ul>
 	</div>
