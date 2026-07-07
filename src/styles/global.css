@@ -1,0 +1,82 @@
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700&display=swap");
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+	--token-bg: #f6f7f9;
+	--token-surface: #ffffff;
+	--token-surface-1: #edeef1;
+	--token-surface-hover: #f0f1f4;
+	--token-border: rgba(30, 33, 39, 0.12);
+
+	--token-text-primary: #1e2127;
+	--token-text-secondary: #5a5f68;
+	--token-text-muted: #8a8f98;
+
+	--token-green-diff: #2b7a44;
+	--token-red-diff: #a63d34;
+	--token-amber: #9c7423;
+	--token-amber-bg: rgba(156, 116, 35, 0.1);
+}
+
+[data-theme="dark"] {
+	--token-bg: #16181d;
+	--token-surface: #1e2127;
+	--token-surface-1: #262a31;
+	--token-surface-hover: #24272e;
+	--token-border: rgba(199, 203, 209, 0.14);
+
+	--token-text-primary: #c7cbd1;
+	--token-text-secondary: #8a8f98;
+	--token-text-muted: #6b7078;
+
+	--token-green-diff: #4f9d69;
+	--token-red-diff: #c4544b;
+	--token-amber: #d4a24c;
+	--token-amber-bg: rgba(212, 162, 76, 0.15);
+}
+
+@theme {
+	--color-bg: var(--token-bg);
+	--color-surface: var(--token-surface);
+	--color-surface-1: var(--token-surface-1);
+	--color-surface-hover: var(--token-surface-hover);
+	--color-border: var(--token-border);
+
+	--color-primary: var(--token-text-primary);
+	--color-secondary: var(--token-text-secondary);
+	--color-muted: var(--token-text-muted);
+
+	--color-diff-added: var(--token-green-diff);
+	--color-diff-removed: var(--token-red-diff);
+	--color-amber: var(--token-amber);
+	--color-amber-bg: var(--token-amber-bg);
+
+	--font-display: "Cabinet Grotesk", system-ui, sans-serif;
+	--font-sans: "Inter", system-ui, sans-serif;
+	--font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+	--spacing-section: 3rem;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	background-color: var(--token-bg);
+	color: var(--token-text-primary);
+	font-family: var(--font-sans);
+	font-size: 1rem;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+}
+
+::selection {
+	background-color: var(--token-amber-bg);
+	color: var(--token-text-primary);
+}
