@@ -1,0 +1,13 @@
+---
+import HomePage from "../../components/HomePage.astro";
+import { portfolio } from "../../data/portfolio.es";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+	title={`${portfolio.authorName} — ${portfolio.hero.role}`}
+	description={portfolio.hero.tagline}
+	lang="es"
+>
+	<HomePage lang="es" portfolio={portfolio} />
+</Layout>
