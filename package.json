@@ -2,6 +2,15 @@
 	"name": "portafolio",
 	"type": "module",
 	"version": "0.0.1",
+	"description": "Portafolio y blog personal en código abierto con Astro",
+	"license": "MIT",
+	"author": "Alexis",
+	"keywords": [
+		"astro",
+		"portfolio",
+		"blog",
+		"open-source"
+	],
 	"engines": {
 		"node": ">=22.12.0"
 	},

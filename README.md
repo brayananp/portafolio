@@ -1,46 +1,62 @@
-# Astro Starter Kit: Basics
+# Portafolio
 
-```sh
-pnpm create astro@latest -- --template basics
+Portafolio y blog personal desarrollado en código abierto con [Astro](https://astro.build).
+
+[![CI](https://github.com/OWNER/portafolio/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/portafolio/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
+## Stack
+
+- [Astro 7](https://astro.build/) — framework web
+- [Biome](https://biomejs.dev/) — linter y formateador
+- [pnpm](https://pnpm.io/) — gestor de paquetes
+- TypeScript
+
+## Requisitos
+
+- Node.js >= 22.12.0
+- pnpm >= 10
+
+## Inicio rápido
+
+```bash
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Abre [http://localhost:4321](http://localhost:4321) en tu navegador.
 
-## 🚀 Project Structure
+## Scripts
 
-Inside of your Astro project, you'll see the following folders and files:
+| Comando            | Descripción                              |
+| ------------------ | ---------------------------------------- |
+| `pnpm dev`         | Servidor de desarrollo                   |
+| `pnpm build`       | Build de producción en `./dist/`         |
+| `pnpm preview`     | Vista previa del build                   |
+| `pnpm lint`        | Ejecutar linter                          |
+| `pnpm format`      | Formatear archivos                       |
+| `pnpm check`       | Lint + formato + organizar imports       |
+| `pnpm check:ci`    | Verificación para CI (sin escribir)      |
+
+## Estructura del proyecto
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── public/              # Archivos estáticos
+├── src/
+│   ├── assets/          # Imágenes y recursos
+│   ├── components/      # Componentes Astro
+│   ├── layouts/         # Layouts base
+│   └── pages/           # Rutas del sitio
+├── .github/             # CI y plantillas de GitHub
+├── biome.json           # Configuración de Biome
+└── astro.config.mjs     # Configuración de Astro
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Contribuir
 
-## 🧞 Commands
+Las contribuciones son bienvenidas. Lee la [guía de contribución](./CONTRIBUTING.md) antes de abrir un PR.
 
-All commands are run from the root of the project, from a terminal:
+## Licencia
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Este proyecto está bajo la licencia [MIT](./LICENSE).
