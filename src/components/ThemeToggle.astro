@@ -1,0 +1,57 @@
+---
+import type { UiKey } from "../i18n/ui";
+
+interface Props {
+	compact?: boolean;
+	t: (key: UiKey) => string;
+}
+
+const { compact = false, t } = Astro.props;
+
+const buttonClass = compact
+	? "inline-flex items-center justify-center size-8 rounded-full text-secondary hover:text-primary hover:bg-surface-hover transition-colors cursor-pointer"
+	: "font-mono text-xs text-secondary hover:text-primary border border-border rounded-md px-2.5 py-1 transition-colors cursor-pointer bg-surface";
+---
+
+<button
+	id="theme-toggle"
+	type="button"
+	class={buttonClass}
+	aria-label={t("theme.toggle")}
+>
+	<span id="theme-icon" class="font-mono text-sm leading-none">◐</span>
+</button>
+
+<script>
+	function updateThemeIcon(theme: string) {
+		const icon = document.getElementById("theme-icon");
+		if (icon) {
+			icon.textContent = theme === "dark" ? "◐" : "◑";
+		}
+	}
+
+	function getCurrentTheme(): string {
+		return document.documentElement.getAttribute("data-theme") ?? "dark";
+	}
+
+	function initThemeToggle() {
+		const toggle = document.getElementById("theme-toggle");
+		if (!toggle) return;
+
+		updateThemeIcon(getCurrentTheme());
+
+		if (toggle.dataset.initialized === "true") return;
+		toggle.dataset.initialized = "true";
+
+		toggle.addEventListener("click", () => {
+			const current = getCurrentTheme();
+			const next = current === "dark" ? "light" : "dark";
+			document.documentElement.setAttribute("data-theme", next);
+			localStorage.setItem("theme", next);
+			updateThemeIcon(next);
+		});
+	}
+
+	initThemeToggle();
+	document.addEventListener("astro:after-swap", initThemeToggle);
+</script>
