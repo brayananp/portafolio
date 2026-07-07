@@ -1,0 +1,33 @@
+---
+import { useTranslations } from "../i18n/ui";
+import type { Locale, PortfolioData } from "../types/portfolio";
+import Header from "./Header.astro";
+import About from "./sections/About.astro";
+import BlogPreview from "./sections/BlogPreview.astro";
+import Career from "./sections/Career.astro";
+import Contact from "./sections/Contact.astro";
+import Footer from "./sections/Footer.astro";
+import Hero from "./sections/Hero.astro";
+import Projects from "./sections/Projects.astro";
+import Stack from "./sections/Stack.astro";
+
+interface Props {
+	lang: Locale;
+	portfolio: PortfolioData;
+}
+
+const { lang, portfolio } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Header lang={lang} />
+<main class="flex flex-col gap-20 sm:gap-28 pb-16">
+	<Hero data={portfolio.hero} authorName={portfolio.authorName} lang={lang} t={t} />
+	<Career data={portfolio.career} t={t} />
+	<Projects data={portfolio.projects} t={t} />
+	<About data={portfolio.about} t={t} />
+	<Stack stack={portfolio.stack} t={t} />
+	<BlogPreview t={t} />
+	<Contact data={portfolio.contact} t={t} />
+</main>
+<Footer data={portfolio} t={t} />

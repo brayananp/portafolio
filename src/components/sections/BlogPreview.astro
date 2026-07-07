@@ -1,0 +1,33 @@
+---
+import type { UiKey } from "../../i18n/ui";
+import { changeTypeConfig } from "../../lib/changeTypeConfig";
+
+interface Props {
+	t: (key: UiKey) => string;
+}
+
+const { t } = Astro.props;
+const demoConfig = changeTypeConfig.added;
+---
+
+<section id="blog" class="px-6">
+	<div class="max-w-4xl mx-auto">
+		<span
+			class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
+		>
+			{t("blog.badge")}
+		</span>
+		<h2 class="font-display font-medium text-2xl mt-3 mb-4 text-primary">
+			{t("blog.title")}
+		</h2>
+
+		<div class="font-mono text-xs mb-3 flex items-center gap-3 flex-wrap">
+			<span class="text-amber">v2026.07</span>
+			<span class={demoConfig.className}>
+				{demoConfig.symbol} {demoConfig.label}
+			</span>
+			<span class="text-muted">{t("footer.comingSoon")}</span>
+		</div>
+		<p class="text-secondary text-sm leading-relaxed max-w-2xl">{t("blog.comingSoon")}</p>
+	</div>
+</section>

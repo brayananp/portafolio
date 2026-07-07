@@ -1,0 +1,168 @@
+---
+import { useTranslations } from "../i18n/ui";
+import type { Locale } from "../types/portfolio";
+import ThemeToggle from "./ThemeToggle.astro";
+
+interface Props {
+	lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const navItems = [
+	{ href: "#career", id: "career", label: t("nav.career") },
+	{ href: "#projects", id: "projects", label: t("nav.projects") },
+	{ href: "#about", id: "about", label: t("nav.about") },
+	{ href: "#blog", id: "blog", label: t("nav.blog") },
+	{ href: "#contact", id: "contact", label: t("nav.contact") },
+];
+---
+
+<header
+	id="site-header"
+	class="fixed top-0 inset-x-0 z-50 flex justify-center px-3 sm:px-4 pt-3 sm:pt-4 pointer-events-none"
+>
+	<div
+		id="header-bar"
+		class="pointer-events-auto mx-auto flex items-center justify-center gap-1.5 sm:gap-2 w-max max-w-[calc(100vw-1.5rem)] rounded-full border border-transparent px-2 sm:px-3 py-1.5 bg-bg transition-[background-color,box-shadow,border-color,backdrop-filter] duration-300 ease-out [&.is-scrolled]:border-border [&.is-scrolled]:bg-surface/95 [&.is-scrolled]:backdrop-blur-md [&.is-scrolled]:shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
+	>
+		<nav
+			id="header-nav"
+			class="flex items-center justify-center gap-0.5 sm:gap-1 min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+			aria-label="Main navigation"
+		>
+			{
+				navItems.map((item) => (
+					<a
+						href={item.href}
+						data-nav-link
+						data-section={item.id}
+						class="nav-link shrink-0 font-mono text-[11px] sm:text-xs text-secondary hover:text-primary whitespace-nowrap px-2 sm:px-2.5 py-1.5 rounded-full transition-colors data-[active=true]:text-amber data-[active=true]:bg-amber-bg"
+					>
+						{item.label}
+					</a>
+				))
+			}
+		</nav>
+
+		<div
+			class="flex items-center gap-1.5 sm:gap-2 shrink-0 border-l border-border pl-2 sm:pl-2.5"
+		>
+			<select
+				id="lang-select"
+				class="sm:hidden font-mono text-[11px] text-primary bg-surface-1 border border-border rounded-md px-1.5 py-1 cursor-pointer"
+				aria-label={t("lang.switch")}
+			>
+				<option value="/es" selected={lang === "es"}>ES</option>
+				<option value="/en" selected={lang === "en"}>EN</option>
+			</select>
+
+			<fieldset
+				class="hidden sm:flex items-center gap-0.5 font-mono text-xs border-0 p-0 m-0"
+			>
+				<legend class="sr-only">{t("lang.switch")}</legend>
+				<a
+					href="/es"
+					class:list={[
+						"px-2 py-0.5 rounded-full transition-colors",
+						lang === "es"
+							? "text-amber bg-amber-bg"
+							: "text-muted hover:text-secondary",
+					]}
+					aria-current={lang === "es" ? "page" : undefined}
+				>
+					ES
+				</a>
+				<a
+					href="/en"
+					class:list={[
+						"px-2 py-0.5 rounded-full transition-colors",
+						lang === "en"
+							? "text-amber bg-amber-bg"
+							: "text-muted hover:text-secondary",
+					]}
+					aria-current={lang === "en" ? "page" : undefined}
+				>
+					EN
+				</a>
+			</fieldset>
+
+			<ThemeToggle compact t={t} />
+		</div>
+	</div>
+</header>
+
+<script>
+	function initHeader() {
+		const headerBar = document.getElementById("header-bar");
+		const langSelect = document.getElementById("lang-select") as HTMLSelectElement | null;
+		const navLinks = document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
+
+		if (!headerBar) return;
+
+		if (headerBar.dataset.initialized === "true") {
+			headerBar.classList.toggle("is-scrolled", window.scrollY > 48);
+			return;
+		}
+		headerBar.dataset.initialized = "true";
+
+		const scrollThreshold = 48;
+
+		function updateScrollState() {
+			headerBar?.classList.toggle("is-scrolled", window.scrollY > scrollThreshold);
+		}
+
+		function setActiveLink(sectionId: string) {
+			for (const link of navLinks) {
+				link.dataset.active = link.dataset.section === sectionId ? "true" : "false";
+			}
+		}
+
+		function initSectionObserver() {
+			const sections = Array.from(navLinks)
+				.map((link) => document.getElementById(link.dataset.section ?? ""))
+				.filter((section): section is HTMLElement => section !== null);
+
+			if (sections.length === 0) return;
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					const visible = entries
+						.filter((entry) => entry.isIntersecting)
+						.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+					if (visible.length > 0) {
+						setActiveLink(visible[0].target.id);
+					}
+				},
+				{ rootMargin: "-40% 0px -45% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
+			);
+
+			for (const section of sections) {
+				observer.observe(section);
+			}
+		}
+
+		updateScrollState();
+		initSectionObserver();
+
+		window.addEventListener("scroll", updateScrollState, { passive: true });
+
+		langSelect?.addEventListener("change", () => {
+			if (langSelect.value) {
+				window.location.href = langSelect.value;
+			}
+		});
+
+		for (const link of navLinks) {
+			link.addEventListener("click", () => {
+				const sectionId = link.dataset.section;
+				if (sectionId) setActiveLink(sectionId);
+			});
+		}
+	}
+
+	initHeader();
+	document.addEventListener("astro:after-swap", initHeader);
+</script>

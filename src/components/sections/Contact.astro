@@ -1,0 +1,49 @@
+---
+import type { UiKey } from "../../i18n/ui";
+import type { PortfolioData } from "../../types/portfolio";
+
+interface Props {
+	data: PortfolioData["contact"];
+	t: (key: UiKey) => string;
+}
+
+const { data, t } = Astro.props;
+
+const links = [
+	{ href: data.email, label: t("contact.email") },
+	{ href: data.whatsapp, label: t("contact.whatsapp") },
+	{ href: data.linkedin, label: t("contact.linkedin") },
+	{ href: data.github, label: t("contact.github") },
+];
+---
+
+<section id="contact" class="px-6">
+	<div class="max-w-4xl mx-auto">
+		<span
+			class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
+		>
+			{t("contact.badge")}
+		</span>
+		<h2 class="font-display font-medium text-2xl mt-3 mb-2 text-primary">
+			{t("contact.title")}
+		</h2>
+		<p class="text-secondary text-sm mb-5 max-w-2xl">{t("contact.subtitle")}</p>
+
+		<ul class="flex flex-wrap gap-x-5 gap-y-2 font-mono text-sm">
+			{
+				links.map((link) => (
+					<li>
+						<a
+							href={link.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-secondary hover:text-amber transition-colors"
+						>
+							{link.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>

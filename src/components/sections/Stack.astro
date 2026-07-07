@@ -1,0 +1,51 @@
+---
+import type { UiKey } from "../../i18n/ui";
+import type { PortfolioData } from "../../types/portfolio";
+
+interface Props {
+	stack: PortfolioData["stack"];
+	t: (key: UiKey) => string;
+}
+
+const { stack, t } = Astro.props;
+const openBrace = "{";
+const closeBrace = "}";
+---
+
+<section id="stack" class="px-6">
+	<div class="max-w-4xl mx-auto">
+		<span
+			class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
+		>
+			{t("stack.badge")}
+		</span>
+		<h2 class="font-display font-medium text-2xl mt-3 mb-6 text-primary">
+			{t("stack.title")}
+		</h2>
+
+		<div class="font-mono text-sm leading-relaxed">
+			<p class="text-muted mb-4">{openBrace}</p>
+			{
+				stack.map((category, index) => (
+					<div class="ml-4 mb-3">
+						<span class="text-secondary">"{category.category}"</span>
+						<span class="text-muted">: [</span>
+						<div class="ml-4 flex flex-wrap gap-x-1">
+							{category.items.map((item, itemIndex) => (
+								<span>
+									<span class="text-diff-added">"{item}"</span>
+									{itemIndex < category.items.length - 1 && (
+										<span class="text-muted">,</span>
+									)}
+								</span>
+							))}
+						</div>
+						<span class="text-muted">]</span>
+						{index < stack.length - 1 && <span class="text-muted">,</span>}
+					</div>
+				))
+			}
+			<p class="text-muted">{closeBrace}</p>
+		</div>
+	</div>
+</section>

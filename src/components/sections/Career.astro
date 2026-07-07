@@ -1,0 +1,40 @@
+---
+import type { UiKey } from "../../i18n/ui";
+import type { PortfolioData } from "../../types/portfolio";
+
+interface Props {
+	data: PortfolioData["career"];
+	t: (key: UiKey) => string;
+}
+
+const { data, t } = Astro.props;
+---
+
+<section id="career" class="px-6">
+	<div class="max-w-4xl mx-auto">
+		<span
+			class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
+		>
+			{t("career.badge")}
+		</span>
+		<h2 class="font-display font-medium text-2xl mt-3 mb-6 text-primary">
+			{t("career.title")}
+		</h2>
+
+		<div class="border-l-2 border-border ml-3 space-y-6">
+			{
+				data.map((entry) => (
+					<div class="relative pl-6">
+						<span class="absolute -left-[9px] top-1 size-4 rounded-full bg-surface border-2 border-amber" />
+						<div class="flex items-center gap-3 font-mono text-xs mb-1.5">
+							<span class="text-amber">{entry.version}</span>
+							<span class="text-muted">{entry.period}</span>
+						</div>
+						<h3 class="font-display font-medium text-primary mb-1">{entry.title}</h3>
+						<p class="text-secondary text-sm leading-relaxed">{entry.description}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
