@@ -1,42 +1,33 @@
 import type { Locale } from "../types/portfolio";
 
 export interface CvPdfLabels {
-	releaseNote: string;
-	releaseDate: string;
-	about: string;
+	profile: string;
 	experience: string;
 	projects: string;
-	dependencies: string;
+	skills: string;
 	contact: string;
-	added: string;
 	exportError: string;
 	filenamePrefix: string;
 }
 
 const labels: Record<Locale, CvPdfLabels> = {
 	es: {
-		releaseNote: "RELEASE NOTE",
-		releaseDate: "Fecha de release",
-		about: "Descripción del release",
-		experience: "Historial de releases",
-		projects: "Changelog",
-		dependencies: "Dependencias",
+		profile: "Perfil profesional",
+		experience: "Experiencia",
+		projects: "Proyectos destacados",
+		skills: "Habilidades técnicas",
 		contact: "Contacto",
-		added: "+ added",
 		exportError: "No se pudo generar el PDF. Intenta de nuevo.",
-		filenamePrefix: "cv-release-note",
+		filenamePrefix: "cv",
 	},
 	en: {
-		releaseNote: "RELEASE NOTE",
-		releaseDate: "Release date",
-		about: "Release description",
-		experience: "Release history",
-		projects: "Changelog",
-		dependencies: "Dependencies",
+		profile: "Professional profile",
+		experience: "Experience",
+		projects: "Selected projects",
+		skills: "Technical skills",
 		contact: "Contact",
-		added: "+ added",
 		exportError: "Could not generate the PDF. Please try again.",
-		filenamePrefix: "cv-release-note",
+		filenamePrefix: "cv",
 	},
 };
 

@@ -41,7 +41,7 @@ export const ui = {
 		"contact.whatsapp": "WhatsApp",
 		"contact.linkedin": "LinkedIn",
 		"contact.github": "GitHub",
-		"footer.exportCv": "Exportar CV como release note",
+		"footer.exportCv": "Descargar CV en PDF",
 		"footer.exporting": "Generando PDF...",
 		"footer.comingSoon": "Próximamente",
 		"footer.placeholder":
@@ -91,7 +91,7 @@ export const ui = {
 		"contact.whatsapp": "WhatsApp",
 		"contact.linkedin": "LinkedIn",
 		"contact.github": "GitHub",
-		"footer.exportCv": "Export CV as release note",
+		"footer.exportCv": "Download CV as PDF",
 		"footer.exporting": "Generating PDF...",
 		"footer.comingSoon": "Coming soon",
 		"footer.placeholder": "Demo content — replace with real data.",
