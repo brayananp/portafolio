@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!dist", "!.astro"]
+		"includes": ["**", "!dist", "!.astro", "!.agents"]
 	},
 	"formatter": {
 		"enabled": true,
