@@ -5,9 +5,12 @@ Portafolio y blog personal desarrollado en código abierto con [Astro](https://a
 [![CI](https://github.com/OWNER/portafolio/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/portafolio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
+Concepto visual: **changelog / historial de versiones de software**. Cada sección del portafolio se presenta como un registro de releases.
+
 ## Stack
 
 - [Astro 7](https://astro.build/) — framework web
+- [TailwindCSS v4](https://tailwindcss.com/) — estilos CSS-first con `@theme`
 - [Biome](https://biomejs.dev/) — linter y formateador
 - [pnpm](https://pnpm.io/) — gestor de paquetes
 - TypeScript
@@ -24,7 +27,7 @@ pnpm install
 pnpm dev
 ```
 
-Abre [http://localhost:4321](http://localhost:4321) en tu navegador.
+Abre [http://localhost:4321/es](http://localhost:4321/es) en tu navegador.
 
 ## Scripts
 
@@ -42,16 +45,34 @@ Abre [http://localhost:4321](http://localhost:4321) en tu navegador.
 
 ```text
 /
+├── docs/                # Documentación del proyecto
 ├── public/              # Archivos estáticos
 ├── src/
-│   ├── assets/          # Imágenes y recursos
 │   ├── components/      # Componentes Astro
+│   ├── data/            # Contenido del portafolio (es/en)
+│   ├── i18n/            # Cadenas de UI bilingüe
 │   ├── layouts/         # Layouts base
-│   └── pages/           # Rutas del sitio
-├── .github/             # CI y plantillas de GitHub
+│   ├── lib/             # Utilidades compartidas
+│   ├── pages/           # Rutas (/es, /en)
+│   ├── styles/          # Tailwind v4 + design tokens
+│   └── types/           # Tipos TypeScript
+├── CONTEXT.md           # Contexto para desarrolladores e IA
 ├── biome.json           # Configuración de Biome
 └── astro.config.mjs     # Configuración de Astro
 ```
+
+## Documentación
+
+| Documento | Descripción |
+|-----------|-------------|
+| [CONTEXT.md](./CONTEXT.md) | Contexto del proyecto y decisiones |
+| [docs/SPEC.md](./docs/SPEC.md) | Especificación maestra |
+| [docs/ROADMAP.md](./docs/ROADMAP.md) | Fases de implementación |
+| [docs/CONTENT-GUIDE.md](./docs/CONTENT-GUIDE.md) | Guía para reemplazar placeholders |
+
+## Idiomas
+
+El sitio está disponible en español (`/es`) e inglés (`/en`). La ruta raíz redirige a `/es`.
 
 ## Contribuir
 

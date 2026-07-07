@@ -37,7 +37,8 @@ pnpm run build
 
 - **Linter y formateo:** [Biome](https://biomejs.dev/) — ejecuta `pnpm run check` antes de hacer commit
 - **Código:** en inglés (nombres de variables, funciones, archivos)
-- **Textos de UI y documentación:** en español
+- **Textos de UI:** bilingüe (español e inglés según locale)
+- **Documentación:** en español
 - **Commits:** mensajes concisos que expliquen el *porqué* del cambio
 
 ## Extensiones recomendadas (VS Code / Cursor)
