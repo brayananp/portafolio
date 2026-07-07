@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 48" fill="none" role="img" aria-label="BANP">
+  <title>BANP</title>
+  <rect x="0.5" y="0.5" width="159" height="47" rx="12" stroke="rgba(199,203,209,0.14)" />
+  <text
+    x="80"
+    y="32"
+    text-anchor="middle"
+    font-family="'Cabinet Grotesk', system-ui, sans-serif"
+    font-size="22"
+    font-weight="700"
+    letter-spacing="0.18em"
+    fill="#c7cbd1"
+  >
+    B<tspan fill="#d4a24c">A</tspan>NP
+  </text>
+</svg>
