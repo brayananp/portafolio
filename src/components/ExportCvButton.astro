@@ -1,0 +1,88 @@
+---
+import type { UiKey } from "../i18n/ui";
+import { getCvPdfLabels } from "../lib/cvPdfLabels";
+import type { Locale, PortfolioData } from "../types/portfolio";
+
+interface Props {
+	portfolio: PortfolioData;
+	lang: Locale;
+	t: (key: UiKey) => string;
+}
+
+const { portfolio, lang, t } = Astro.props;
+const labels = getCvPdfLabels(lang);
+const locale = lang === "es" ? "es-PE" : "en-US";
+---
+
+<button
+	id="export-cv-btn"
+	type="button"
+	class="font-mono text-xs text-primary border border-border rounded-md px-4 py-2 hover:border-amber/50 hover:bg-surface-hover transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+	data-portfolio={JSON.stringify(portfolio)}
+	data-labels={JSON.stringify(labels)}
+	data-locale={locale}
+	data-export-label={t("footer.exportCv")}
+	data-exporting-label={t("footer.exporting")}
+	aria-label={t("footer.exportCv")}
+>
+	{t("footer.exportCv")}
+</button>
+
+<script>
+	import { downloadPdf, generateCvPdf } from "../lib/cvPdf";
+	import type { CvPdfLabels } from "../lib/cvPdfLabels";
+	import type { PortfolioData } from "../types/portfolio";
+
+	function setButtonState(
+		button: HTMLButtonElement,
+		label: string,
+		disabled: boolean,
+	) {
+		button.textContent = label;
+		button.disabled = disabled;
+		button.setAttribute("aria-busy", disabled ? "true" : "false");
+	}
+
+	function initExportCvButton() {
+		const button = document.getElementById(
+			"export-cv-btn",
+		) as HTMLButtonElement | null;
+
+		if (!button) return;
+
+		if (button.dataset.initialized === "true") return;
+		button.dataset.initialized = "true";
+
+		const exportLabel = button.dataset.exportLabel ?? "Export CV";
+		const exportingLabel = button.dataset.exportingLabel ?? "Exporting...";
+
+		button.addEventListener("click", async () => {
+			const portfolio = JSON.parse(
+				button.dataset.portfolio ?? "{}",
+			) as PortfolioData;
+			const labels = JSON.parse(
+				button.dataset.labels ?? "{}",
+			) as CvPdfLabels;
+			const locale = button.dataset.locale ?? "es-PE";
+
+			setButtonState(button, exportingLabel, true);
+
+			try {
+				const { bytes, filename } = await generateCvPdf(
+					portfolio,
+					labels,
+					locale,
+				);
+				downloadPdf(bytes, filename);
+			} catch (error) {
+				console.error("CV PDF export failed:", error);
+				window.alert(labels.exportError);
+			} finally {
+				setButtonState(button, exportLabel, false);
+			}
+		});
+	}
+
+	initExportCvButton();
+	document.addEventListener("astro:after-swap", initExportCvButton);
+</script>

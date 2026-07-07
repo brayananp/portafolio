@@ -32,14 +32,14 @@
 
 ---
 
-## Fase 3 — Exportar CV en PDF
+## Fase 3 — Exportar CV en PDF (completada)
 
 **Objetivo:** Generar CV como release note descargable.
 
-- [ ] Instalar `pdf-lib`
-- [ ] Componente de generación con datos del portafolio
-- [ ] Botón funcional en footer
-- [ ] Diseño PDF alineado con metáfora changelog
+- [x] Instalar `pdf-lib`
+- [x] Componente de generación con datos del portafolio
+- [x] Botón funcional en footer
+- [x] Diseño PDF alineado con metáfora changelog
 
 ---
 

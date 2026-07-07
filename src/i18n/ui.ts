@@ -42,6 +42,7 @@ export const ui = {
 		"contact.linkedin": "LinkedIn",
 		"contact.github": "GitHub",
 		"footer.exportCv": "Exportar CV como release note",
+		"footer.exporting": "Generando PDF...",
 		"footer.comingSoon": "Próximamente",
 		"footer.placeholder":
 			"Contenido de demostración — reemplazar con datos reales.",
@@ -91,6 +92,7 @@ export const ui = {
 		"contact.linkedin": "LinkedIn",
 		"contact.github": "GitHub",
 		"footer.exportCv": "Export CV as release note",
+		"footer.exporting": "Generating PDF...",
 		"footer.comingSoon": "Coming soon",
 		"footer.placeholder": "Demo content — replace with real data.",
 		"theme.toggle": "Toggle theme",
