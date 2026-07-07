@@ -41,11 +41,16 @@ export interface SocialLinks {
 export interface PortfolioData {
 	isPlaceholder: boolean;
 	authorName: string;
+	displayName: string;
 	hero: {
 		version: string;
 		role: string;
 		tagline: string;
 		releaseDate: string;
+		avatar: {
+			src: string;
+			alt: string;
+		};
 	};
 	about: {
 		content: string;

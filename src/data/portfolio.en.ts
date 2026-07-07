@@ -3,12 +3,17 @@ import type { PortfolioData } from "../types/portfolio";
 export const portfolio: PortfolioData = {
 	isPlaceholder: true,
 	authorName: "Brayan Alexis Nuñez Pesantes",
+	displayName: "Brayan Nuñez",
 	hero: {
 		version: "v2026.07",
 		role: "Full-Stack Developer",
 		tagline:
 			"I build web products with TypeScript, TanStack Start, and PostgreSQL. Focused on clean architecture and user experience.",
 		releaseDate: "2026-07-06",
+		avatar: {
+			src: "/images/avatar.webp",
+			alt: "Brayan Nuñez",
+		},
 	},
 	about: {
 		content:
