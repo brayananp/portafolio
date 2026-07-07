@@ -1,0 +1,58 @@
+export type Locale = "es" | "en";
+
+export interface StackCategory {
+	category: string;
+	label: string;
+	items: string[];
+}
+
+export interface Project {
+	id: string;
+	name: string;
+	version: string;
+	summary: string;
+	details: string;
+	tags: string[];
+	links?: {
+		demo?: string;
+		repo?: string;
+	};
+}
+
+export interface CareerEntry {
+	version: string;
+	title: string;
+	period: string;
+	description: string;
+}
+
+export interface ContactLinks {
+	email: string;
+	whatsapp: string;
+	linkedin: string;
+	github: string;
+}
+
+export interface SocialLinks {
+	github: string;
+	linkedin: string;
+}
+
+export interface PortfolioData {
+	isPlaceholder: boolean;
+	authorName: string;
+	hero: {
+		version: string;
+		role: string;
+		tagline: string;
+		releaseDate: string;
+	};
+	about: {
+		content: string;
+	};
+	stack: StackCategory[];
+	projects: Project[];
+	career: CareerEntry[];
+	contact: ContactLinks;
+	social: SocialLinks;
+}
