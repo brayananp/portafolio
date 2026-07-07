@@ -1,0 +1,47 @@
+---
+import type { ChangeType } from "../../lib/changeTypeConfig";
+import { changeTypeConfig } from "../../lib/changeTypeConfig";
+import { formatBlogDate } from "../../lib/blog";
+import type { Locale } from "../../types/portfolio";
+
+interface Props {
+	changeType: ChangeType;
+	version?: string;
+	publishedAt: Date;
+	updatedAt?: Date;
+	lang: Locale;
+	publishedLabel: string;
+	updatedLabel: string;
+}
+
+const {
+	changeType,
+	version,
+	publishedAt,
+	updatedAt,
+	lang,
+	publishedLabel,
+	updatedLabel,
+} = Astro.props;
+
+const config = changeTypeConfig[changeType];
+const formattedPublished = formatBlogDate(publishedAt, lang);
+const formattedUpdated = updatedAt ? formatBlogDate(updatedAt, lang) : null;
+---
+
+<div class="font-mono text-xs flex items-center gap-3 flex-wrap">
+	{version && <span class="text-amber">{version}</span>}
+	<span class={config.className}>
+		{config.symbol} {config.label}
+	</span>
+	<time datetime={publishedAt.toISOString()} class="text-muted">
+		{publishedLabel} {formattedPublished}
+	</time>
+	{
+		formattedUpdated && updatedAt && (
+			<time datetime={updatedAt.toISOString()} class="text-muted">
+				{updatedLabel} {formattedUpdated}
+			</time>
+		)
+	}
+</div>

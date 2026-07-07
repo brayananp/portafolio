@@ -8,13 +8,19 @@ interface Props {
 	title: string;
 	description?: string;
 	lang: Locale;
+	path?: string;
 }
 
-const { title, description, lang } = Astro.props;
+const { title, description, lang, path } = Astro.props;
 const alternateLang = lang === "es" ? "en" : "es";
 const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "";
-const canonicalUrl = `${siteUrl}/${lang}`;
-const alternateUrl = `${siteUrl}/${alternateLang}`;
+const currentPath = path ?? `/${lang}`;
+const canonicalUrl = siteUrl ? `${siteUrl}${currentPath}` : currentPath;
+const isBlogArticle = /^\/(es|en)\/blog\/.+/.test(currentPath);
+const alternatePath = isBlogArticle
+	? `/${alternateLang}/blog`
+	: currentPath.replace(`/${lang}`, `/${alternateLang}`);
+const alternateUrl = siteUrl ? `${siteUrl}${alternatePath}` : alternatePath;
 ---
 
 <!doctype html>

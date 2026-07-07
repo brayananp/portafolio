@@ -1,0 +1,32 @@
+---
+import BlogArticle from "../../../components/blog/BlogArticle.astro";
+import Layout from "../../../layouts/Layout.astro";
+import {
+	getBlogPostPath,
+	getSlugFromPostId,
+} from "../../../lib/blog";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog", ({ data, id }) => {
+		return !data.draft && id.startsWith("en/");
+	});
+
+	return posts.map((post) => ({
+		params: { slug: getSlugFromPostId(post.id) },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const slug = getSlugFromPostId(post.id);
+---
+
+<Layout
+	title={`${post.data.title} — Blog`}
+	description={post.data.description}
+	lang="en"
+	path={getBlogPostPath("en", slug)}
+>
+	<BlogArticle post={post} lang="en" />
+</Layout>

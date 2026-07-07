@@ -17,18 +17,18 @@
 
 ---
 
-## Fase 2 — Blog
+## Fase 2 — Blog (completada)
 
 **Objetivo:** Blog técnico con Content Collections.
 
-- [ ] Esquema en `src/content/config.ts`
-- [ ] Carpetas `content/blog/es/` y `content/blog/en/`
-- [ ] Páginas `blog/index.astro` y `blog/[slug].astro` por locale
-- [ ] Integración `changeTypeConfig` en listado y artículo
-- [ ] Plugin `@tailwindcss/typography` con estilos prose custom
-- [ ] 2-3 artículos de prueba
-- [ ] Navegación prev/next entre artículos
-- [ ] Reemplazar stub de `BlogPreview.astro` con posts reales
+- [x] Esquema en `src/content.config.ts`
+- [x] Carpetas `content/blog/es/` y `content/blog/en/`
+- [x] Páginas `blog/index.astro` y `blog/[slug].astro` por locale
+- [x] Integración `changeTypeConfig` en listado y artículo
+- [x] Plugin `@tailwindcss/typography` con estilos prose custom
+- [x] 2-3 artículos de prueba
+- [x] Navegación prev/next entre artículos
+- [x] Reemplazar stub de `BlogPreview.astro` con posts reales
 
 ---
 

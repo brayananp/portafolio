@@ -1,0 +1,52 @@
+---
+import { getPublishedBlogPosts } from "../../lib/blog";
+import { useTranslations } from "../../i18n/ui";
+import type { Locale } from "../../types/portfolio";
+import Header from "../Header.astro";
+import BlogPostCard from "./BlogPostCard.astro";
+
+interface Props {
+	lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const posts = await getPublishedBlogPosts(lang);
+---
+
+<Header lang={lang} />
+<main class="px-6 pt-28 pb-16">
+	<div class="max-w-3xl mx-auto">
+		<a
+			href={`/${lang}`}
+			class="inline-flex items-center gap-1.5 font-mono text-xs text-muted hover:text-amber transition-colors mb-8"
+		>
+			<span aria-hidden="true">←</span>
+			{t("blog.backToHome")}
+		</a>
+
+		<span
+			class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
+		>
+			{t("blog.badge")}
+		</span>
+		<h1 class="font-display font-medium text-3xl mt-3 mb-2 text-primary">
+			{t("blog.title")}
+		</h1>
+		<p class="text-secondary text-sm leading-relaxed mb-8 max-w-2xl">
+			{t("blog.subtitle")}
+		</p>
+
+		{
+			posts.length > 0 ? (
+				<div>
+					{posts.map((post) => (
+						<BlogPostCard post={post} lang={lang} />
+					))}
+				</div>
+			) : (
+				<p class="text-secondary text-sm">{t("blog.noPosts")}</p>
+			)
+		}
+	</div>
+</main>

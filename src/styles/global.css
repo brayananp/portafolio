@@ -80,3 +80,86 @@ body {
 	background-color: var(--token-amber-bg);
 	color: var(--token-text-primary);
 }
+
+@layer components {
+	.prose-blog {
+		@apply prose max-w-none;
+		--tw-prose-body: var(--token-text-secondary);
+		--tw-prose-headings: var(--token-text-primary);
+		--tw-prose-lead: var(--token-text-secondary);
+		--tw-prose-links: var(--token-amber);
+		--tw-prose-bold: var(--token-text-primary);
+		--tw-prose-counters: var(--token-text-muted);
+		--tw-prose-bullets: var(--token-text-muted);
+		--tw-prose-hr: var(--token-border);
+		--tw-prose-quotes: var(--token-text-secondary);
+		--tw-prose-quote-borders: var(--token-amber);
+		--tw-prose-captions: var(--token-text-muted);
+		--tw-prose-code: var(--token-text-primary);
+		--tw-prose-pre-code: var(--token-text-primary);
+		--tw-prose-pre-bg: var(--token-surface-1);
+		--tw-prose-th-borders: var(--token-border);
+		--tw-prose-td-borders: var(--token-border);
+
+		max-width: none;
+		font-family: var(--font-sans);
+		color: var(--token-text-secondary);
+	}
+
+	.prose-blog :where(h1, h2, h3, h4, strong) {
+		color: var(--token-text-primary);
+		font-family: var(--font-display);
+		font-weight: 500;
+	}
+
+	.prose-blog :where(h2) {
+		margin-top: 2em;
+		font-size: 1.375rem;
+	}
+
+	.prose-blog :where(h3) {
+		margin-top: 1.5em;
+		font-size: 1.125rem;
+	}
+
+	.prose-blog :where(a) {
+		color: var(--token-amber);
+		text-decoration: none;
+	}
+
+	.prose-blog :where(a):hover {
+		text-decoration: underline;
+	}
+
+	.prose-blog :where(code):not(:where(pre *)) {
+		font-family: var(--font-mono);
+		font-size: 0.875em;
+		background-color: var(--token-surface-1);
+		padding: 0.125rem 0.375rem;
+		border-radius: 0.375rem;
+	}
+
+	.prose-blog :where(pre) {
+		background-color: var(--token-surface-1);
+		border: 1px solid var(--token-border);
+		border-radius: 0.5rem;
+	}
+
+	.prose-blog :where(pre code) {
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+	}
+
+	.prose-blog :where(blockquote) {
+		border-left-color: var(--token-amber);
+		font-style: normal;
+	}
+
+	.prose-blog :where(table) {
+		font-size: 0.875rem;
+	}
+
+	.prose-blog :where(th, td) {
+		border-color: var(--token-border);
+	}
+}

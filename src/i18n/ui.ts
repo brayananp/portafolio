@@ -20,8 +20,19 @@ export const ui = {
 		"career.title": "Experiencia",
 		"blog.badge": "notas de versión",
 		"blog.title": "Blog",
+		"blog.subtitle":
+			"Release notes técnicas sobre arquitectura, herramientas y decisiones de desarrollo.",
 		"blog.comingSoon":
 			"Próximamente — release notes técnicas sobre arquitectura y desarrollo full-stack.",
+		"blog.viewAll": "Ver todas las notas",
+		"blog.backToHome": "Volver al inicio",
+		"blog.backToBlog": "Volver al blog",
+		"blog.previous": "Anterior",
+		"blog.next": "Siguiente",
+		"blog.publishedOn": "Publicado",
+		"blog.updatedOn": "Actualizado",
+		"blog.noPosts": "Aún no hay artículos publicados.",
+		"blog.postNavigation": "Navegación entre artículos",
 		"contact.badge": "abrir issue",
 		"contact.title": "Contacto",
 		"contact.subtitle":
@@ -58,8 +69,19 @@ export const ui = {
 		"career.title": "Experience",
 		"blog.badge": "release notes",
 		"blog.title": "Blog",
+		"blog.subtitle":
+			"Technical release notes on architecture, tooling, and development decisions.",
 		"blog.comingSoon":
 			"Coming soon — technical release notes on architecture and full-stack development.",
+		"blog.viewAll": "View all notes",
+		"blog.backToHome": "Back to home",
+		"blog.backToBlog": "Back to blog",
+		"blog.previous": "Previous",
+		"blog.next": "Next",
+		"blog.publishedOn": "Published",
+		"blog.updatedOn": "Updated",
+		"blog.noPosts": "No published articles yet.",
+		"blog.postNavigation": "Article navigation",
 		"contact.badge": "open issue",
 		"contact.title": "Contact",
 		"contact.subtitle":

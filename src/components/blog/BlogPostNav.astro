@@ -1,0 +1,58 @@
+---
+import {
+	getAdjacentPosts,
+	getBlogPostPath,
+	getPublishedBlogPosts,
+	getSlugFromPostId,
+	type BlogPost,
+} from "../../lib/blog";
+import type { UiKey } from "../../i18n/ui";
+import type { Locale } from "../../types/portfolio";
+
+interface Props {
+	currentPost: BlogPost;
+	lang: Locale;
+	t: (key: UiKey) => string;
+}
+
+const { currentPost, lang, t } = Astro.props;
+const posts = await getPublishedBlogPosts(lang);
+const currentSlug = getSlugFromPostId(currentPost.id);
+const { previous, next } = getAdjacentPosts(posts, currentSlug);
+
+if (!previous && !next) return null;
+---
+
+<nav
+	class="mt-12 pt-8 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-4"
+	aria-label={t("blog.postNavigation")}
+>
+	{
+		previous ? (
+			<a
+				href={getBlogPostPath(lang, getSlugFromPostId(previous.id))}
+				class="group flex flex-col gap-1 p-4 rounded-lg border border-border hover:border-amber/40 hover:bg-surface-hover/50 transition-colors sm:col-start-1"
+			>
+				<span class="font-mono text-xs text-muted">{t("blog.previous")}</span>
+				<span class="font-display font-medium text-primary group-hover:text-amber transition-colors">
+					{previous.data.title}
+				</span>
+			</a>
+		) : (
+			<div class="hidden sm:block" />
+		)
+	}
+	{
+		next ? (
+			<a
+				href={getBlogPostPath(lang, getSlugFromPostId(next.id))}
+				class="group flex flex-col gap-1 p-4 rounded-lg border border-border hover:border-amber/40 hover:bg-surface-hover/50 transition-colors sm:col-start-2 sm:text-right"
+			>
+				<span class="font-mono text-xs text-muted">{t("blog.next")}</span>
+				<span class="font-display font-medium text-primary group-hover:text-amber transition-colors">
+					{next.data.title}
+				</span>
+			</a>
+		) : null
+	}
+</nav>

@@ -1,0 +1,15 @@
+---
+import BlogIndex from "../../../components/blog/BlogIndex.astro";
+import { portfolio } from "../../../data/portfolio.en";
+import Layout from "../../../layouts/Layout.astro";
+import { getLocalizedPath } from "../../../i18n/utils";
+---
+
+<Layout
+	title={`${portfolio.authorName} — Blog`}
+	description="Technical release notes on architecture and full-stack development."
+	lang="en"
+	path={getLocalizedPath("/blog", "en")}
+>
+	<BlogIndex lang="en" />
+</Layout>

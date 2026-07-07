@@ -1,0 +1,68 @@
+---
+import { useTranslations } from "../../i18n/ui";
+import { getLocalizedPath } from "../../i18n/utils";
+import type { BlogPost } from "../../lib/blog";
+import type { Locale } from "../../types/portfolio";
+import { render } from "astro:content";
+import Header from "../Header.astro";
+import BlogPostMeta from "./BlogPostMeta.astro";
+import BlogPostNav from "./BlogPostNav.astro";
+
+interface Props {
+	post: BlogPost;
+	lang: Locale;
+}
+
+const { post, lang } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(post);
+const blogIndexPath = getLocalizedPath("/blog", lang);
+---
+
+<Header lang={lang} />
+<main class="px-6 pt-28 pb-16">
+	<article class="max-w-3xl mx-auto">
+		<a
+			href={blogIndexPath}
+			class="inline-flex items-center gap-1.5 font-mono text-xs text-muted hover:text-amber transition-colors mb-8"
+		>
+			<span aria-hidden="true">←</span>
+			{t("blog.backToBlog")}
+		</a>
+
+		<header class="mb-8">
+			<BlogPostMeta
+				changeType={post.data.changeType}
+				version={post.data.version}
+				publishedAt={post.data.publishedAt}
+				updatedAt={post.data.updatedAt}
+				lang={lang}
+				publishedLabel={t("blog.publishedOn")}
+				updatedLabel={t("blog.updatedOn")}
+			/>
+			<h1 class="font-display font-medium text-3xl mt-4 mb-3 text-primary">
+				{post.data.title}
+			</h1>
+			<p class="text-secondary text-base leading-relaxed">
+				{post.data.description}
+			</p>
+			{
+				post.data.tags.length > 0 && (
+					<div class="flex flex-wrap gap-2 mt-4">
+						{post.data.tags.map((tag) => (
+							<span class="font-mono text-[11px] text-muted bg-surface-1 px-2 py-0.5 rounded-md">
+								{tag}
+							</span>
+						))}
+					</div>
+				)
+			}
+		</header>
+
+		<div class="prose-blog">
+			<Content />
+		</div>
+
+		<BlogPostNav currentPost={post} lang={lang} t={t} />
+	</article>
+</main>

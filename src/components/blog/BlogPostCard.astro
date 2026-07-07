@@ -1,0 +1,61 @@
+---
+import {
+	formatBlogDate,
+	getBlogPostPath,
+	getSlugFromPostId,
+	type BlogPost,
+} from "../../lib/blog";
+import { changeTypeConfig } from "../../lib/changeTypeConfig";
+import type { Locale } from "../../types/portfolio";
+
+interface Props {
+	post: BlogPost;
+	lang: Locale;
+}
+
+const { post, lang } = Astro.props;
+const slug = getSlugFromPostId(post.id);
+const config = changeTypeConfig[post.data.changeType];
+const formattedDate = formatBlogDate(post.data.publishedAt, lang);
+---
+
+<article class="group">
+	<a
+		href={getBlogPostPath(lang, slug)}
+		class="block py-4 border-b border-border/60 hover:bg-surface-hover/50 -mx-3 px-3 rounded-lg transition-colors"
+	>
+		<div class="font-mono text-xs flex items-center gap-3 mb-2 flex-wrap">
+			{post.data.version && (
+				<span class="text-amber">{post.data.version}</span>
+			)}
+			<span class={config.className}>
+				{config.symbol} {config.label}
+			</span>
+			<time
+				datetime={post.data.publishedAt.toISOString()}
+				class="text-muted"
+			>
+				{formattedDate}
+			</time>
+		</div>
+		<h3
+			class="font-display font-medium text-primary group-hover:text-amber transition-colors"
+		>
+			{post.data.title}
+		</h3>
+		<p class="text-secondary text-sm leading-relaxed mt-1.5">
+			{post.data.description}
+		</p>
+		{
+			post.data.tags.length > 0 && (
+				<div class="flex flex-wrap gap-2 mt-3">
+					{post.data.tags.map((tag) => (
+						<span class="font-mono text-[11px] text-muted bg-surface-1 px-2 py-0.5 rounded-md">
+							{tag}
+						</span>
+					))}
+				</div>
+			)
+		}
+	</a>
+</article>
