@@ -32,6 +32,8 @@
 
 ---
 
+
+
 ## Fase 3 — Exportar CV en PDF (completada)
 
 **Objetivo:** Generar CV como release note descargable.
@@ -43,6 +45,8 @@
 
 ---
 
+
+
 ## Fase 4 — Opcional
 
 Mejoras no bloqueantes:
@@ -50,5 +54,5 @@ Mejoras no bloqueantes:
 - [ ] Keystatic CMS (si hay fricción al publicar)
 - [ ] Sección recomendaciones (cuando haya testimonios reales)
 - [ ] Analytics (Plausible, Umami, etc.)
-- [ ] SEO avanzado (sitemap, robots.txt, Open Graph images)
+- [x] SEO avanzado (sitemap, robots.txt, Open Graph images)
 - [ ] Decisión y configuración de hosting definitivo
