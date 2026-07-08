@@ -1,7 +1,10 @@
 import type { Locale } from "../types/portfolio";
 
-export const DEFAULT_OG_IMAGE = "/images/og-default.png";
+export const DEFAULT_OG_IMAGE = "/images/og-default.jpg";
 export const DEFAULT_OG_IMAGE_ALT = "Brayan Nuñez — Desarrollador Full-Stack";
+export const DEFAULT_OG_IMAGE_WIDTH = 1200;
+export const DEFAULT_OG_IMAGE_HEIGHT = 630;
+export const DEFAULT_OG_IMAGE_TYPE = "image/jpeg";
 
 export function getSiteUrl(site: URL | string | undefined): string {
 	return site?.toString().replace(/\/$/, "") ?? "";
