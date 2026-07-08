@@ -22,7 +22,13 @@ const t = useTranslations(lang);
 
 <Header lang={lang} />
 <main class="flex flex-col gap-20 sm:gap-28 pb-16">
-	<Hero data={portfolio.hero} displayName={portfolio.displayName} lang={lang} t={t} />
+	<Hero
+		data={portfolio.hero}
+		social={portfolio.social}
+		displayName={portfolio.displayName}
+		lang={lang}
+		t={t}
+	/>
 	<div data-reveal>
 		<Career data={portfolio.career} t={t} />
 	</div>

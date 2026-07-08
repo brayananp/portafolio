@@ -8,7 +8,7 @@ export const portfolio: PortfolioData = {
 		version: "v2026.07",
 		role: "Full-Stack Developer",
 		tagline:
-			"I build web products with TypeScript, TanStack Start, and PostgreSQL. Focused on clean architecture and user experience.",
+			"I'm a Systems Engineer building business-focused web applications and sites. I work with React, Next.js, TanStack Start, Astro, and Node.js, backed by a foundation in Laravel, PHP, and MySQL. I've contributed to real institutional management projects and B2B sites already in production, combining development, structure, documentation, and a results-oriented mindset. I'm looking to keep growing as a junior full-stack developer by strengthening APIs, databases, and web deployment.",
 		releaseDate: "2026-07-06",
 		avatar: {
 			src: "/images/avatar.webp",
@@ -43,41 +43,58 @@ export const portfolio: PortfolioData = {
 	],
 	projects: [
 		{
-			id: "smartrent",
-			name: "SmartRent",
-			version: "v1.0.0",
+			id: "portafolio",
+			name: "Portfolio",
+			version: "v2026.07",
 			summary:
-				"Rental management platform with PDF receipt and contract generation.",
+				"Open-source personal portfolio and blog with a changelog-inspired visual system.",
 			details:
-				"Complete system for property managers: tenant registration, recurring payments, automatic thermal receipt PDF generation with pdf-lib, and a control panel with occupancy metrics.",
-			tags: ["react", "typescript", "pdf-lib", "postgresql"],
+				"Bilingual site built with Astro 7, Tailwind CSS, and TypeScript. It includes project detail pages, PDF CV export, technical SEO, and an interface styled like a software release history.",
+			tags: ["astro", "typescript", "tailwindcss", "pdf-lib"],
 			links: {
-				repo: "https://github.com/ejemplo/smartrent",
+				demo: "https://brayan-nunez.pages.dev/en",
+				repo: "https://github.com/brayananp/portafolio",
 			},
 		},
 		{
-			id: "quotepilot",
-			name: "QuotePilot",
-			version: "v0.9.0",
-			summary: "B2B quoting CRM with sales pipeline and client tracking.",
+			id: "telso-app",
+			name: "Telso App",
+			version: "v2025.03",
+			summary:
+				"Full-stack e-commerce application with catalog, authentication, and checkout flow.",
 			details:
-				"CRM application built with TanStack Start and Drizzle ORM. Includes lead management, templated quotes, pipeline tracking, and authentication with Better Auth.",
-			tags: ["tanstack-start", "drizzle", "postgresql", "better-auth"],
+				"Project built with Next.js, Prisma, and PostgreSQL to manage products, categories, images, addresses, and orders. It also integrates authentication and payments as a solid foundation for an online store.",
+			tags: ["nextjs", "typescript", "prisma", "postgresql"],
 			links: {
-				repo: "https://github.com/ejemplo/quotepilot",
+				demo: "https://telso-app-example.vercel.app",
+				repo: "https://github.com/brayananp/telso-app",
 			},
 		},
 		{
-			id: "ecommerce-b2b",
-			name: "E-commerce B2B",
-			version: "v1.2.0",
-			summary: "B2B e-commerce sites for wholesale distributors.",
+			id: "my-task-board",
+			name: "My Task Board",
+			version: "v2024.12",
+			summary:
+				"Task board application with boards and cards to organize personal work.",
 			details:
-				"Online store development with product catalogs, volume pricing, inventory system integration, and checkout optimized for wholesale orders.",
-			tags: ["astro", "react", "tailwindcss", "stripe"],
+				"Application built with Next.js App Router, Prisma, and Server Actions. It supports creating boards and tasks with a clear structure of reusable components, server-side actions, and database persistence.",
+			tags: ["nextjs", "typescript", "prisma", "server-actions"],
 			links: {
-				demo: "https://ejemplo.com",
-				repo: "https://github.com/ejemplo/ecommerce-b2b",
+				repo: "https://github.com/brayananp/my-task-board",
+			},
+		},
+		{
+			id: "todo-app",
+			name: "Todo App",
+			version: "v2024.09",
+			summary:
+				"Task app with drag and drop, dark mode, and Supabase persistence.",
+			details:
+				"Frontend project built with React, TypeScript, and Tailwind CSS. It includes filters, task reordering, light and dark theme support, and data persistence through Supabase.",
+			tags: ["react", "typescript", "tailwindcss", "supabase"],
+			links: {
+				demo: "https://todo-list-2024-09.netlify.app/",
+				repo: "https://github.com/brayananp/todo-app",
 			},
 		},
 	],
