@@ -58,6 +58,8 @@ export const ui = {
 		"footer.exportCv": "Descargar CV en PDF",
 		"footer.exporting": "Generando PDF...",
 		"footer.comingSoon": "Próximamente",
+		"footer.license": "MIT License",
+		"footer.builtWith": "Hecho con dedicación",
 		"footer.placeholder":
 			"Contenido de demostración — reemplazar con datos reales.",
 		"theme.toggle": "Cambiar tema",
@@ -122,6 +124,8 @@ export const ui = {
 		"footer.exportCv": "Download CV as PDF",
 		"footer.exporting": "Generating PDF...",
 		"footer.comingSoon": "Coming soon",
+		"footer.license": "MIT License",
+		"footer.builtWith": "Built with care",
 		"footer.placeholder": "Demo content — replace with real data.",
 		"theme.toggle": "Toggle theme",
 		"theme.light": "Light mode",

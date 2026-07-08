@@ -11,18 +11,11 @@ interface Props {
 
 const { data, lang, t } = Astro.props;
 const currentYear = new Date().getFullYear();
+const licenseUrl = `${data.social.github}/blob/master/LICENSE`;
 ---
 
 <footer class="px-6 pt-8 pb-12">
 	<div class="max-w-4xl mx-auto">
-		{
-			data.isPlaceholder && (
-				<p class="font-mono text-xs text-amber bg-amber-bg px-3 py-2 rounded-md mb-6">
-					{t("footer.placeholder")}
-				</p>
-			)
-		}
-
 		<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
 			<ExportCvButton portfolio={data} lang={lang} t={t} />
 
@@ -47,7 +40,17 @@ const currentYear = new Date().getFullYear();
 		</div>
 
 		<p class="mt-6 font-mono text-[11px] text-muted">
-			© {currentYear} {data.authorName} · MIT License
+			© {currentYear} {data.displayName}  ·{" "} 
+			<a
+				href={licenseUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="hover:text-amber transition-colors"
+			>
+				{t("footer.license")}
+			</a>
+			{" · "}
+			{t("footer.builtWith")} <span class="text-amber hover:text-primary transition-colors">❤️</span>
 		</p>
 	</div>
 </footer>

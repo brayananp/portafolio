@@ -1,7 +1,7 @@
 import type { PortfolioData } from "../types/portfolio";
 
 export const portfolio: PortfolioData = {
-	isPlaceholder: true,
+	isPlaceholder: false,
 	authorName: "Brayan Alexis Nuñez Pesantes",
 	displayName: "Brayan Nuñez",
 	hero: {
