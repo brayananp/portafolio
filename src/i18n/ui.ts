@@ -18,7 +18,6 @@ export const ui = {
 		"projects.title": "Proyectos",
 		"projects.subtitle":
 			"Selección de productos reales, open source y proyectos privados en producción. Cada tarjeta resume el contexto clave y muestra accesos directos al sitio y al repositorio cuando aplica.",
-		"projects.viewDetail": "Ver detalle",
 		"projects.backToProjects": "Volver a proyectos",
 		"projects.details": "Descripción",
 		"projects.techStack": "Stack técnico",
@@ -36,8 +35,6 @@ export const ui = {
 		"blog.title": "Blog",
 		"blog.subtitle":
 			"Release notes técnicas sobre arquitectura, herramientas y decisiones de desarrollo.",
-		"blog.comingSoon":
-			"Próximamente — release notes técnicas sobre arquitectura y desarrollo full-stack.",
 		"blog.viewAll": "Ver todas las notas",
 		"blog.backToHome": "Volver al inicio",
 		"blog.backToBlog": "Volver al blog",
@@ -57,11 +54,8 @@ export const ui = {
 		"contact.github": "GitHub",
 		"footer.exportCv": "Descargar CV en PDF",
 		"footer.exporting": "Generando PDF...",
-		"footer.comingSoon": "Próximamente",
 		"footer.license": "MIT License",
 		"footer.builtWith": "Hecho con dedicación",
-		"footer.placeholder":
-			"Contenido de demostración — reemplazar con datos reales.",
 		"theme.toggle": "Cambiar tema",
 		"theme.light": "Modo claro",
 		"theme.dark": "Modo oscuro",
@@ -84,7 +78,6 @@ export const ui = {
 		"projects.title": "Projects",
 		"projects.subtitle":
 			"A curated selection of real products, open-source work, and private production projects. Each card summarizes the key context and exposes direct links to the live site and repository when available.",
-		"projects.viewDetail": "View details",
 		"projects.backToProjects": "Back to projects",
 		"projects.details": "Description",
 		"projects.techStack": "Tech stack",
@@ -102,8 +95,6 @@ export const ui = {
 		"blog.title": "Blog",
 		"blog.subtitle":
 			"Technical release notes on architecture, tooling, and development decisions.",
-		"blog.comingSoon":
-			"Coming soon — technical release notes on architecture and full-stack development.",
 		"blog.viewAll": "View all notes",
 		"blog.backToHome": "Back to home",
 		"blog.backToBlog": "Back to blog",
@@ -123,10 +114,8 @@ export const ui = {
 		"contact.github": "GitHub",
 		"footer.exportCv": "Download CV as PDF",
 		"footer.exporting": "Generating PDF...",
-		"footer.comingSoon": "Coming soon",
 		"footer.license": "MIT License",
 		"footer.builtWith": "Built with care",
-		"footer.placeholder": "Demo content — replace with real data.",
 		"theme.toggle": "Toggle theme",
 		"theme.light": "Light mode",
 		"theme.dark": "Dark mode",

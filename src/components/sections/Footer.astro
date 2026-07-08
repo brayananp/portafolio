@@ -11,7 +11,7 @@ interface Props {
 
 const { data, lang, t } = Astro.props;
 const currentYear = new Date().getFullYear();
-const licenseUrl = `${data.social.github}/blob/master/LICENSE`;
+const licenseUrl = `${data.social.github}/blob/main/LICENSE`;
 ---
 
 <footer class="px-6 pt-8 pb-12">
@@ -40,7 +40,7 @@ const licenseUrl = `${data.social.github}/blob/master/LICENSE`;
 		</div>
 
 		<p class="mt-6 font-mono text-[11px] text-muted">
-			© {currentYear} {data.displayName}  ·{" "} 
+			© {currentYear} {data.displayName} ·{" "}
 			<a
 				href={licenseUrl}
 				target="_blank"
@@ -50,7 +50,8 @@ const licenseUrl = `${data.social.github}/blob/master/LICENSE`;
 				{t("footer.license")}
 			</a>
 			{" · "}
-			{t("footer.builtWith")} <span class="text-amber hover:text-primary transition-colors">❤️</span>
+			{t("footer.builtWith")}{" "}
+			<span class="text-amber hover:text-primary transition-colors">❤️</span>
 		</p>
 	</div>
 </footer>

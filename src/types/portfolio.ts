@@ -43,7 +43,6 @@ export interface SocialLinks {
 }
 
 export interface PortfolioData {
-	isPlaceholder: boolean;
 	authorName: string;
 	displayName: string;
 	hero: {

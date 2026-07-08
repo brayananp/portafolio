@@ -13,9 +13,7 @@ getSiteUrl,
 const siteUrl = getSiteUrl(Astro.site);
 const homePath = getLocalizedPath("/", "es");
 const homeUrl = absoluteUrl(siteUrl, homePath);
-const sameAs = [portfolio.contact.github, portfolio.contact.linkedin].filter(
-	(link) => !link.includes("ejemplo"),
-);
+const sameAs = [portfolio.contact.github, portfolio.contact.linkedin];
 const lcpAvatarSrc = await getAvatarLcpPreloadUrl();
 ---
 
