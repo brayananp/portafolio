@@ -266,8 +266,6 @@ body {
 	flex-direction: column;
 	height: 100%;
 	padding: 1.25rem;
-	text-decoration: none;
-	color: inherit;
 }
 
 .project-card__header {
@@ -278,24 +276,36 @@ body {
 	margin-bottom: 0.75rem;
 }
 
+.project-card__status {
+	font-family: var(--font-mono);
+	font-size: 0.7rem;
+	color: var(--token-text-muted);
+	border: 1px solid var(--token-border);
+	background: color-mix(in srgb, var(--token-surface-1) 85%, transparent);
+	padding: 0.2rem 0.5rem;
+	border-radius: 999px;
+}
+
 .project-card__title {
 	font-family: var(--font-display);
 	font-size: 1.125rem;
 	font-weight: 500;
 	color: var(--token-text-primary);
 	margin: 0 0 0.5rem;
-	transition: color 0.2s ease;
-}
-
-.project-card:hover .project-card__title {
-	color: var(--token-amber);
 }
 
 .project-card__summary {
-	flex: 1;
 	font-size: 0.875rem;
 	line-height: 1.55;
 	color: var(--token-text-secondary);
+	margin: 0 0 0.625rem;
+}
+
+.project-card__details {
+	flex: 1;
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	color: var(--token-text-muted);
 	margin: 0 0 1rem;
 }
 
@@ -306,18 +316,43 @@ body {
 	margin-bottom: 1rem;
 }
 
-.project-card__cta {
+.project-card__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.625rem;
+	margin-top: auto;
+}
+
+.project-card__button {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.375rem;
 	font-family: var(--font-mono);
 	font-size: 0.75rem;
-	color: var(--token-text-muted);
-	transition: color 0.2s ease;
+	color: var(--token-text-secondary);
+	text-decoration: none;
+	border: 1px solid var(--token-border);
+	border-radius: 0.65rem;
+	padding: 0.65rem 0.85rem;
+	background: color-mix(in srgb, var(--token-surface-1) 60%, transparent);
+	transition:
+		border-color 0.2s ease,
+		color 0.2s ease,
+		background-color 0.2s ease,
+		transform 0.2s ease;
 }
 
-.project-card:hover .project-card__cta {
+.project-card__button:hover {
 	color: var(--token-amber);
+	border-color: color-mix(in srgb, var(--token-amber) 45%, var(--token-border));
+	background: color-mix(in srgb, var(--token-surface-hover) 80%, transparent);
+	transform: translateY(-1px);
+}
+
+.project-card__icon {
+	width: 0.95rem;
+	height: 0.95rem;
+	flex-shrink: 0;
 }
 
 .project-card__arrow {
@@ -352,6 +387,11 @@ body {
 
 	.project-card__arrow,
 	.project-card:hover .project-card__arrow {
+		transform: none;
+	}
+
+	.project-card__button,
+	.project-card__button:hover {
 		transform: none;
 	}
 }

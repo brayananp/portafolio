@@ -13,6 +13,7 @@ export interface Project {
 	summary: string;
 	details: string;
 	tags: string[];
+	access: "open-source" | "private-client";
 	links?: {
 		demo?: string;
 		repo?: string;

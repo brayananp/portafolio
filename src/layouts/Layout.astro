@@ -5,7 +5,6 @@ import "../styles/global.css";
 import AmbientBackground from "../components/AmbientBackground.astro";
 import RevealOnScroll from "../components/RevealOnScroll.astro";
 import Seo from "../components/Seo.astro";
-import { extractProjectIdFromPath } from "../lib/projects";
 import { getSiteUrl } from "../lib/seo";
 import type { Locale } from "../types/portfolio";
 
@@ -46,15 +45,11 @@ const siteUrl = getSiteUrl(Astro.site);
 const currentPath = path ?? `/${lang}`;
 const canonicalUrl = siteUrl ? `${siteUrl}${currentPath}` : currentPath;
 const isBlogArticle = /^\/(es|en)\/blog\/.+/.test(currentPath);
-const projectId = extractProjectIdFromPath(currentPath);
-const isProjectPage = projectId !== null;
 const resolvedAlternatePath =
 	alternatePath ??
 	(isBlogArticle
 		? `/${alternateLang}/blog`
-		: isProjectPage
-			? `/${alternateLang}/projects/${projectId}`
-			: currentPath.replace(`/${lang}`, `/${alternateLang}`));
+		: currentPath.replace(`/${lang}`, `/${alternateLang}`));
 const alternateUrl = siteUrl
 	? `${siteUrl}${resolvedAlternatePath}`
 	: resolvedAlternatePath;

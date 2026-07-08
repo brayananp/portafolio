@@ -1,18 +1,21 @@
 ---
 import type { UiKey } from "../../i18n/ui";
-import { getProjectPath } from "../../lib/projects";
-import type { Locale, Project } from "../../types/portfolio";
+import type { Project } from "../../types/portfolio";
+import EyeIcon from "../../icons/EyeIcon.astro";
+import GithubIcon from "../../icons/GithubIcon.astro";
 
 interface Props {
 	project: Project;
-	lang: Locale;
 	t: (key: UiKey) => string;
 	index?: number;
 }
 
-const { project, lang, t, index = 0 } = Astro.props;
-const href = getProjectPath(lang, project.id);
+const { project, t, index = 0 } = Astro.props;
 const delay = Math.min(index * 90, 360);
+const accessLabel =
+	project.access === "open-source"
+		? t("projects.openSource")
+		: t("projects.privateClient");
 ---
 
 <article
@@ -20,14 +23,18 @@ const delay = Math.min(index * 90, 360);
 	data-reveal
 	data-reveal-delay={delay}
 >
-	<a href={href} class="project-card__link">
+	<div class="project-card__link">
 		<div class="project-card__header">
-			<span class="font-mono text-xs text-diff-added shrink-0">+ added</span>
-			<span class="font-mono text-xs text-amber shrink-0">{project.version}</span>
+			<div class="flex items-center gap-2 flex-wrap">
+				<span class="font-mono text-xs text-diff-added shrink-0">+ added</span>
+				<span class="font-mono text-xs text-amber shrink-0">{project.version}</span>
+			</div>
+			<span class="project-card__status">{accessLabel}</span>
 		</div>
 
 		<h3 class="project-card__title">{project.name}</h3>
 		<p class="project-card__summary">{project.summary}</p>
+		<p class="project-card__details">{project.details}</p>
 
 		<div class="project-card__tags">
 			{
@@ -39,9 +46,31 @@ const delay = Math.min(index * 90, 360);
 			}
 		</div>
 
-		<span class="project-card__cta">
-			{t("projects.viewDetail")}
-			<span class="project-card__arrow" aria-hidden="true">→</span>
-		</span>
-	</a>
+		<div class="project-card__actions">
+			{project.links?.demo && (
+				<a
+					href={project.links.demo}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="project-card__button"
+				>
+					<EyeIcon class="project-card__icon" aria-hidden="true" />
+					{t("projects.demo")}
+					<span aria-hidden="true">↗</span>
+				</a>
+			)}
+			{project.links?.repo && (
+				<a
+					href={project.links.repo}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="project-card__button"
+				>
+					<GithubIcon class="project-card__icon" aria-hidden="true" />
+					{t("projects.repository")}
+					<span aria-hidden="true">↗</span>
+				</a>
+			)}
+		</div>
+	</div>
 </article>

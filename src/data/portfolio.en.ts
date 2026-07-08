@@ -51,6 +51,7 @@ export const portfolio: PortfolioData = {
 			details:
 				"Bilingual site built with Astro 7, Tailwind CSS, and TypeScript. It includes project detail pages, PDF CV export, technical SEO, and an interface styled like a software release history.",
 			tags: ["astro", "typescript", "tailwindcss", "pdf-lib"],
+			access: "open-source",
 			links: {
 				demo: "https://brayan-nunez.pages.dev/en",
 				repo: "https://github.com/brayananp/portafolio",
@@ -65,36 +66,38 @@ export const portfolio: PortfolioData = {
 			details:
 				"Project built with Next.js, Prisma, and PostgreSQL to manage products, categories, images, addresses, and orders. It also integrates authentication and payments as a solid foundation for an online store.",
 			tags: ["nextjs", "typescript", "prisma", "postgresql"],
+			access: "open-source",
 			links: {
 				demo: "https://telso-app-example.vercel.app",
 				repo: "https://github.com/brayananp/telso-app",
 			},
 		},
 		{
-			id: "my-task-board",
-			name: "My Task Board",
-			version: "v2024.12",
+			id: "reactivos-quimicos-peru",
+			name: "Reactivos Químicos Perú",
+			version: "v2026.01",
 			summary:
-				"Task board application with boards and cards to organize personal work.",
+				"Production commercial website for catalog browsing, brand discovery, and lead capture in the laboratory supply sector.",
 			details:
-				"Application built with Next.js App Router, Prisma, and Server Actions. It supports creating boards and tasks with a clear structure of reusable components, server-side actions, and database persistence.",
-			tags: ["nextjs", "typescript", "prisma", "server-actions"],
+				"Private client project focused on sales and digital presence. The site presents product catalog pages, brand navigation, product detail views, commercial sections, and contact flows designed to convert visits into quote requests.",
+			tags: ["e-commerce", "catalog", "seo", "production"],
+			access: "private-client",
 			links: {
-				repo: "https://github.com/brayananp/my-task-board",
+				demo: "https://reactivosquimicosperu.com/",
 			},
 		},
 		{
-			id: "todo-app",
-			name: "Todo App",
-			version: "v2024.09",
+			id: "smartrent",
+			name: "SmartRent",
+			version: "v2025.02",
 			summary:
-				"Task app with drag and drop, dark mode, and Supabase persistence.",
+				"Administrative dashboard for rental management with private access and an operations-first workflow.",
 			details:
-				"Frontend project built with React, TypeScript, and Tailwind CSS. It includes filters, task reordering, light and dark theme support, and data persistence through Supabase.",
-			tags: ["react", "typescript", "tailwindcss", "supabase"],
+				"Private project designed for internal operations. It centralizes access to an admin panel and serves as a base for managing rental workflows, users, and operational tasks through a daily-use oriented interface.",
+			tags: ["dashboard", "admin", "private", "operations"],
+			access: "private-client",
 			links: {
-				demo: "https://todo-list-2024-09.netlify.app/",
-				repo: "https://github.com/brayananp/todo-app",
+				demo: "https://rent-house-olive-ten.vercel.app/",
 			},
 		},
 	],

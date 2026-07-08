@@ -51,6 +51,7 @@ export const portfolio: PortfolioData = {
 			details:
 				"Sitio bilingüe desarrollado con Astro 7, Tailwind CSS y TypeScript. Incluye páginas de detalle para proyectos, exportación de CV en PDF, SEO técnico y una interfaz inspirada en historiales de versiones de software.",
 			tags: ["astro", "typescript", "tailwindcss", "pdf-lib"],
+			access: "open-source",
 			links: {
 				demo: "https://brayan-nunez.pages.dev/es",
 				repo: "https://github.com/brayananp/portafolio",
@@ -65,36 +66,38 @@ export const portfolio: PortfolioData = {
 			details:
 				"Proyecto construido con Next.js, Prisma y PostgreSQL para gestionar productos, categorías, imágenes, direcciones y órdenes. También integra autenticación y pagos, con una base sólida para escalar una tienda online.",
 			tags: ["nextjs", "typescript", "prisma", "postgresql"],
+			access: "open-source",
 			links: {
 				demo: "https://telso-app-example.vercel.app",
 				repo: "https://github.com/brayananp/telso-app",
 			},
 		},
 		{
-			id: "my-task-board",
-			name: "My Task Board",
-			version: "v2024.12",
+			id: "reactivos-quimicos-peru",
+			name: "Reactivos Químicos Perú",
+			version: "v2026.01",
 			summary:
-				"Tablero de tareas con gestión de boards y tarjetas para organizar trabajo personal.",
+				"Sitio comercial en producción para catálogo, marcas y captación de clientes del sector laboratorio.",
 			details:
-				"Aplicación desarrollada con Next.js App Router, Prisma y Server Actions. Permite crear tableros y tareas con una estructura clara de acciones, componentes reutilizables y persistencia en base de datos.",
-			tags: ["nextjs", "typescript", "prisma", "server-actions"],
+				"Proyecto privado orientado a ventas y presencia digital. La web muestra catálogo de productos, navegación por marcas, fichas de producto, secciones comerciales y formularios de contacto pensados para convertir visitas en cotizaciones.",
+			tags: ["e-commerce", "catalogo", "seo", "produccion"],
+			access: "private-client",
 			links: {
-				repo: "https://github.com/brayananp/my-task-board",
+				demo: "https://reactivosquimicosperu.com/",
 			},
 		},
 		{
-			id: "todo-app",
-			name: "Todo App",
-			version: "v2024.09",
+			id: "smartrent",
+			name: "SmartRent",
+			version: "v2025.02",
 			summary:
-				"Aplicación de tareas con drag and drop, modo oscuro y persistencia en Supabase.",
+				"Panel de administración para la gestión de alquileres con acceso privado y enfoque operativo.",
 			details:
-				"Proyecto frontend con React, TypeScript y Tailwind CSS. Implementa filtros, reordenamiento de tareas, soporte de tema claro/oscuro y persistencia de datos usando Supabase como backend.",
-			tags: ["react", "typescript", "tailwindcss", "supabase"],
+				"Proyecto privado pensado para operaciones internas. Centraliza el acceso al panel de administración y sirve como base para gestionar flujos de alquiler, usuarios y tareas operativas desde una interfaz enfocada en uso diario.",
+			tags: ["dashboard", "admin", "private", "operaciones"],
+			access: "private-client",
 			links: {
-				demo: "https://todo-list-2024-09.netlify.app/",
-				repo: "https://github.com/brayananp/todo-app",
+				demo: "https://rent-house-olive-ten.vercel.app/",
 			},
 		},
 	],

@@ -1,7 +1,6 @@
 ---
 import { useTranslations } from "../i18n/ui";
 import { getLocalizedPath } from "../i18n/utils";
-import { extractProjectIdFromPath } from "../lib/projects";
 import type { Locale } from "../types/portfolio";
 import ThemeToggle from "./ThemeToggle.astro";
 
@@ -27,11 +26,6 @@ function getAlternateHref(): string {
 	const pathname = Astro.url.pathname;
 	const alternateLang = lang === "es" ? "en" : "es";
 	const isBlogArticle = /^\/(es|en)\/blog\/.+/.test(pathname);
-	const projectId = extractProjectIdFromPath(pathname);
-
-	if (projectId) {
-		return `/${alternateLang}/projects/${projectId}`;
-	}
 
 	if (isBlogArticle) {
 		return getLocalizedPath("/blog", alternateLang);
@@ -67,7 +61,7 @@ const navItems = [
 	>
 		<nav
 			id="header-nav"
-			class="flex items-center justify-center gap-0.5 sm:gap-1 min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+			class="flex items-center justify-center gap-0.5 sm:gap-1 min-w-0 overflow-x-auto scrollbar-none [&::-webkit-scrollbar]:hidden"
 			aria-label="Main navigation"
 		>
 			{
