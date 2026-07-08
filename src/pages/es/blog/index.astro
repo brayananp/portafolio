@@ -3,13 +3,29 @@ import BlogIndex from "../../../components/blog/BlogIndex.astro";
 import { portfolio } from "../../../data/portfolio.es";
 import Layout from "../../../layouts/Layout.astro";
 import { getLocalizedPath } from "../../../i18n/utils";
+import {
+	absoluteUrl,
+	buildBreadcrumbJsonLd,
+	getSiteUrl,
+} from "../../../lib/seo";
+
+const siteUrl = getSiteUrl(Astro.site);
+const path = getLocalizedPath("/blog", "es");
+const pageUrl = absoluteUrl(siteUrl, path);
 ---
 
 <Layout
-	title={`${portfolio.authorName} — Blog`}
-	description="Release notes técnicas sobre arquitectura y desarrollo full-stack."
+	title={`${portfolio.authorName} — Blog técnico`}
+	description="Release notes técnicas sobre arquitectura, Astro, TailwindCSS y desarrollo full-stack con TypeScript."
 	lang="es"
-	path={getLocalizedPath("/blog", "es")}
+	path={path}
+	authorName={portfolio.authorName}
+	jsonLd={[
+		buildBreadcrumbJsonLd([
+			{ name: "Inicio", url: absoluteUrl(siteUrl, "/es") },
+			{ name: "Blog", url: pageUrl },
+		]),
+	]}
 >
 	<BlogIndex lang="es" />
 </Layout>

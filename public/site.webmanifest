@@ -1,0 +1,24 @@
+{
+	"name": "Brayan Nuñez — Portafolio",
+	"short_name": "BANP",
+	"description": "Portafolio profesional y blog técnico de Brayan Nuñez, desarrollador full-stack.",
+	"start_url": "/es",
+	"display": "standalone",
+	"background_color": "#16181d",
+	"theme_color": "#16181d",
+	"lang": "es",
+	"icons": [
+		{
+			"src": "/favicon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		},
+		{
+			"src": "/logo-banp-icon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "maskable"
+		}
+	]
+}

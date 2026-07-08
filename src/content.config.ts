@@ -11,6 +11,7 @@ const blog = defineCollection({
 		tags: z.array(z.string()).default([]),
 		draft: z.boolean().default(false),
 		coverImage: z.string().optional(),
+		alternateSlug: z.string().optional(),
 		version: z.string().optional(),
 		changeType: z
 			.enum(["added", "fixed", "improved", "deprecated"])

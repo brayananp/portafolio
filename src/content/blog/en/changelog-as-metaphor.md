@@ -5,6 +5,7 @@ publishedAt: 2026-07-01
 tags: ["portfolio", "design", "changelog"]
 version: "v2026.07"
 changeType: "added"
+alternateSlug: changelog-como-metafora
 ---
 
 A portfolio isn't a static resume: it's the history of what you've built.

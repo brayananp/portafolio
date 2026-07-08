@@ -2,12 +2,38 @@
 import HomePage from "../../components/HomePage.astro";
 import { portfolio } from "../../data/portfolio.en";
 import Layout from "../../layouts/Layout.astro";
+import { getLocalizedPath } from "../../i18n/utils";
+import {
+	absoluteUrl,
+	buildHomeJsonLd,
+	getSiteUrl,
+} from "../../lib/seo";
+
+const siteUrl = getSiteUrl(Astro.site);
+const homePath = getLocalizedPath("/", "en");
+const homeUrl = absoluteUrl(siteUrl, homePath);
+const sameAs = [portfolio.contact.github, portfolio.contact.linkedin].filter(
+	(link) => !link.includes("ejemplo"),
+);
 ---
 
 <Layout
 	title={`${portfolio.authorName} — ${portfolio.hero.role}`}
 	description={portfolio.hero.tagline}
 	lang="en"
+	path={homePath}
+	ogType="profile"
+	authorName={portfolio.authorName}
+	jsonLd={buildHomeJsonLd({
+		siteUrl,
+		locale: "en",
+		authorName: portfolio.authorName,
+		displayName: portfolio.displayName,
+		role: portfolio.hero.role,
+		tagline: portfolio.hero.tagline,
+		homeUrl,
+		sameAs,
+	})}
 >
 	<HomePage lang="en" portfolio={portfolio} />
 </Layout>

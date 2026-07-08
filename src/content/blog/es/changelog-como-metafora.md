@@ -5,6 +5,7 @@ publishedAt: 2026-07-01
 tags: ["portafolio", "diseño", "changelog"]
 version: "v2026.07"
 changeType: "added"
+alternateSlug: changelog-as-metaphor
 ---
 
 Un portafolio no es un currículum estático: es el historial de lo que has construido.

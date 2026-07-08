@@ -4,6 +4,12 @@ import { portfolio } from "../../../data/portfolio.en";
 import { useTranslations } from "../../../i18n/ui";
 import Layout from "../../../layouts/Layout.astro";
 import { getProjectPath } from "../../../lib/projects";
+import {
+	absoluteUrl,
+	buildBreadcrumbJsonLd,
+	buildSoftwareProjectJsonLd,
+	getSiteUrl,
+} from "../../../lib/seo";
 
 export function getStaticPaths() {
 	return portfolio.projects.map((project) => ({
@@ -14,13 +20,33 @@ export function getStaticPaths() {
 
 const { project } = Astro.props;
 const t = useTranslations("en");
+const path = getProjectPath("en", project.id);
+const siteUrl = getSiteUrl(Astro.site);
+const pageUrl = absoluteUrl(siteUrl, path);
+const jsonLd = [
+	buildSoftwareProjectJsonLd({
+		siteUrl,
+		name: project.name,
+		description: project.summary,
+		url: pageUrl,
+		tags: project.tags,
+		authorName: portfolio.authorName,
+	}),
+	buildBreadcrumbJsonLd([
+		{ name: "Home", url: absoluteUrl(siteUrl, "/en") },
+		{ name: "Projects", url: `${absoluteUrl(siteUrl, "/en")}#projects` },
+		{ name: project.name, url: pageUrl },
+	]),
+];
 ---
 
 <Layout
-	title={`${project.name} — Projects`}
+	title={`${project.name} — ${portfolio.hero.role}`}
 	description={project.summary}
 	lang="en"
-	path={getProjectPath("en", project.id)}
+	path={path}
+	authorName={portfolio.authorName}
+	jsonLd={jsonLd}
 >
 	<ProjectDetail project={project} lang="en" t={t} />
 </Layout>

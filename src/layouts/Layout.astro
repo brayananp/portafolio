@@ -4,30 +4,60 @@ import "@fontsource/jetbrains-mono";
 import "../styles/global.css";
 import AmbientBackground from "../components/AmbientBackground.astro";
 import RevealOnScroll from "../components/RevealOnScroll.astro";
+import Seo from "../components/Seo.astro";
 import type { Locale } from "../types/portfolio";
 import { extractProjectIdFromPath } from "../lib/projects";
+import { getSiteUrl } from "../lib/seo";
 
 interface Props {
 	title: string;
 	description?: string;
 	lang: Locale;
 	path?: string;
+	image?: string;
+	imageAlt?: string;
+	ogType?: "website" | "article" | "profile";
+	publishedAt?: Date;
+	modifiedAt?: Date;
+	authorName?: string;
+	noindex?: boolean;
+	alternatePath?: string;
+	jsonLd?: Record<string, unknown>[];
 }
 
-const { title, description, lang, path } = Astro.props;
+const {
+	title,
+	description,
+	lang,
+	path,
+	image,
+	imageAlt,
+	ogType,
+	publishedAt,
+	modifiedAt,
+	authorName,
+	noindex,
+	alternatePath,
+	jsonLd,
+} = Astro.props;
+
 const alternateLang = lang === "es" ? "en" : "es";
-const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const siteUrl = getSiteUrl(Astro.site);
 const currentPath = path ?? `/${lang}`;
 const canonicalUrl = siteUrl ? `${siteUrl}${currentPath}` : currentPath;
 const isBlogArticle = /^\/(es|en)\/blog\/.+/.test(currentPath);
 const projectId = extractProjectIdFromPath(currentPath);
 const isProjectPage = projectId !== null;
-const alternatePath = isBlogArticle
-	? `/${alternateLang}/blog`
-	: isProjectPage
-		? `/${alternateLang}/projects/${projectId}`
-		: currentPath.replace(`/${lang}`, `/${alternateLang}`);
-const alternateUrl = siteUrl ? `${siteUrl}${alternatePath}` : alternatePath;
+const resolvedAlternatePath =
+	alternatePath ??
+	(isBlogArticle
+		? `/${alternateLang}/blog`
+		: isProjectPage
+			? `/${alternateLang}/projects/${projectId}`
+			: currentPath.replace(`/${lang}`, `/${alternateLang}`));
+const alternateUrl = siteUrl
+	? `${siteUrl}${resolvedAlternatePath}`
+	: resolvedAlternatePath;
 ---
 
 <!doctype html>
@@ -38,15 +68,23 @@ const alternateUrl = siteUrl ? `${siteUrl}${alternatePath}` : alternatePath;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		{description && <meta name="description" content={description} />}
-		{siteUrl && (
-			<>
-				<link rel="canonical" href={canonicalUrl} />
-				<link rel="alternate" hreflang={lang} href={canonicalUrl} />
-				<link rel="alternate" hreflang={alternateLang} href={alternateUrl} />
-				<link rel="alternate" hreflang="x-default" href={`${siteUrl}/es`} />
-			</>
-		)}
+		<Seo
+			title={title}
+			description={description}
+			lang={lang}
+			path={currentPath}
+			canonicalUrl={canonicalUrl}
+			alternateUrl={alternateUrl}
+			siteUrl={siteUrl}
+			image={image}
+			imageAlt={imageAlt}
+			ogType={ogType}
+			publishedAt={publishedAt}
+			modifiedAt={modifiedAt}
+			authorName={authorName}
+			noindex={noindex}
+			jsonLd={jsonLd}
+		/>
 		<script is:inline>
 			(() => {
 				const stored = localStorage.getItem("theme");

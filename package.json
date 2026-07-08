@@ -25,6 +25,7 @@
 		"check:ci": "biome ci ."
 	},
 	"dependencies": {
+		"@astrojs/sitemap": "^3.7.3",
 		"@fontsource-variable/inter": "^5.2.8",
 		"@fontsource/jetbrains-mono": "^5.2.8",
 		"@tailwindcss/typography": "^0.5.20",

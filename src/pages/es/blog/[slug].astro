@@ -1,10 +1,18 @@
 ---
 import BlogArticle from "../../../components/blog/BlogArticle.astro";
 import Layout from "../../../layouts/Layout.astro";
+import { portfolio } from "../../../data/portfolio.es";
 import {
 	getBlogPostPath,
 	getSlugFromPostId,
 } from "../../../lib/blog";
+import {
+	absoluteUrl,
+	buildArticleJsonLd,
+	buildBreadcrumbJsonLd,
+	DEFAULT_OG_IMAGE,
+	getSiteUrl,
+} from "../../../lib/seo";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -20,13 +28,46 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const slug = getSlugFromPostId(post.id);
+const path = getBlogPostPath("es", slug);
+const siteUrl = getSiteUrl(Astro.site);
+const pageUrl = absoluteUrl(siteUrl, path);
+const alternatePath = post.data.alternateSlug
+	? getBlogPostPath("en", post.data.alternateSlug)
+	: getBlogPostPath("en", slug);
+const coverImage = post.data.coverImage ?? DEFAULT_OG_IMAGE;
+const jsonLd = [
+	buildArticleJsonLd({
+		siteUrl,
+		title: post.data.title,
+		description: post.data.description,
+		url: pageUrl,
+		image: absoluteUrl(siteUrl, coverImage),
+		authorName: portfolio.authorName,
+		publishedAt: post.data.publishedAt,
+		updatedAt: post.data.updatedAt,
+		locale: "es",
+	}),
+	buildBreadcrumbJsonLd([
+		{ name: "Inicio", url: absoluteUrl(siteUrl, "/es") },
+		{ name: "Blog", url: absoluteUrl(siteUrl, "/es/blog") },
+		{ name: post.data.title, url: pageUrl },
+	]),
+];
 ---
 
 <Layout
 	title={`${post.data.title} — Blog`}
 	description={post.data.description}
 	lang="es"
-	path={getBlogPostPath("es", slug)}
+	path={path}
+	image={coverImage}
+	imageAlt={post.data.title}
+	ogType="article"
+	publishedAt={post.data.publishedAt}
+	modifiedAt={post.data.updatedAt}
+	authorName={portfolio.authorName}
+	alternatePath={alternatePath}
+	jsonLd={jsonLd}
 >
 	<BlogArticle post={post} lang="es" />
 </Layout>
