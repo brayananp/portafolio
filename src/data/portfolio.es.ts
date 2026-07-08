@@ -162,13 +162,15 @@ export const portfolio: PortfolioData = {
 		},
 	],
 	contact: {
-		email: "mailto:contacto@ejemplo.com",
-		whatsapp: "https://wa.me/51999999999",
-		linkedin: "https://linkedin.com/in/ejemplo",
-		github: "https://github.com/ejemplo",
+		email: "mailto:brayannunezpesantes@gmail.com",
+		whatsapp: "https://wa.me/51976863254",
+		linkedin:
+			"https://www.linkedin.com/in/brayan-alexis-nu%C3%B1ez-pesantes-a112091b8/",
+		github: "https://github.com/brayananp",
 	},
 	social: {
-		github: "https://github.com/ejemplo",
-		linkedin: "https://linkedin.com/in/ejemplo",
+		github: "https://github.com/brayananp",
+		linkedin:
+			"https://www.linkedin.com/in/brayan-alexis-nu%C3%B1ez-pesantes-a112091b8/",
 	},
 };
