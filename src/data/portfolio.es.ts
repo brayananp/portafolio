@@ -17,7 +17,12 @@ export const portfolio: PortfolioData = {
 	},
 	about: {
 		content:
-			"Ingeniero de Sistemas graduado de la Universidad César Vallejo (2023). Me especializo en desarrollo full-stack con TypeScript, construyendo aplicaciones escalables con TanStack Start, Drizzle ORM y PostgreSQL. Documento mi trabajo técnico con la misma rigurosidad que un changelog de software.",
+			"Ingeniero de Sistemas con experiencia en desarrollo web full stack para proyectos reales de negocio. Trabajo construyendo sitios y aplicaciones orientadas a resultado, buscando siempre que el producto sea claro, útil y mantenible.",
+		paragraphs: [
+			"Me llamo Brayan Nuñez y trabajo principalmente con React, Next.js, Astro, TypeScript y Node.js. También tengo base en Laravel, PHP y MySQL, lo que me ha permitido moverme con soltura entre frontend, backend, base de datos y despliegue.",
+			"He participado en proyectos reales para clientes, desde sitios comerciales en producción hasta dashboards internos y soluciones de gestión. Me interesa que cada proyecto no solo funcione, sino que tenga una estructura ordenada, una buena experiencia de uso y una base técnica que permita seguir creciendo.",
+			"Actualmente sigo fortaleciendo mi perfil como desarrollador full stack, ganando más experiencia en proyectos reales y mejorando la forma en que construyo productos web útiles y bien estructurados.",
+		],
 	},
 	stack: [
 		{

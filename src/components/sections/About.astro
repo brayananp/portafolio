@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { data, t } = Astro.props;
+const paragraphs = data.paragraphs ?? [data.content];
 ---
 
 <section id="about" class="px-6">
@@ -20,6 +21,12 @@ const { data, t } = Astro.props;
 		<h2 class="font-display font-medium text-2xl mt-3 mb-4 text-primary">
 			{t("about.title")}
 		</h2>
-		<p class="text-secondary leading-relaxed max-w-2xl">{data.content}</p>
+		<div class="max-w-3xl space-y-5">
+			{paragraphs.map((paragraph) => (
+				<p class="text-secondary leading-relaxed text-[15px] sm:text-base">
+					{paragraph}
+				</p>
+			))}
+		</div>
 	</div>
 </section>

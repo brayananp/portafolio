@@ -58,6 +58,8 @@ export interface PortfolioData {
 	};
 	about: {
 		content: string;
+		paragraphs?: string[];
+		highlights?: string[];
 	};
 	stack: StackCategory[];
 	projects: Project[];

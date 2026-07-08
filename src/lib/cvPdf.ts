@@ -440,6 +440,9 @@ export async function generateCvPdf(
 
 	ctx = drawSectionTitle(ctx, labels.profile);
 	ctx = drawParagraph(ctx, portfolio.about.content);
+	for (const highlight of portfolio.about.highlights ?? []) {
+		ctx = drawParagraph(ctx, `• ${highlight}`, { size: 9 });
+	}
 
 	ctx = drawSectionTitle(ctx, labels.experience);
 	for (const entry of portfolio.career) {
