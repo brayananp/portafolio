@@ -1,4 +1,10 @@
-import { PDFDocument, type PDFFont, type PDFPage, rgb, StandardFonts } from "pdf-lib";
+import {
+	PDFDocument,
+	type PDFFont,
+	type PDFPage,
+	rgb,
+	StandardFonts,
+} from "pdf-lib";
 import type { PortfolioData } from "../types/portfolio";
 import type { CvPdfLabels } from "./cvPdfLabels";
 import { drawContactIcon, type ContactIconType } from "./cvPdfIcons";
@@ -268,9 +274,7 @@ function extractContactValue(url: string): string {
 }
 
 function shortenUrl(url: string): string {
-	return url
-		.replace(/^https?:\/\/(www\.)?/, "")
-		.replace(/\/$/, "");
+	return url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 }
 
 function formatWhatsApp(url: string): string {
@@ -335,10 +339,7 @@ function drawContactLine(
 	return { ...next, y: next.y - 4 };
 }
 
-function drawContactEntry(
-	ctx: PdfContext,
-	item: ContactLink,
-): PdfContext {
+function drawContactEntry(ctx: PdfContext, item: ContactLink): PdfContext {
 	return drawContactLine(ctx, item, {
 		textSize: 9,
 		color: colors.body,

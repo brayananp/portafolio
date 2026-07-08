@@ -10,8 +10,13 @@ export function getProjectPath(lang: Locale, projectId: string): string {
 	return `/${lang}/projects/${projectId}`;
 }
 
-export function getProjectById(lang: Locale, projectId: string): Project | undefined {
-	return getPortfolio(lang).projects.find((project) => project.id === projectId);
+export function getProjectById(
+	lang: Locale,
+	projectId: string,
+): Project | undefined {
+	return getPortfolio(lang).projects.find(
+		(project) => project.id === projectId,
+	);
 }
 
 export function getAdjacentProjects(lang: Locale, currentId: string) {
@@ -20,7 +25,8 @@ export function getAdjacentProjects(lang: Locale, currentId: string) {
 
 	return {
 		previous: index > 0 ? projects[index - 1] : null,
-		next: index >= 0 && index < projects.length - 1 ? projects[index + 1] : null,
+		next:
+			index >= 0 && index < projects.length - 1 ? projects[index + 1] : null,
 	};
 }
 

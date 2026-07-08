@@ -256,7 +256,8 @@ body {
 
 .project-card:hover {
 	border-color: color-mix(in srgb, var(--token-amber) 40%, var(--token-border));
-	box-shadow: 0 10px 36px color-mix(in srgb, var(--token-amber) 10%, transparent);
+	box-shadow: 0 10px 36px
+		color-mix(in srgb, var(--token-amber) 10%, transparent);
 	transform: translateY(-3px);
 }
 

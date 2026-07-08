@@ -111,9 +111,7 @@ export function buildSoftwareProjectJsonLd(params: {
 	};
 }
 
-export function buildBreadcrumbJsonLd(
-	items: { name: string; url: string }[],
-) {
+export function buildBreadcrumbJsonLd(items: { name: string; url: string }[]) {
 	return {
 		"@context": "https://schema.org",
 		"@type": "BreadcrumbList",
