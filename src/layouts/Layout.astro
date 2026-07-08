@@ -53,6 +53,11 @@ const resolvedAlternatePath =
 const alternateUrl = siteUrl
 	? `${siteUrl}${resolvedAlternatePath}`
 	: resolvedAlternatePath;
+
+const umamiSrc = import.meta.env.PUBLIC_UMAMI_SCRIPT_URL;
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+
+
 ---
 
 <!doctype html>
@@ -97,6 +102,35 @@ const alternateUrl = siteUrl
 				document.documentElement.setAttribute("data-theme", theme);
 			})();
 		</script>
+		{
+			umamiSrc && umamiWebsiteId && (
+			  <script
+				is:inline
+				define:vars={{ umamiSrc, umamiWebsiteId }}
+			  >
+				{`
+				// Cargamos Umami de forma totalmente asíncrona y fuera del camino
+				// crítico: si el servidor tarda o no responde, no bloquea ni retrasa
+				// el resto de scripts ni la interactividad de la página.
+				(function () {
+				  function loadUmami() {
+					var s = document.createElement('script');
+					s.src = umamiSrc;
+					s.async = true;
+					s.setAttribute('data-website-id', umamiWebsiteId);
+					s.onerror = function () { s.remove(); };
+					document.head.appendChild(s);
+				  }
+				  if (document.readyState === 'complete') {
+					loadUmami();
+				  } else {
+					window.addEventListener('load', loadUmami);
+				  }
+				})();
+				`}
+			  </script>
+			)
+		  }
 	</head>
 	<body class="bg-bg text-primary antialiased relative isolate">
 		<AmbientBackground />
