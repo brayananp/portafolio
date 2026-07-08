@@ -5,7 +5,7 @@ import { defineConfig } from "astro/config";
 const siteUrl =
 	import.meta.env.SITE_URL ??
 	import.meta.env.VITE_SITE_URL ??
-	"https://example.com";
+	"http://localhost:4321";
 
 // https://astro.build/config
 export default defineConfig({
