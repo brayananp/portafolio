@@ -1,3 +1,106 @@
 ---
-return Astro.redirect("/es");
+const target = "/es";
+const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const canonical = siteUrl ? `${siteUrl}${target}` : target;
 ---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex" />
+		<meta http-equiv="refresh" content="0;url=/es" />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>Brayan Nuñez</title>
+		<script is:inline>
+			location.replace("/es");
+		</script>
+		<style>
+			:root {
+				color-scheme: light dark;
+				--bg: #f6f7f9;
+				--text: #1e2127;
+				--muted: #656769;
+				--accent: #80601c;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--bg: #16181d;
+					--text: #c7cbd1;
+					--muted: #888d95;
+					--accent: #c9a24d;
+				}
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+			}
+
+			body {
+				min-height: 100dvh;
+				display: grid;
+				place-items: center;
+				background: var(--bg);
+				color: var(--text);
+				font-family:
+					"Inter",
+					system-ui,
+					-apple-system,
+					sans-serif;
+			}
+
+			.loader {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 1rem;
+				padding: 2rem;
+				text-align: center;
+			}
+
+			.spinner {
+				width: 1.75rem;
+				height: 1.75rem;
+				border: 2px solid color-mix(in srgb, var(--text) 12%, transparent);
+				border-top-color: var(--accent);
+				border-radius: 50%;
+				animation: spin 0.7s linear infinite;
+			}
+
+			.label {
+				font-size: 0.8125rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--muted);
+			}
+
+			.fallback {
+				font-size: 0.875rem;
+				color: var(--muted);
+			}
+
+			.fallback a {
+				color: var(--accent);
+			}
+
+			@keyframes spin {
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="loader" role="status" aria-live="polite" aria-busy="true">
+			<div class="spinner" aria-hidden="true"></div>
+			<p class="label">Cargando portafolio</p>
+			<p class="fallback">
+				Si no redirige automáticamente, <a href="/es">continúa aquí</a>.
+			</p>
+		</div>
+	</body>
+</html>
