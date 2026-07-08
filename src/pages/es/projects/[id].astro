@@ -1,0 +1,26 @@
+---
+import ProjectDetail from "../../../components/projects/ProjectDetail.astro";
+import { portfolio } from "../../../data/portfolio.es";
+import { useTranslations } from "../../../i18n/ui";
+import Layout from "../../../layouts/Layout.astro";
+import { getProjectPath } from "../../../lib/projects";
+
+export function getStaticPaths() {
+	return portfolio.projects.map((project) => ({
+		params: { id: project.id },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const t = useTranslations("es");
+---
+
+<Layout
+	title={`${project.name} — Proyectos`}
+	description={project.summary}
+	lang="es"
+	path={getProjectPath("es", project.id)}
+>
+	<ProjectDetail project={project} lang="es" t={t} />
+</Layout>

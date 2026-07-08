@@ -1,6 +1,7 @@
 ---
 import { getLocalizedPath } from "../i18n/utils";
 import { useTranslations } from "../i18n/ui";
+import { extractProjectIdFromPath } from "../lib/projects";
 import type { Locale } from "../types/portfolio";
 import ThemeToggle from "./ThemeToggle.astro";
 
@@ -26,6 +27,11 @@ function getAlternateHref(): string {
 	const pathname = Astro.url.pathname;
 	const alternateLang = lang === "es" ? "en" : "es";
 	const isBlogArticle = /^\/(es|en)\/blog\/.+/.test(pathname);
+	const projectId = extractProjectIdFromPath(pathname);
+
+	if (projectId) {
+		return `/${alternateLang}/projects/${projectId}`;
+	}
 
 	if (isBlogArticle) {
 		return getLocalizedPath("/blog", alternateLang);

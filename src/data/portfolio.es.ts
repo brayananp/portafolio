@@ -51,6 +51,9 @@ export const portfolio: PortfolioData = {
 			details:
 				"Sistema completo para administradores de propiedades: registro de inquilinos, pagos recurrentes, generación automática de recibos térmicos en PDF con pdf-lib, y panel de control con métricas de ocupación.",
 			tags: ["react", "typescript", "pdf-lib", "postgresql"],
+			links: {
+				repo: "https://github.com/ejemplo/smartrent",
+			},
 		},
 		{
 			id: "quotepilot",
@@ -61,6 +64,9 @@ export const portfolio: PortfolioData = {
 			details:
 				"Aplicación CRM construida con TanStack Start y Drizzle ORM. Incluye gestión de leads, cotizaciones con plantillas, seguimiento de pipeline y autenticación con Better Auth.",
 			tags: ["tanstack-start", "drizzle", "postgresql", "better-auth"],
+			links: {
+				repo: "https://github.com/ejemplo/quotepilot",
+			},
 		},
 		{
 			id: "ecommerce-b2b",
@@ -71,6 +77,10 @@ export const portfolio: PortfolioData = {
 			details:
 				"Desarrollo de tiendas online con catálogo de productos, precios por volumen, integración con sistemas de inventario y checkout optimizado para pedidos mayoristas.",
 			tags: ["astro", "react", "tailwindcss", "stripe"],
+			links: {
+				demo: "https://ejemplo.com",
+				repo: "https://github.com/ejemplo/ecommerce-b2b",
+			},
 		},
 	],
 	career: [

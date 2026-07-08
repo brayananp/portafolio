@@ -2,7 +2,10 @@
 import "@fontsource-variable/inter";
 import "@fontsource/jetbrains-mono";
 import "../styles/global.css";
+import AmbientBackground from "../components/AmbientBackground.astro";
+import RevealOnScroll from "../components/RevealOnScroll.astro";
 import type { Locale } from "../types/portfolio";
+import { extractProjectIdFromPath } from "../lib/projects";
 
 interface Props {
 	title: string;
@@ -17,9 +20,13 @@ const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const currentPath = path ?? `/${lang}`;
 const canonicalUrl = siteUrl ? `${siteUrl}${currentPath}` : currentPath;
 const isBlogArticle = /^\/(es|en)\/blog\/.+/.test(currentPath);
+const projectId = extractProjectIdFromPath(currentPath);
+const isProjectPage = projectId !== null;
 const alternatePath = isBlogArticle
 	? `/${alternateLang}/blog`
-	: currentPath.replace(`/${lang}`, `/${alternateLang}`);
+	: isProjectPage
+		? `/${alternateLang}/projects/${projectId}`
+		: currentPath.replace(`/${lang}`, `/${alternateLang}`);
 const alternateUrl = siteUrl ? `${siteUrl}${alternatePath}` : alternatePath;
 ---
 
@@ -48,7 +55,11 @@ const alternateUrl = siteUrl ? `${siteUrl}${alternatePath}` : alternatePath;
 			})();
 		</script>
 	</head>
-	<body class="bg-bg text-primary antialiased">
-		<slot />
+	<body class="bg-bg text-primary antialiased relative isolate">
+		<AmbientBackground />
+		<div class="relative z-10">
+			<slot />
+		</div>
+		<RevealOnScroll />
 	</body>
 </html>

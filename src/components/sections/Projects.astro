@@ -1,49 +1,37 @@
 ---
 import type { UiKey } from "../../i18n/ui";
-import type { PortfolioData } from "../../types/portfolio";
+import type { Locale, PortfolioData } from "../../types/portfolio";
+import ProjectCard from "../projects/ProjectCard.astro";
 
 interface Props {
 	data: PortfolioData["projects"];
+	lang: Locale;
 	t: (key: UiKey) => string;
 }
 
-const { data, t } = Astro.props;
+const { data, lang, t } = Astro.props;
 ---
 
-<section id="projects" class="px-6">
+<section id="projects" class="px-6 scroll-mt-28">
 	<div class="max-w-4xl mx-auto">
-		<span
-			class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
-		>
-			{t("projects.badge")}
-		</span>
-		<h2 class="font-display font-medium text-2xl mt-3 mb-6 text-primary">
-			{t("projects.title")}
-		</h2>
+		<div data-reveal>
+			<span
+				class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
+			>
+				{t("projects.badge")}
+			</span>
+			<h2 class="font-display font-medium text-2xl mt-3 mb-2 text-primary">
+				{t("projects.title")}
+			</h2>
+			<p class="text-secondary text-sm max-w-2xl mb-8 leading-relaxed">
+				{t("projects.subtitle")}
+			</p>
+		</div>
 
-		<div class="space-y-1">
-			{
-				data.map((project) => (
-					<details class="group">
-						<summary class="flex items-center gap-3 py-2 cursor-pointer hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
-							<span class="font-mono text-sm text-diff-added shrink-0">+ added</span>
-							<span class="font-mono text-xs text-amber shrink-0">{project.version}</span>
-							<span class="font-display font-medium text-primary">{project.name}</span>
-						</summary>
-						<div class="pl-4 sm:pl-6 pb-4 pt-1 border-l border-border/50 ml-1">
-							<p class="text-secondary text-sm leading-relaxed mb-1">{project.summary}</p>
-							<p class="text-secondary text-sm leading-relaxed mb-3">{project.details}</p>
-							<div class="flex flex-wrap gap-2">
-								{project.tags.map((tag) => (
-									<span class="font-mono text-[11px] text-muted bg-surface-1 px-2 py-0.5 rounded-md">
-										{tag}
-									</span>
-								))}
-							</div>
-						</div>
-					</details>
-				))
-			}
+		<div class="grid gap-4 sm:grid-cols-2">
+			{data.map((project, index) => (
+				<ProjectCard project={project} lang={lang} t={t} index={index} />
+			))}
 		</div>
 	</div>
 </section>

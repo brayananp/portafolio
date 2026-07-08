@@ -1,0 +1,47 @@
+---
+import type { UiKey } from "../../i18n/ui";
+import { getProjectPath } from "../../lib/projects";
+import type { Locale, Project } from "../../types/portfolio";
+
+interface Props {
+	project: Project;
+	lang: Locale;
+	t: (key: UiKey) => string;
+	index?: number;
+}
+
+const { project, lang, t, index = 0 } = Astro.props;
+const href = getProjectPath(lang, project.id);
+const delay = Math.min(index * 90, 360);
+---
+
+<article
+	class="project-card group"
+	data-reveal
+	data-reveal-delay={delay}
+>
+	<a href={href} class="project-card__link">
+		<div class="project-card__header">
+			<span class="font-mono text-xs text-diff-added shrink-0">+ added</span>
+			<span class="font-mono text-xs text-amber shrink-0">{project.version}</span>
+		</div>
+
+		<h3 class="project-card__title">{project.name}</h3>
+		<p class="project-card__summary">{project.summary}</p>
+
+		<div class="project-card__tags">
+			{
+				project.tags.slice(0, 4).map((tag) => (
+					<span class="font-mono text-[11px] text-muted bg-surface-1 px-2 py-0.5 rounded-md">
+						{tag}
+					</span>
+				))
+			}
+		</div>
+
+		<span class="project-card__cta">
+			{t("projects.viewDetail")}
+			<span class="project-card__arrow" aria-hidden="true">→</span>
+		</span>
+	</a>
+</article>

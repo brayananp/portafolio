@@ -23,11 +23,21 @@ const t = useTranslations(lang);
 <Header lang={lang} />
 <main class="flex flex-col gap-20 sm:gap-28 pb-16">
 	<Hero data={portfolio.hero} displayName={portfolio.displayName} lang={lang} t={t} />
-	<Career data={portfolio.career} t={t} />
-	<Projects data={portfolio.projects} t={t} />
-	<About data={portfolio.about} t={t} />
-	<Stack stack={portfolio.stack} t={t} />
-	<BlogPreview lang={lang} t={t} />
-	<Contact data={portfolio.contact} t={t} />
+	<div data-reveal>
+		<Career data={portfolio.career} t={t} />
+	</div>
+	<Projects data={portfolio.projects} lang={lang} t={t} />
+	<div data-reveal data-reveal-delay="80">
+		<About data={portfolio.about} t={t} />
+	</div>
+	<div data-reveal data-reveal-delay="120">
+		<Stack stack={portfolio.stack} t={t} />
+	</div>
+	<div data-reveal data-reveal-delay="160">
+		<BlogPreview lang={lang} t={t} />
+	</div>
+	<div data-reveal data-reveal-delay="200">
+		<Contact data={portfolio.contact} t={t} />
+	</div>
 </main>
 	<Footer data={portfolio} lang={lang} t={t} />
