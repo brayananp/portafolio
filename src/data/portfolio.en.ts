@@ -28,22 +28,22 @@ export const portfolio: PortfolioData = {
 		{
 			category: "frontend",
 			label: "Frontend",
-			items: ["React", "TypeScript", "TailwindCSS", "shadcn/ui"],
+			items: ["React", "Next.js", "Astro", "TypeScript", "Tailwind CSS"],
 		},
 		{
 			category: "backend",
 			label: "Backend",
-			items: ["TanStack Start", "Node.js", "Better Auth"],
+			items: ["Node.js", "Laravel", "PHP", "REST APIs"],
 		},
 		{
 			category: "database",
 			label: "Database",
-			items: ["PostgreSQL", "Drizzle ORM"],
+			items: ["PostgreSQL", "MySQL", "Prisma", "Drizzle ORM"],
 		},
 		{
 			category: "tools",
 			label: "Tools",
-			items: ["Git", "pnpm", "Biome", "Astro"],
+			items: ["Git", "GitHub", "pnpm", "Biome", "Vercel"],
 		},
 	],
 	projects: [
