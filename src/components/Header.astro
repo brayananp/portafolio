@@ -57,11 +57,11 @@ const navItems = [
 >
 	<div
 		id="header-bar"
-		class="pointer-events-auto mx-auto flex items-center justify-center gap-1.5 sm:gap-2 w-max max-w-[calc(100vw-1.5rem)] rounded-full border border-transparent px-2 sm:px-3 py-1.5 bg-bg transition-[background-color,box-shadow,border-color,backdrop-filter] duration-300 ease-out [&.is-scrolled]:border-border [&.is-scrolled]:bg-surface/95 [&.is-scrolled]:backdrop-blur-md [&.is-scrolled]:shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
+		class="pointer-events-auto mx-auto flex w-full max-w-[calc(100vw-1.5rem)] items-center justify-between gap-1.5 rounded-full border border-transparent px-2 py-1.5 bg-bg transition-[background-color,box-shadow,border-color,backdrop-filter] duration-300 ease-out sm:w-max sm:justify-center sm:gap-2 sm:px-3 [&.is-scrolled]:border-border [&.is-scrolled]:bg-surface/95 [&.is-scrolled]:backdrop-blur-md [&.is-scrolled]:shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
 	>
 		<nav
 			id="header-nav"
-			class="flex items-center justify-center gap-0.5 sm:gap-1 min-w-0 overflow-x-auto scrollbar-none [&::-webkit-scrollbar]:hidden"
+			class="flex min-w-0 flex-1 items-center justify-start gap-0.5 overflow-x-auto px-1 scrollbar-none sm:justify-center sm:gap-1 sm:px-0 [&::-webkit-scrollbar]:hidden"
 			aria-label="Main navigation"
 		>
 			{
@@ -79,11 +79,11 @@ const navItems = [
 		</nav>
 
 		<div
-			class="flex items-center gap-1.5 sm:gap-2 shrink-0 border-l border-border pl-2 sm:pl-2.5"
+			class="flex shrink-0 items-center gap-1 border-l border-border pl-2 sm:gap-2 sm:pl-2.5"
 		>
 			<select
 				id="lang-select"
-				class="sm:hidden font-mono text-[11px] text-primary bg-surface-1 border border-border rounded-md px-1.5 py-1 cursor-pointer"
+				class="sm:hidden w-[52px] font-mono text-[11px] text-primary bg-surface-1 border border-border rounded-md px-1 py-1 cursor-pointer"
 				aria-label={t("lang.switch")}
 			>
 				<option value={esHref} selected={lang === "es"}>ES</option>
@@ -128,6 +128,7 @@ const navItems = [
 <script>
 	function initHeader() {
 		const headerBar = document.getElementById("header-bar");
+		const headerNav = document.getElementById("header-nav");
 		const langSelect = document.getElementById("lang-select") as HTMLSelectElement | null;
 		const navLinks = document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
 
@@ -145,10 +146,41 @@ const navItems = [
 			headerBar?.classList.toggle("is-scrolled", window.scrollY > scrollThreshold);
 		}
 
+		function scrollLinkIntoView(link: HTMLAnchorElement) {
+			if (!headerNav || window.innerWidth >= 640) return;
+
+			const horizontalGap = 8;
+			const maxScrollLeft = Math.max(0, headerNav.scrollWidth - headerNav.clientWidth);
+			const centeredScrollLeft =
+				link.offsetLeft - (headerNav.clientWidth - link.clientWidth) / 2;
+			const safeScrollLeft = Math.min(
+				Math.max(0, centeredScrollLeft - horizontalGap),
+				maxScrollLeft,
+			);
+
+			headerNav.scrollTo({
+				left: safeScrollLeft,
+				behavior: "smooth",
+			});
+		}
+
 		function setActiveLink(sectionId: string) {
 			for (const link of navLinks) {
-				link.dataset.active = link.dataset.section === sectionId ? "true" : "false";
+				const isActive = link.dataset.section === sectionId;
+				link.dataset.active = isActive ? "true" : "false";
+
+				if (isActive) {
+					scrollLinkIntoView(link);
+				}
 			}
+		}
+
+		function syncLinkWithHash() {
+			const currentHash = window.location.hash.replace(/^#/, "");
+
+			if (!currentHash) return;
+
+			setActiveLink(currentHash);
 		}
 
 		function initSectionObserver() {
@@ -178,8 +210,10 @@ const navItems = [
 
 		updateScrollState();
 		initSectionObserver();
+		syncLinkWithHash();
 
 		window.addEventListener("scroll", updateScrollState, { passive: true });
+		window.addEventListener("hashchange", syncLinkWithHash);
 
 		langSelect?.addEventListener("change", () => {
 			if (langSelect.value) {
