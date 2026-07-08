@@ -1,9 +1,9 @@
 ---
+import { render } from "astro:content";
 import { useTranslations } from "../../i18n/ui";
 import { getLocalizedPath } from "../../i18n/utils";
 import type { BlogPost } from "../../lib/blog";
 import type { Locale } from "../../types/portfolio";
-import { render } from "astro:content";
 import Header from "../Header.astro";
 import BlogPostMeta from "./BlogPostMeta.astro";
 import BlogPostNav from "./BlogPostNav.astro";
