@@ -1,12 +1,12 @@
 ---
 import BlogIndex from "../../../components/blog/BlogIndex.astro";
 import { portfolio } from "../../../data/portfolio.en";
-import Layout from "../../../layouts/Layout.astro";
 import { getLocalizedPath } from "../../../i18n/utils";
+import Layout from "../../../layouts/Layout.astro";
 import {
-	absoluteUrl,
-	buildBreadcrumbJsonLd,
-	getSiteUrl,
+absoluteUrl,
+buildBreadcrumbJsonLd,
+getSiteUrl,
 } from "../../../lib/seo";
 
 const siteUrl = getSiteUrl(Astro.site);

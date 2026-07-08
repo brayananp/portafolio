@@ -1,19 +1,19 @@
 ---
+import { getCollection } from "astro:content";
 import BlogArticle from "../../../components/blog/BlogArticle.astro";
-import Layout from "../../../layouts/Layout.astro";
 import { portfolio } from "../../../data/portfolio.es";
+import Layout from "../../../layouts/Layout.astro";
 import {
-	getBlogPostPath,
-	getSlugFromPostId,
+getBlogPostPath,
+getSlugFromPostId,
 } from "../../../lib/blog";
 import {
-	absoluteUrl,
-	buildArticleJsonLd,
-	buildBreadcrumbJsonLd,
-	DEFAULT_OG_IMAGE,
-	getSiteUrl,
+absoluteUrl,
+buildArticleJsonLd,
+buildBreadcrumbJsonLd,
+DEFAULT_OG_IMAGE,
+getSiteUrl,
 } from "../../../lib/seo";
-import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("blog", ({ data, id }) => {
