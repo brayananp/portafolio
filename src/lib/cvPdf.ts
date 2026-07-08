@@ -6,8 +6,8 @@ import {
 	StandardFonts,
 } from "pdf-lib";
 import type { PortfolioData } from "../types/portfolio";
+import { type ContactIconType, drawContactIcon } from "./cvPdfIcons";
 import type { CvPdfLabels } from "./cvPdfLabels";
-import { drawContactIcon, type ContactIconType } from "./cvPdfIcons";
 
 const PAGE_WIDTH = 595.28;
 const PAGE_HEIGHT = 841.89;

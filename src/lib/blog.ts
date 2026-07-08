@@ -1,4 +1,4 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import { getLocalizedPath } from "../i18n/utils";
 import type { Locale } from "../types/portfolio";
 
