@@ -1,34 +1,31 @@
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
+import { loadEnv } from "vite";
 
-const siteUrl =
-	import.meta.env.SITE_URL ??
-	import.meta.env.VITE_SITE_URL ??
-	"http://localhost:4321";
-
+const { SITE_URL } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 // https://astro.build/config
 export default defineConfig({
-	site: siteUrl,
-	i18n: {
-		defaultLocale: "es",
-		locales: ["es", "en"],
-		routing: {
-			prefixDefaultLocale: true,
-		},
-	},
-	integrations: [
-		sitemap({
-			i18n: {
-				defaultLocale: "es",
-				locales: {
-					es: "es",
-					en: "en",
-				},
+		site: SITE_URL ?? "https://brayan-nunez.pages.dev",
+		i18n: {
+			defaultLocale: "es",
+			locales: ["es", "en"],
+			routing: {
+				prefixDefaultLocale: true,
 			},
-		}),
-	],
-	vite: {
-		plugins: [tailwindcss()],
-	},
+		},
+		integrations: [
+			sitemap({
+				i18n: {
+					defaultLocale: "es",
+					locales: {
+						es: "es",
+						en: "en",
+					},
+				},
+			}),
+		],
+		vite: {
+			plugins: [tailwindcss()],
+		},
 });
