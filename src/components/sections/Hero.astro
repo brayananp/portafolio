@@ -1,17 +1,20 @@
 ---
-import { Image } from "astro:assets";
-import avatarSrc from "../../assets/images/avatar.webp";
-import type { UiKey } from "../../i18n/ui";
-import type { Locale, PortfolioData } from "../../types/portfolio";
+ import { Image } from "astro:assets";
+ import avatarSrc from "../../assets/images/avatar.webp";
+ import GithubIcon from "../../icons/GithubIcon.astro";
+ import LinkedinIcon from "../../icons/LinkedinIcon.astro";
+ import type { UiKey } from "../../i18n/ui";
+ import type { Locale, PortfolioData } from "../../types/portfolio";
 
 interface Props {
 	data: PortfolioData["hero"];
+ 	social: PortfolioData["social"];
 	displayName: string;
 	lang: Locale;
 	t: (key: UiKey) => string;
 }
 
-const { data, displayName, lang, t } = Astro.props;
+ const { data, social, displayName, lang, t } = Astro.props;
 
 const formattedDate = new Date(data.releaseDate).toLocaleDateString(
 	lang === "en" ? "en-US" : "es-PE",
@@ -46,6 +49,30 @@ const formattedDate = new Date(data.releaseDate).toLocaleDateString(
 				<div class="mt-6 font-mono text-xs text-muted">
 					<span class="text-amber">{t("hero.releaseDate")}:</span>
 					<time datetime={data.releaseDate}>{formattedDate}</time>
+				</div>
+
+				<div class="mt-6 flex flex-wrap items-center gap-4 font-mono text-sm">
+					<a
+						href={social.github}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label={t("contact.github")}
+						class="inline-flex items-center gap-1.5 text-secondary hover:text-amber transition-colors"
+					>
+						<GithubIcon class="shrink-0" aria-hidden="true" />
+						<span>{t("contact.github")}</span>
+					</a>
+
+					<a
+						href={social.linkedin}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label={t("contact.linkedin")}
+						class="inline-flex items-center gap-1.5 text-secondary hover:text-amber transition-colors"
+					>
+						<LinkedinIcon class="shrink-0" aria-hidden="true" />
+						<span>{t("contact.linkedin")}</span>
+					</a>
 				</div>
 			</div>
 
