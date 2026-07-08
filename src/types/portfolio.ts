@@ -22,8 +22,11 @@ export interface Project {
 export interface CareerEntry {
 	version: string;
 	title: string;
+	organization?: string;
+	location?: string;
 	period: string;
 	description: string;
+	highlights?: string[];
 }
 
 export interface ContactLinks {

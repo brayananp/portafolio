@@ -100,18 +100,57 @@ export const portfolio: PortfolioData = {
 	],
 	career: [
 		{
-			version: "v2023.06",
-			title: "Systems Engineer — Universidad César Vallejo",
-			period: "2019 – 2023",
+			version: "v2025.01",
+			title: "Desarrollador Full-Stack Freelance",
+			organization: "Independiente",
+			location: "Lima, Perú (remoto)",
+			period: "2025 - Actualidad",
 			description:
-				"Graduación con enfoque en ingeniería de software, bases de datos y arquitectura de sistemas.",
+				"Trabajo de forma independiente en el diseño, desarrollo y despliegue de soluciones web para clientes reales, cubriendo tanto la parte técnica como la coordinación del proyecto.",
+			highlights: [
+				"Diseñé, desarrollé y desplegué de forma independiente 4 sitios web comerciales en producción y 1 dashboard interno de gestión, cubriendo todo el ciclo: arquitectura, base de datos, frontend, despliegue y mantenimiento.",
+				"Gestioné de manera autónoma requerimientos, plazos y comunicación con clientes reales, desde el levantamiento de necesidades hasta el soporte post-lanzamiento.",
+				"Apliqué buenas prácticas de arquitectura, control de versiones y documentación técnica en cada proyecto entregado.",
+			],
 		},
 		{
-			version: "v2024.01",
-			title: "Desarrollador Full-Stack Freelance",
-			period: "2024 – presente",
+			version: "v2020.06",
+			title: "Desarrollador Web - Mantenimiento y Evolución",
+			organization: "ONG Juventud Globalizada",
+			location: "Lima, Perú",
+			period: "Jun. 2020 - Dic. 2020",
 			description:
-				"Desarrollo de productos web para clientes en Perú y LATAM: CRMs, plataformas de gestión y e-commerce B2B.",
+				"Participé en la evolución de una aplicación Laravel existente, incorporando mejoras funcionales y manteniendo la estabilidad del sistema.",
+			highlights: [
+				"Implementé mejoras funcionales, nuevos módulos y corrección de errores sobre una aplicación Laravel existente.",
+				"Realicé cambios controlados en la estructura MySQL y documenté flujos de usuario y funcionalidades incorporadas.",
+			],
+		},
+		{
+			version: "v2019.04",
+			title: "Desarrollador Web - Backend",
+			organization: "ONG Juventud Globalizada",
+			location: "Lima, Perú",
+			period: "Abr. 2019 - Jul. 2019",
+			description:
+				"Desarrollé un sistema institucional orientado a la gestión interna, con enfoque en backend, modelo de datos y validación con usuarios no técnicos.",
+			highlights: [
+				"Desarrollé un sistema de gestión institucional con PHP, Laravel 5.x, MySQL, Blade y Bootstrap, aplicando patrón MVC y autenticación de usuarios.",
+				"Modelé una base de datos relacional en MySQL con entidades, relaciones, claves foráneas e índices para mejorar integridad y consultas.",
+				"Coordiné levantamiento de requerimientos y validación de entregables con responsables no técnicos de la organización.",
+			],
+		},
+		{
+			version: "v2023.06",
+			title: "Ingeniero de Sistemas",
+			organization: "Universidad César Vallejo",
+			location: "Lima, Perú",
+			period: "2019 - 2023",
+			description:
+				"Formación universitaria con enfoque en ingeniería de software, bases de datos y arquitectura de sistemas.",
+			highlights: [
+				"Consolidé bases técnicas en análisis, diseño e implementación de sistemas de información.",
+			],
 		},
 	],
 	contact: {

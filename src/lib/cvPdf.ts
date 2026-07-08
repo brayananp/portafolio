@@ -199,6 +199,7 @@ function drawExperienceEntry(
 	title: string,
 	period: string,
 	description: string,
+	highlights: string[] = [],
 ): PdfContext {
 	const titleSize = 10.5;
 	const periodSize = 9;
@@ -240,6 +241,11 @@ function drawExperienceEntry(
 	}
 
 	next = drawParagraph(next, description, { size: 9.5 });
+
+	for (const highlight of highlights) {
+		next = drawParagraph(next, `• ${highlight}`, { size: 9 });
+	}
+
 	return { ...next, y: next.y - spacing.afterEntry };
 }
 
@@ -437,11 +443,15 @@ export async function generateCvPdf(
 
 	ctx = drawSectionTitle(ctx, labels.experience);
 	for (const entry of portfolio.career) {
+		const heading = [entry.title, entry.organization, entry.location]
+			.filter(Boolean)
+			.join(" | ");
 		ctx = drawExperienceEntry(
 			ctx,
-			entry.title,
+			heading,
 			entry.period,
 			entry.description,
+			entry.highlights ?? [],
 		);
 	}
 

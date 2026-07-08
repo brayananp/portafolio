@@ -100,18 +100,57 @@ export const portfolio: PortfolioData = {
 	],
 	career: [
 		{
-			version: "v2023.06",
-			title: "Systems Engineer — Universidad César Vallejo",
-			period: "2019 – 2023",
+			version: "v2025.01",
+			title: "Freelance Full-Stack Developer",
+			organization: "Independent",
+			location: "Lima, Peru (remote)",
+			period: "2025 - Present",
 			description:
-				"Graduation focused on software engineering, databases, and systems architecture.",
+				"I work independently on the design, development, and deployment of web solutions for real clients, covering both technical execution and project coordination.",
+			highlights: [
+				"I independently designed, developed, and deployed 4 production commercial websites and 1 internal management dashboard, covering the full cycle: architecture, database, frontend, deployment, and maintenance.",
+				"I managed requirements, timelines, and communication directly with real clients, from discovery to post-launch support.",
+				"I applied sound architecture, version control, and technical documentation practices in every delivered project.",
+			],
 		},
 		{
-			version: "v2024.01",
-			title: "Freelance Full-Stack Developer",
-			period: "2024 – present",
+			version: "v2020.06",
+			title: "Web Developer - Maintenance and Evolution",
+			organization: "ONG Juventud Globalizada",
+			location: "Lima, Peru",
+			period: "Jun. 2020 - Dec. 2020",
 			description:
-				"Web product development for clients in Peru and LATAM: CRMs, management platforms, and B2B e-commerce.",
+				"I contributed to the evolution of an existing Laravel application by adding functional improvements while preserving system stability.",
+			highlights: [
+				"I implemented functional improvements, new modules, and bug fixes on an existing Laravel application.",
+				"I made controlled changes to the MySQL structure and documented user flows and newly added functionality.",
+			],
+		},
+		{
+			version: "v2019.04",
+			title: "Web Developer - Backend",
+			organization: "ONG Juventud Globalizada",
+			location: "Lima, Peru",
+			period: "Apr. 2019 - Jul. 2019",
+			description:
+				"I built an institutional management system focused on backend development, data modeling, and validation with non-technical stakeholders.",
+			highlights: [
+				"I developed an institutional management system with PHP, Laravel 5.x, MySQL, Blade, and Bootstrap, applying the MVC pattern and user authentication.",
+				"I modeled a relational MySQL database with entities, relationships, foreign keys, and indexes to improve data integrity and query performance.",
+				"I coordinated requirements gathering and deliverable validation with non-technical organization stakeholders.",
+			],
+		},
+		{
+			version: "v2023.06",
+			title: "Systems Engineer",
+			organization: "Universidad César Vallejo",
+			location: "Lima, Peru",
+			period: "2019 - 2023",
+			description:
+				"University education focused on software engineering, databases, and systems architecture.",
+			highlights: [
+				"I built a strong technical foundation in analysis, design, and implementation of information systems.",
+			],
 		},
 	],
 	contact: {
