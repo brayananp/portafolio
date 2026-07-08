@@ -35,6 +35,15 @@
 		}
 	}
 
-	initRevealOnScroll();
+	function scheduleWhenIdle(callback: () => void) {
+		if ("requestIdleCallback" in window) {
+			requestIdleCallback(callback, { timeout: 1500 });
+			return;
+		}
+
+		setTimeout(callback, 1);
+	}
+
+	scheduleWhenIdle(initRevealOnScroll);
 	document.addEventListener("astro:after-swap", initRevealOnScroll);
 </script>

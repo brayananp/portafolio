@@ -1,13 +1,13 @@
 ---
-import "@fontsource-variable/inter";
-import "@fontsource/jetbrains-mono";
+import deferredFonts from "../styles/deferred-fonts.css?url";
+import "../styles/fonts.css";
 import "../styles/global.css";
 import AmbientBackground from "../components/AmbientBackground.astro";
 import RevealOnScroll from "../components/RevealOnScroll.astro";
 import Seo from "../components/Seo.astro";
-import type { Locale } from "../types/portfolio";
 import { extractProjectIdFromPath } from "../lib/projects";
 import { getSiteUrl } from "../lib/seo";
+import type { Locale } from "../types/portfolio";
 
 interface Props {
 	title: string;
@@ -65,6 +65,16 @@ const alternateUrl = siteUrl
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href={deferredFonts}
+			media="print"
+			onload="this.media='all'"
+		/>
+		<noscript>
+			<link rel="stylesheet" href={deferredFonts} />
+		</noscript>
+		<slot name="head" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -99,5 +109,6 @@ const alternateUrl = siteUrl
 			<slot />
 		</div>
 		<RevealOnScroll />
+		<link rel="manifest" href="/site.webmanifest" />
 	</body>
 </html>

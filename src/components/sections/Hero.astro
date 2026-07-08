@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import avatarSrc from "../../assets/images/avatar.webp";
 import type { UiKey } from "../../i18n/ui";
 import type { Locale, PortfolioData } from "../../types/portfolio";
 
@@ -48,11 +50,15 @@ const formattedDate = new Date(data.releaseDate).toLocaleDateString(
 			</div>
 
 			<div class="shrink-0 self-center sm:self-start sm:mt-1">
-				<img
-					src={data.avatar.src}
+				<Image
+					src={avatarSrc}
 					alt={data.avatar.alt}
 					width={176}
 					height={176}
+					widths={[144, 176, 288, 352]}
+					sizes="(max-width: 640px) 144px, 176px"
+					quality={80}
+					format="webp"
 					class="size-36 sm:size-44 rounded-2xl border border-border ring-2 ring-amber/15 object-cover object-top bg-surface-1"
 					loading="eager"
 					fetchpriority="high"

@@ -1,6 +1,6 @@
 ---
-import { getLocalizedPath } from "../i18n/utils";
 import { useTranslations } from "../i18n/ui";
+import { getLocalizedPath } from "../i18n/utils";
 import { extractProjectIdFromPath } from "../lib/projects";
 import type { Locale } from "../types/portfolio";
 import ThemeToggle from "./ThemeToggle.astro";
@@ -201,6 +201,15 @@ const navItems = [
 		}
 	}
 
-	initHeader();
+	function scheduleWhenIdle(callback: () => void) {
+		if ("requestIdleCallback" in window) {
+			requestIdleCallback(callback, { timeout: 1500 });
+			return;
+		}
+
+		setTimeout(callback, 1);
+	}
+
+	scheduleWhenIdle(initHeader);
 	document.addEventListener("astro:after-swap", initHeader);
 </script>

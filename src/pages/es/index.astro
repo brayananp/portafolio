@@ -1,12 +1,13 @@
 ---
 import HomePage from "../../components/HomePage.astro";
 import { portfolio } from "../../data/portfolio.es";
-import Layout from "../../layouts/Layout.astro";
 import { getLocalizedPath } from "../../i18n/utils";
+import Layout from "../../layouts/Layout.astro";
+import { getAvatarLcpPreloadUrl } from "../../lib/avatar";
 import {
-	absoluteUrl,
-	buildHomeJsonLd,
-	getSiteUrl,
+absoluteUrl,
+buildHomeJsonLd,
+getSiteUrl,
 } from "../../lib/seo";
 
 const siteUrl = getSiteUrl(Astro.site);
@@ -15,6 +16,7 @@ const homeUrl = absoluteUrl(siteUrl, homePath);
 const sameAs = [portfolio.contact.github, portfolio.contact.linkedin].filter(
 	(link) => !link.includes("ejemplo"),
 );
+const lcpAvatarSrc = await getAvatarLcpPreloadUrl();
 ---
 
 <Layout
@@ -35,5 +37,12 @@ const sameAs = [portfolio.contact.github, portfolio.contact.linkedin].filter(
 		sameAs,
 	})}
 >
+	<link
+		slot="head"
+		rel="preload"
+		as="image"
+		href={lcpAvatarSrc}
+		fetchpriority="high"
+	/>
 	<HomePage lang="es" portfolio={portfolio} />
 </Layout>

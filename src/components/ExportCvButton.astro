@@ -29,7 +29,6 @@ const locale = lang === "es" ? "es-PE" : "en-US";
 </button>
 
 <script>
-	import { downloadPdf, generateCvPdf } from "../lib/cvPdf";
 	import type { CvPdfLabels } from "../lib/cvPdfLabels";
 	import type { PortfolioData } from "../types/portfolio";
 
@@ -68,6 +67,7 @@ const locale = lang === "es" ? "es-PE" : "en-US";
 			setButtonState(button, exportingLabel, true);
 
 			try {
+				const { downloadPdf, generateCvPdf } = await import("../lib/cvPdf");
 				const { bytes, filename } = await generateCvPdf(
 					portfolio,
 					labels,
@@ -83,6 +83,15 @@ const locale = lang === "es" ? "es-PE" : "en-US";
 		});
 	}
 
-	initExportCvButton();
+	function scheduleWhenIdle(callback: () => void) {
+		if ("requestIdleCallback" in window) {
+			requestIdleCallback(callback, { timeout: 2000 });
+			return;
+		}
+
+		setTimeout(callback, 1);
+	}
+
+	scheduleWhenIdle(initExportCvButton);
 	document.addEventListener("astro:after-swap", initExportCvButton);
 </script>
