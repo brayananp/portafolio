@@ -36,5 +36,10 @@ jobs:
       - name: Verificar lint y formato
         run: pnpm run check:ci
 
+      - name: Auditoría de dependencias
+        run: pnpm audit --audit-level=high
+
       - name: Build de producción
         run: pnpm run build
+        env:
+          SITE_URL: https://brayan-nunez.pages.dev

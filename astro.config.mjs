@@ -25,6 +25,25 @@ export default defineConfig({
 			},
 		}),
 	],
+	security: {
+		csp: {
+			directives: [
+				"default-src 'self'",
+				"base-uri 'self'",
+				"form-action 'self'",
+				"frame-ancestors 'none'",
+				"object-src 'none'",
+				"img-src 'self' data: https:",
+				"font-src 'self'",
+				"connect-src 'self' https://cloud.umami.is",
+				"manifest-src 'self'",
+				"upgrade-insecure-requests",
+			],
+			scriptDirective: {
+				resources: ["'self'", "https://cloud.umami.is"],
+			},
+		},
+	},
 	vite: {
 		plugins: [tailwindcss()],
 	},
