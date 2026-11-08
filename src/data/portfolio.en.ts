@@ -57,7 +57,7 @@ export const portfolio: PortfolioData = {
 			tags: ["astro", "typescript", "tailwindcss", "pdf-lib"],
 			access: "open-source",
 			links: {
-				demo: "https://brayan-nunez.pages.dev/en",
+				demo: "https://brayan-nunez.pages.dev/en/",
 				repo: "https://github.com/brayananp/portafolio",
 			},
 		},

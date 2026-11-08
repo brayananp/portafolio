@@ -1,11 +1,13 @@
 ---
-import { getCollection } from "astro:content";
 import BlogArticle from "../../../components/blog/BlogArticle.astro";
 import { portfolio } from "../../../data/portfolio.en";
+import { getLocalizedPath } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
 import {
-getBlogPostPath,
-getSlugFromPostId,
+	getAlternateBlogPostPath,
+	getBlogPostPath,
+	getPublishedBlogPosts,
+	getSlugFromPostId,
 } from "../../../lib/blog";
 import {
 absoluteUrl,
@@ -16,9 +18,7 @@ getSiteUrl,
 } from "../../../lib/seo";
 
 export async function getStaticPaths() {
-	const posts = await getCollection("blog", ({ data, id }) => {
-		return !data.draft && id.startsWith("en/");
-	});
+	const posts = await getPublishedBlogPosts("en");
 
 	return posts.map((post) => ({
 		params: { slug: getSlugFromPostId(post.id) },
@@ -31,9 +31,7 @@ const slug = getSlugFromPostId(post.id);
 const path = getBlogPostPath("en", slug);
 const siteUrl = getSiteUrl(Astro.site);
 const pageUrl = absoluteUrl(siteUrl, path);
-const alternatePath = post.data.alternateSlug
-	? getBlogPostPath("es", post.data.alternateSlug)
-	: getBlogPostPath("es", slug);
+const alternatePath = await getAlternateBlogPostPath(post, "en");
 const coverImage = post.data.coverImage ?? DEFAULT_OG_IMAGE;
 const jsonLd = [
 	buildArticleJsonLd({
@@ -48,8 +46,8 @@ const jsonLd = [
 		locale: "en",
 	}),
 	buildBreadcrumbJsonLd([
-		{ name: "Home", url: absoluteUrl(siteUrl, "/en") },
-		{ name: "Blog", url: absoluteUrl(siteUrl, "/en/blog") },
+		{ name: "Home", url: absoluteUrl(siteUrl, getLocalizedPath("/", "en")) },
+		{ name: "Blog", url: absoluteUrl(siteUrl, getLocalizedPath("/blog", "en")) },
 		{ name: post.data.title, url: pageUrl },
 	]),
 ];
@@ -69,5 +67,5 @@ const jsonLd = [
 	alternatePath={alternatePath}
 	jsonLd={jsonLd}
 >
-	<BlogArticle post={post} lang="en" />
+	<BlogArticle post={post} lang="en" alternatePath={alternatePath} />
 </Layout>

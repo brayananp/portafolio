@@ -7,11 +7,8 @@ export function getLangFromUrl(url: URL): Locale {
 }
 
 export function getLocalizedPath(path: string, lang: Locale): string {
-	const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-	if (normalizedPath === "/" || normalizedPath === "") {
-		return `/${lang}`;
-	}
-	return `/${lang}${normalizedPath}`;
+	const segment = path.replace(/^\/+|\/+$/g, "");
+	return segment ? `/${lang}/${segment}/` : `/${lang}/`;
 }
 
 export function getAlternateLang(lang: Locale): Locale {

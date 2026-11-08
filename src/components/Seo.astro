@@ -13,9 +13,8 @@ interface Props {
 	title: string;
 	description?: string;
 	lang: Locale;
-	path: string;
 	canonicalUrl: string;
-	alternateUrl: string;
+	alternateUrl?: string;
 	siteUrl: string;
 	image?: string;
 	imageAlt?: string;
@@ -45,7 +44,7 @@ const {
 } = Astro.props;
 
 const ogImage = absoluteUrl(siteUrl, image);
-const robotsContent = noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large";
+const robotsContent = noindex ? "noindex, follow" : "index, follow, max-image-preview:large";
 const localeTag = lang === "es" ? "es_PE" : "en_US";
 ---
 
@@ -56,11 +55,13 @@ const localeTag = lang === "es" ? "es_PE" : "en_US";
 {description && <meta name="description" content={description} />}
 
 <link rel="canonical" href={canonicalUrl} />
-<link rel="alternate" hreflang={lang} href={canonicalUrl} />
-<link rel="alternate" hreflang={lang === "es" ? "en" : "es"} href={alternateUrl} />
 {
-	siteUrl && (
-		<link rel="alternate" hreflang="x-default" href={`${siteUrl}/es`} />
+	alternateUrl && (
+		<>
+			<link rel="alternate" hreflang={lang} href={canonicalUrl} />
+			<link rel="alternate" hreflang={lang === "es" ? "en" : "es"} href={alternateUrl} />
+			<link rel="alternate" hreflang="x-default" href={lang === "es" ? canonicalUrl : alternateUrl} />
+		</>
 	)
 }
 
@@ -70,10 +71,7 @@ const localeTag = lang === "es" ? "es_PE" : "en_US";
 {description && <meta property="og:description" content={description} />}
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:locale" content={localeTag} />
-<meta
-	property="og:locale:alternate"
-	content={lang === "es" ? "en_US" : "es_PE"}
-/>
+{alternateUrl && <meta property="og:locale:alternate" content={lang === "es" ? "en_US" : "es_PE"} />}
 <meta property="og:image" content={ogImage} />
 <meta property="og:image:secure_url" content={ogImage} />
 <meta property="og:image:type" content={DEFAULT_OG_IMAGE_TYPE} />

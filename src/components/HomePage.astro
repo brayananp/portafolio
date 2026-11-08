@@ -1,5 +1,6 @@
 ---
 import { useTranslations } from "../i18n/ui";
+import { getPublishedBlogPosts } from "../lib/blog";
 import type { Locale, PortfolioData } from "../types/portfolio";
 import Header from "./Header.astro";
 import About from "./sections/About.astro";
@@ -18,10 +19,11 @@ interface Props {
 
 const { lang, portfolio } = Astro.props;
 const t = useTranslations(lang);
+const posts = (await getPublishedBlogPosts(lang)).slice(0, 3);
 ---
 
-<Header lang={lang} />
-<main class="flex flex-col gap-20 sm:gap-28 pb-16">
+<Header lang={lang} showBlog={posts.length > 0} />
+<main id="main-content" tabindex="-1" class="flex flex-col gap-20 sm:gap-28 pb-16">
 	<Hero
 		data={portfolio.hero}
 		social={portfolio.social}
@@ -39,11 +41,13 @@ const t = useTranslations(lang);
 	<div data-reveal data-reveal-delay="120">
 		<Stack stack={portfolio.stack} t={t} />
 	</div>
-	<div data-reveal data-reveal-delay="160">
-		<BlogPreview lang={lang} t={t} />
-	</div>
+	{posts.length > 0 && (
+		<div data-reveal data-reveal-delay="160">
+			<BlogPreview lang={lang} t={t} posts={posts} />
+		</div>
+	)}
 	<div data-reveal data-reveal-delay="200">
 		<Contact data={portfolio.contact} t={t} />
 	</div>
 </main>
-	<Footer data={portfolio} lang={lang} t={t} />
+<Footer data={portfolio} lang={lang} t={t} />

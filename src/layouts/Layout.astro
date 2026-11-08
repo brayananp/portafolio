@@ -5,14 +5,16 @@ import "../styles/global.css";
 import AmbientBackground from "../components/AmbientBackground.astro";
 import RevealOnScroll from "../components/RevealOnScroll.astro";
 import Seo from "../components/Seo.astro";
-import { getSiteUrl } from "../lib/seo";
+import { useTranslations } from "../i18n/ui";
+import { getAlternateLang, getLocalizedPath } from "../i18n/utils";
+import { absoluteUrl, getSiteUrl } from "../lib/seo";
 import type { Locale } from "../types/portfolio";
 
 interface Props {
 	title: string;
 	description?: string;
 	lang: Locale;
-	path?: string;
+	path: string;
 	image?: string;
 	imageAlt?: string;
 	ogType?: "website" | "article" | "profile";
@@ -40,19 +42,17 @@ const {
 	jsonLd,
 } = Astro.props;
 
-const alternateLang = lang === "es" ? "en" : "es";
+const t = useTranslations(lang);
 const siteUrl = getSiteUrl(Astro.site);
-const currentPath = path ?? `/${lang}`;
-const canonicalUrl = siteUrl ? `${siteUrl}${currentPath}` : currentPath;
-const isBlogArticle = /^\/(es|en)\/blog\/.+/.test(currentPath);
+const canonicalUrl = absoluteUrl(siteUrl, path);
 const resolvedAlternatePath =
 	alternatePath ??
-	(isBlogArticle
-		? `/${alternateLang}/blog`
-		: currentPath.replace(`/${lang}`, `/${alternateLang}`));
-const alternateUrl = siteUrl
-	? `${siteUrl}${resolvedAlternatePath}`
-	: resolvedAlternatePath;
+	(path === getLocalizedPath("/", lang)
+		? getLocalizedPath("/", getAlternateLang(lang))
+		: undefined);
+const alternateUrl = resolvedAlternatePath
+	? absoluteUrl(siteUrl, resolvedAlternatePath)
+	: undefined;
 
 ---
 
@@ -71,7 +71,6 @@ const alternateUrl = siteUrl
 			title={title}
 			description={description}
 			lang={lang}
-			path={currentPath}
 			canonicalUrl={canonicalUrl}
 			alternateUrl={alternateUrl}
 			siteUrl={siteUrl}
@@ -88,6 +87,12 @@ const alternateUrl = siteUrl
 		<script defer src="https://cloud.umami.is/script.js" data-website-id="98817b9d-d3f6-469a-8547-f5744cfca16e"></script>
 	</head>
 	<body class="bg-bg text-primary antialiased relative isolate">
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-md focus:bg-surface focus:px-4 focus:py-2 focus:text-primary"
+		>
+			{t("nav.skipToContent")}
+		</a>
 		<AmbientBackground />
 		<div class="relative z-10">
 			<slot />

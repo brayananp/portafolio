@@ -2,6 +2,9 @@ import type { Locale } from "../types/portfolio";
 
 export const ui = {
 	es: {
+		"nav.label": "Navegación principal",
+		"nav.menu": "Menú",
+		"nav.skipToContent": "Saltar al contenido principal",
 		"nav.career": "Experiencia",
 		"nav.projects": "Proyectos",
 		"nav.about": "Sobre mí",
@@ -62,6 +65,9 @@ export const ui = {
 		"lang.switch": "Cambiar idioma",
 	},
 	en: {
+		"nav.label": "Main navigation",
+		"nav.menu": "Menu",
+		"nav.skipToContent": "Skip to main content",
 		"nav.career": "Experience",
 		"nav.projects": "Projects",
 		"nav.about": "About",

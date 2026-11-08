@@ -1,243 +1,180 @@
 ---
 import { useTranslations } from "../i18n/ui";
-import { getLocalizedPath } from "../i18n/utils";
+import { getAlternateLang, getLocalizedPath } from "../i18n/utils";
 import type { Locale } from "../types/portfolio";
+import HeaderNav from "./HeaderNav.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
 interface Props {
 	lang: Locale;
+	showBlog: boolean;
+	alternatePath?: string;
 }
 
-const { lang } = Astro.props;
+const { lang, showBlog, alternatePath } = Astro.props;
 const t = useTranslations(lang);
-
-const isHomepage =
-	Astro.url.pathname === `/${lang}` || Astro.url.pathname === `/${lang}/`;
+const homePath = getLocalizedPath("/", lang);
+const currentPath = Astro.url.pathname;
+const isHomepage = currentPath === homePath;
+const alternateLang = getAlternateLang(lang);
+const alternateHref = alternatePath ?? getLocalizedPath("/", alternateLang);
+const blogPath = getLocalizedPath("/blog", lang);
 
 function getSectionHref(sectionId: string): string {
-	return isHomepage ? `#${sectionId}` : `/${lang}#${sectionId}`;
+	return `${isHomepage ? "" : homePath}#${sectionId}`;
 }
-
-function getBlogHref(): string {
-	return getLocalizedPath("/blog", lang);
-}
-
-function getAlternateHref(): string {
-	const pathname = Astro.url.pathname;
-	const alternateLang = lang === "es" ? "en" : "es";
-	const isBlogArticle = /^\/(es|en)\/blog\/.+/.test(pathname);
-
-	if (isBlogArticle) {
-		return getLocalizedPath("/blog", alternateLang);
-	}
-
-	if (pathname.startsWith(`/${lang}/`)) {
-		return pathname.replace(`/${lang}/`, `/${alternateLang}/`);
-	}
-
-	return `/${alternateLang}`;
-}
-
-const alternateHref = getAlternateHref();
-const esHref = lang === "es" ? Astro.url.pathname : alternateHref;
-const enHref = lang === "en" ? Astro.url.pathname : alternateHref;
 
 const navItems = [
 	{ href: getSectionHref("career"), id: "career", label: t("nav.career") },
 	{ href: getSectionHref("projects"), id: "projects", label: t("nav.projects") },
 	{ href: getSectionHref("about"), id: "about", label: t("nav.about") },
-	{ href: getBlogHref(), id: "blog", label: t("nav.blog") },
+	...(showBlog ? [{ href: blogPath, id: "blog", label: t("nav.blog") }] : []),
 	{ href: getSectionHref("contact"), id: "contact", label: t("nav.contact") },
 ];
 ---
 
 <header
 	id="site-header"
-	class="fixed top-0 inset-x-0 z-50 flex justify-center px-3 sm:px-4 pt-3 sm:pt-4 pointer-events-none"
+	class="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-4 sm:pt-4"
 >
 	<div
 		id="header-bar"
-		class="pointer-events-auto mx-auto flex w-full max-w-[calc(100vw-1.5rem)] items-center justify-between gap-1.5 rounded-full border border-transparent px-2 py-1.5 bg-bg transition-[background-color,box-shadow,border-color,backdrop-filter] duration-300 ease-out sm:w-max sm:justify-center sm:gap-2 sm:px-3 [&.is-scrolled]:border-border [&.is-scrolled]:bg-surface/95 [&.is-scrolled]:backdrop-blur-md [&.is-scrolled]:shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
+		class="pointer-events-auto relative flex w-max max-w-full items-center justify-center gap-2 rounded-full border border-border bg-bg px-2 py-1 transition-[background-color,box-shadow,border-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none sm:border-transparent sm:px-3 sm:py-1.5 [&.is-scrolled]:border-border [&.is-scrolled]:bg-surface/95 [&.is-scrolled]:backdrop-blur-md [&.is-scrolled]:shadow-[0_8px_30px_rgba(0,0,0,0.25)]"
 	>
-		<nav
-			id="header-nav"
-			class="flex min-w-0 flex-1 items-center justify-start gap-0.5 overflow-x-auto px-1 scrollbar-none sm:justify-center sm:gap-1 sm:px-0 [&::-webkit-scrollbar]:hidden"
-			aria-label="Main navigation"
+		<a
+			href={homePath}
+			translate="no"
+			aria-label={`BANP · ${t("nav.home")}`}
+			class="inline-flex min-h-11 items-center rounded-full px-2.5 font-display text-sm leading-none font-bold tracking-[0.12em] text-primary transition-colors hover:bg-surface-hover sm:hidden"
 		>
-			{
-				navItems.map((item) => (
+			<span>B<span class="text-amber">A</span>NP</span>
+		</a>
+
+		<details id="mobile-menu" class="group shrink-0 sm:hidden">
+			<summary
+				class="grid size-11 cursor-pointer list-none place-items-center rounded-full text-secondary transition-colors hover:bg-surface-hover hover:text-primary group-open:bg-amber-bg group-open:text-amber group-open:hover:bg-amber-bg group-open:hover:text-amber [&::-webkit-details-marker]:hidden"
+			>
+				<span class="sr-only">{t("nav.menu")}</span>
+				<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" class="size-5 group-open:hidden">
+					<path d="M4 6h16M4 12h16M4 18h16" />
+				</svg>
+				<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" class="hidden size-5 group-open:block">
+					<path d="m6 6 12 12M18 6 6 18" />
+				</svg>
+			</summary>
+			<HeaderNav
+				items={navItems}
+				label={t("nav.label")}
+				currentPath={currentPath}
+				class="absolute inset-x-0 top-full mt-2 grid max-h-[calc(100dvh-5rem)] gap-0.5 overflow-y-auto rounded-2xl border border-border bg-surface p-2 shadow-lg"
+			/>
+		</details>
+
+		<HeaderNav
+			items={navItems}
+			label={t("nav.label")}
+			currentPath={currentPath}
+			class="hidden items-center gap-1 sm:flex"
+		/>
+
+		<div class="flex shrink-0 items-center border-l border-border pl-2 sm:gap-2 sm:pl-2.5">
+			<nav aria-label={t("lang.switch")} class="flex items-center gap-0.5 font-mono text-xs">
+				{(["es", "en"] as const).map((locale) => (
 					<a
-						href={item.href}
-						data-nav-link
-						data-section={item.id}
-						class="nav-link shrink-0 font-mono text-[11px] sm:text-xs text-secondary hover:text-primary whitespace-nowrap px-2 sm:px-2.5 py-1.5 rounded-full transition-colors data-[active=true]:text-amber data-[active=true]:bg-amber-bg"
+						href={locale === lang ? currentPath : alternateHref}
+						hreflang={locale}
+						lang={locale}
+						aria-label={locale === "es" ? "Español" : "English"}
+						aria-current={locale === lang ? "page" : undefined}
+						class:list={[
+							"inline-flex min-h-11 min-w-8 items-center justify-center rounded-full transition-colors sm:min-h-8 sm:min-w-0 sm:px-2",
+							locale === lang ? "text-amber sm:bg-amber-bg" : "text-muted hover:text-primary",
+						]}
 					>
-						{item.label}
+						<span class:list={[
+							"inline-flex min-h-6 min-w-7 items-center justify-center rounded-full sm:min-h-0 sm:min-w-0",
+							locale === lang && "bg-amber-bg sm:bg-transparent",
+						]}>{locale.toUpperCase()}</span>
 					</a>
-				))
-			}
-		</nav>
-
-		<div
-			class="flex shrink-0 items-center gap-1 border-l border-border pl-2 sm:gap-2 sm:pl-2.5"
-		>
-			<select
-				id="lang-select"
-				class="sm:hidden w-[52px] font-mono text-[11px] text-primary bg-surface-1 border border-border rounded-md px-1 py-1 cursor-pointer"
-				aria-label={t("lang.switch")}
-			>
-				<option value={esHref} selected={lang === "es"}>ES</option>
-				<option value={enHref} selected={lang === "en"}>EN</option>
-			</select>
-
-			<fieldset
-				class="hidden sm:flex items-center gap-0.5 font-mono text-xs border-0 p-0 m-0"
-			>
-				<legend class="sr-only">{t("lang.switch")}</legend>
-				<a
-					href={esHref}
-					class:list={[
-						"px-2 py-0.5 rounded-full transition-colors",
-						lang === "es"
-							? "text-amber bg-amber-bg"
-							: "text-muted hover:text-secondary",
-					]}
-					aria-current={lang === "es" ? "page" : undefined}
-				>
-					ES
-				</a>
-				<a
-					href={enHref}
-					class:list={[
-						"px-2 py-0.5 rounded-full transition-colors",
-						lang === "en"
-							? "text-amber bg-amber-bg"
-							: "text-muted hover:text-secondary",
-					]}
-					aria-current={lang === "en" ? "page" : undefined}
-				>
-					EN
-				</a>
-			</fieldset>
-
+				))}
+			</nav>
 			<ThemeToggle compact t={t} />
 		</div>
 	</div>
 </header>
 
 <script>
-	function initHeader() {
-		const headerBar = document.getElementById("header-bar");
-		const headerNav = document.getElementById("header-nav");
-		const langSelect = document.getElementById("lang-select") as HTMLSelectElement | null;
-		const navLinks = document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
+	const headerBar = document.getElementById("header-bar");
+	const mobileMenu = document.getElementById("mobile-menu");
+	const menuSummary = mobileMenu?.querySelector("summary");
+	const navLinks = document.querySelectorAll<HTMLAnchorElement>("[data-section]");
 
-		if (!headerBar) return;
+	function updateScrollState() {
+		headerBar?.classList.toggle("is-scrolled", window.scrollY > 48);
+	}
 
-		if (headerBar.dataset.initialized === "true") {
-			headerBar.classList.toggle("is-scrolled", window.scrollY > 48);
-			return;
-		}
-		headerBar.dataset.initialized = "true";
-
-		const scrollThreshold = 48;
-
-		function updateScrollState() {
-			headerBar?.classList.toggle("is-scrolled", window.scrollY > scrollThreshold);
-		}
-
-		function scrollLinkIntoView(link: HTMLAnchorElement) {
-			if (!headerNav || window.innerWidth >= 640) return;
-
-			const horizontalGap = 8;
-			const maxScrollLeft = Math.max(0, headerNav.scrollWidth - headerNav.clientWidth);
-			const centeredScrollLeft =
-				link.offsetLeft - (headerNav.clientWidth - link.clientWidth) / 2;
-			const safeScrollLeft = Math.min(
-				Math.max(0, centeredScrollLeft - horizontalGap),
-				maxScrollLeft,
-			);
-
-			headerNav.scrollTo({
-				left: safeScrollLeft,
-				behavior: "smooth",
-			});
-		}
-
-		function setActiveLink(sectionId: string) {
-			for (const link of navLinks) {
-				const isActive = link.dataset.section === sectionId;
-				link.dataset.active = isActive ? "true" : "false";
-
-				if (isActive) {
-					scrollLinkIntoView(link);
-				}
+	function setActiveSection(sectionId: string) {
+		for (const link of navLinks) {
+			if (link.getAttribute("aria-current") === "page") continue;
+			if (link.dataset.section === sectionId) {
+				link.setAttribute("aria-current", "location");
+			} else {
+				link.removeAttribute("aria-current");
 			}
 		}
+	}
 
-		function syncLinkWithHash() {
-			const currentHash = window.location.hash.replace(/^#/, "");
+	function syncLinkWithHash() {
+		setActiveSection(window.location.hash.slice(1));
+	}
 
-			if (!currentHash) return;
+	if (mobileMenu instanceof HTMLDetailsElement) {
+		mobileMenu.addEventListener("keydown", (event) => {
+			if (event.key !== "Escape" || !mobileMenu.open) return;
+			event.preventDefault();
+			mobileMenu.open = false;
+			menuSummary?.focus();
+		});
 
-			setActiveLink(currentHash);
-		}
-
-		function initSectionObserver() {
-			const sections = Array.from(navLinks)
-				.map((link) => document.getElementById(link.dataset.section ?? ""))
-				.filter((section): section is HTMLElement => section !== null);
-
-			if (sections.length === 0) return;
-
-			const observer = new IntersectionObserver(
-				(entries) => {
-					const visible = entries
-						.filter((entry) => entry.isIntersecting)
-						.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-					if (visible.length > 0) {
-						setActiveLink(visible[0].target.id);
-					}
-				},
-				{ rootMargin: "-40% 0px -45% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
-			);
-
-			for (const section of sections) {
-				observer.observe(section);
-			}
-		}
-
-		updateScrollState();
-		initSectionObserver();
-		syncLinkWithHash();
-
-		window.addEventListener("scroll", updateScrollState, { passive: true });
-		window.addEventListener("hashchange", syncLinkWithHash);
-
-		langSelect?.addEventListener("change", () => {
-			if (langSelect.value) {
-				window.location.href = langSelect.value;
+		document.addEventListener("click", (event) => {
+			if (event.target instanceof Node && !mobileMenu.contains(event.target)) {
+				mobileMenu.open = false;
 			}
 		});
 
-		for (const link of navLinks) {
-			link.addEventListener("click", () => {
-				const sectionId = link.dataset.section;
-				if (sectionId) setActiveLink(sectionId);
-			});
-		}
+		mobileMenu.addEventListener("click", (event) => {
+			if (!(event.target instanceof Element)) return;
+			const link = event.target.closest("a");
+			if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+
+			const href = link.getAttribute("href") ?? "";
+			if (href.startsWith("#")) {
+				const section = document.getElementById(href.slice(1));
+				section?.setAttribute("tabindex", "-1");
+				section?.focus({ preventScroll: true });
+			}
+			mobileMenu.open = false;
+		});
 	}
 
-	function scheduleWhenIdle(callback: () => void) {
-		if ("requestIdleCallback" in window) {
-			requestIdleCallback(callback, { timeout: 1500 });
-			return;
-		}
-
-		setTimeout(callback, 1);
+	const sections = new Set(
+		Array.from(navLinks, (link) => document.getElementById(link.dataset.section ?? "")),
+	);
+	const observer = new IntersectionObserver(
+		(entries) => {
+			const visible = entries
+				.filter((entry) => entry.isIntersecting)
+				.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+			if (visible.length > 0) setActiveSection(visible[0].target.id);
+		},
+		{ rootMargin: "-40% 0px -45% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
+	);
+	for (const section of sections) {
+		if (section) observer.observe(section);
 	}
 
-	scheduleWhenIdle(initHeader);
-	document.addEventListener("astro:after-swap", initHeader);
+	updateScrollState();
+	syncLinkWithHash();
+	window.addEventListener("scroll", updateScrollState, { passive: true });
+	window.addEventListener("hashchange", syncLinkWithHash);
 </script>

@@ -2,9 +2,9 @@
 import type { UiKey } from "../../i18n/ui";
 import { getLocalizedPath } from "../../i18n/utils";
 import {
+	type BlogPost,
 	formatBlogDate,
 	getBlogPostPath,
-	getPublishedBlogPosts,
 	getSlugFromPostId,
 } from "../../lib/blog";
 import { changeTypeConfig } from "../../lib/changeTypeConfig";
@@ -13,10 +13,10 @@ import type { Locale } from "../../types/portfolio";
 interface Props {
 	lang: Locale;
 	t: (key: UiKey) => string;
+	posts: BlogPost[];
 }
 
-const { lang, t } = Astro.props;
-const posts = (await getPublishedBlogPosts(lang)).slice(0, 3);
+const { lang, t, posts } = Astro.props;
 const blogIndexPath = getLocalizedPath("/blog", lang);
 ---
 
@@ -31,57 +31,47 @@ const blogIndexPath = getLocalizedPath("/blog", lang);
 			{t("blog.title")}
 		</h2>
 
-		{
-			posts.length > 0 ? (
-				<>
-					<div class="space-y-1 mb-6">
-						{posts.map((post) => {
-							const slug = getSlugFromPostId(post.id);
-							const config = changeTypeConfig[post.data.changeType];
-							const formattedDate = formatBlogDate(
-								post.data.publishedAt,
-								lang,
-							);
+		<div class="space-y-1 mb-6">
+			{posts.map((post) => {
+				const slug = getSlugFromPostId(post.id);
+				const config = changeTypeConfig[post.data.changeType];
+				const formattedDate = formatBlogDate(
+					post.data.publishedAt,
+					lang,
+				);
 
-							return (
-								<a
-									href={getBlogPostPath(lang, slug)}
-									class="group flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 py-3 border-b border-border/60 hover:bg-surface-hover/50 -mx-3 px-3 rounded-lg transition-colors"
-								>
-									<div class="font-mono text-xs flex items-center gap-3 shrink-0">
-										{post.data.version && (
-											<span class="text-amber">{post.data.version}</span>
-										)}
-										<span class={config.className}>
-											{config.symbol} {config.label}
-										</span>
-										<time
-											datetime={post.data.publishedAt.toISOString()}
-											class="text-muted hidden sm:inline"
-										>
-											{formattedDate}
-										</time>
-									</div>
-									<span class="font-display font-medium text-primary group-hover:text-amber transition-colors">
-										{post.data.title}
-									</span>
-								</a>
-							);
-						})}
-					</div>
+				return (
 					<a
-						href={blogIndexPath}
-						class="inline-flex items-center gap-1.5 font-mono text-xs text-amber hover:underline"
+						href={getBlogPostPath(lang, slug)}
+						class="group flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 py-3 border-b border-border/60 hover:bg-surface-hover/50 -mx-3 px-3 rounded-lg transition-colors"
 					>
-						{t("blog.viewAll")}
-						<span aria-hidden="true">→</span>
+						<div class="font-mono text-xs flex items-center gap-3 shrink-0">
+							{post.data.version && (
+								<span class="text-amber">{post.data.version}</span>
+							)}
+							<span class={config.className}>
+								{config.symbol} {config.label}
+							</span>
+							<time
+								datetime={post.data.publishedAt.toISOString()}
+								class="text-muted hidden sm:inline"
+							>
+								{formattedDate}
+							</time>
+						</div>
+						<span class="font-display font-medium text-primary group-hover:text-amber transition-colors">
+							{post.data.title}
+						</span>
 					</a>
-				</>
-			) : (
-				<p class="text-secondary text-sm leading-relaxed max-w-2xl mb-6">
-					{t("blog.noPosts")}
-				</p>
-			)
-		}
+				);
+			})}
+		</div>
+		<a
+			href={blogIndexPath}
+			class="inline-flex items-center gap-1.5 font-mono text-xs text-amber hover:underline"
+		>
+			{t("blog.viewAll")}
+			<span aria-hidden="true">→</span>
+		</a>
 	</div>
 </section>

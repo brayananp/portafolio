@@ -1,5 +1,5 @@
 import { type CollectionEntry, getCollection } from "astro:content";
-import { getLocalizedPath } from "../i18n/utils";
+import { getAlternateLang, getLocalizedPath } from "../i18n/utils";
 import type { Locale } from "../types/portfolio";
 
 export type BlogPost = CollectionEntry<"blog">;
@@ -15,6 +15,31 @@ export function getSlugFromPostId(id: string): string {
 
 export function getBlogPostPath(lang: Locale, slug: string): string {
 	return getLocalizedPath(`/blog/${slug}`, lang);
+}
+
+export async function getAlternateBlogPostPath(
+	post: BlogPost,
+	lang: Locale,
+): Promise<string | undefined> {
+	const alternateLang = getAlternateLang(lang);
+	const slug = getSlugFromPostId(post.id);
+	const candidates = await getPublishedBlogPosts(alternateLang);
+	const translation = candidates.find((candidate) => {
+		const candidateSlug = getSlugFromPostId(candidate.id);
+		if (post.data.alternateSlug) {
+			return (
+				candidateSlug === post.data.alternateSlug &&
+				(candidate.data.alternateSlug ?? slug) === slug
+			);
+		}
+		return candidate.data.alternateSlug
+			? candidate.data.alternateSlug === slug
+			: candidateSlug === slug;
+	});
+
+	return translation
+		? getBlogPostPath(alternateLang, getSlugFromPostId(translation.id))
+		: undefined;
 }
 
 export async function getPublishedBlogPosts(

@@ -11,16 +11,17 @@ import BlogPostNav from "./BlogPostNav.astro";
 interface Props {
 	post: BlogPost;
 	lang: Locale;
+	alternatePath?: string;
 }
 
-const { post, lang } = Astro.props;
+const { post, lang, alternatePath } = Astro.props;
 const t = useTranslations(lang);
 const { Content } = await render(post);
 const blogIndexPath = getLocalizedPath("/blog", lang);
 ---
 
-<Header lang={lang} />
-<main class="px-6 pt-28 pb-16">
+<Header lang={lang} showBlog alternatePath={alternatePath} />
+<main id="main-content" tabindex="-1" class="px-6 pt-28 pb-16">
 	<article class="max-w-3xl mx-auto">
 		<a
 			href={blogIndexPath}

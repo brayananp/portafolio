@@ -1,52 +1,85 @@
 ---
 import { useTranslations } from "../../i18n/ui";
+import { getAlternateLang, getLocalizedPath } from "../../i18n/utils";
+import Layout from "../../layouts/Layout.astro";
 import { getPublishedBlogPosts } from "../../lib/blog";
+import { absoluteUrl, buildBreadcrumbJsonLd, getSiteUrl } from "../../lib/seo";
 import type { Locale } from "../../types/portfolio";
 import Header from "../Header.astro";
 import BlogPostCard from "./BlogPostCard.astro";
 
 interface Props {
 	lang: Locale;
+	title: string;
+	description: string;
+	authorName: string;
 }
 
-const { lang } = Astro.props;
+const { lang, title, description, authorName } = Astro.props;
 const t = useTranslations(lang);
-const posts = await getPublishedBlogPosts(lang);
+const alternateLang = getAlternateLang(lang);
+const [posts, alternatePosts] = await Promise.all([
+	getPublishedBlogPosts(lang),
+	getPublishedBlogPosts(alternateLang),
+]);
+const hasPosts = posts.length > 0;
+const alternatePath = alternatePosts.length > 0
+	? getLocalizedPath("/blog", alternateLang)
+	: undefined;
+const homePath = getLocalizedPath("/", lang);
+const path = getLocalizedPath("/blog", lang);
+const siteUrl = getSiteUrl(Astro.site);
 ---
 
-<Header lang={lang} />
-<main class="px-6 pt-28 pb-16">
-	<div class="max-w-3xl mx-auto">
-		<a
-			href={`/${lang}`}
-			class="inline-flex items-center gap-1.5 font-mono text-xs text-muted hover:text-amber transition-colors mb-8"
-		>
-			<span aria-hidden="true">←</span>
-			{t("blog.backToHome")}
-		</a>
+<Layout
+	title={title}
+	description={description}
+	lang={lang}
+	path={path}
+	authorName={authorName}
+	noindex={!hasPosts}
+	alternatePath={hasPosts ? alternatePath : undefined}
+	jsonLd={[
+		buildBreadcrumbJsonLd([
+			{ name: t("nav.home"), url: absoluteUrl(siteUrl, homePath) },
+			{ name: t("blog.title"), url: absoluteUrl(siteUrl, path) },
+		]),
+	]}
+>
+	<Header lang={lang} showBlog={hasPosts} alternatePath={alternatePath} />
+	<main id="main-content" tabindex="-1" class="px-6 pt-28 pb-16">
+		<div class="max-w-3xl mx-auto">
+			<a
+				href={homePath}
+				class="inline-flex items-center gap-1.5 font-mono text-xs text-muted hover:text-amber transition-colors mb-8"
+			>
+				<span aria-hidden="true">←</span>
+				{t("blog.backToHome")}
+			</a>
 
-		<span
-			class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
-		>
-			{t("blog.badge")}
-		</span>
-		<h1 class="font-display font-medium text-3xl mt-3 mb-2 text-primary">
-			{t("blog.title")}
-		</h1>
-		<p class="text-secondary text-sm leading-relaxed mb-8 max-w-2xl">
-			{t("blog.subtitle")}
-		</p>
+			<span
+				class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
+			>
+				{t("blog.badge")}
+			</span>
+			<h1 class="font-display font-medium text-3xl mt-3 mb-2 text-primary">
+				{t("blog.title")}
+			</h1>
+			<p class="text-secondary text-sm leading-relaxed mb-8 max-w-2xl">
+				{t("blog.subtitle")}
+			</p>
 
-		{
-			posts.length > 0 ? (
-				<div>
-					{posts.map((post) => (
-						<BlogPostCard post={post} lang={lang} />
-					))}
-				</div>
-			) : (
-				<p class="text-secondary text-sm">{t("blog.noPosts")}</p>
-			)
-		}
-	</div>
-</main>
+			{
+				posts.length > 0 ? (
+					<div>
+						{posts.map((post) => (
+							<BlogPostCard post={post} lang={lang} />
+						))}
+					</div>
+				) : (
+					<p class="text-secondary text-sm">{t("blog.noPosts")}</p>
+				)
+			}
+		</div>
+	</main>
+</Layout>

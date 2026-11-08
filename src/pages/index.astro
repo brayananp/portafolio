@@ -1,5 +1,6 @@
 ---
 import { portfolio } from "../data/portfolio.es";
+import { getLocalizedPath } from "../i18n/utils";
 import {
 	absoluteUrl,
 	DEFAULT_OG_IMAGE,
@@ -9,7 +10,7 @@ import {
 	DEFAULT_OG_IMAGE_WIDTH,
 } from "../lib/seo";
 
-const target = "/es";
+const target = getLocalizedPath("/", "es");
 const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const canonical = siteUrl ? `${siteUrl}${target}` : target;
 const ogImage = absoluteUrl(siteUrl, DEFAULT_OG_IMAGE);
@@ -24,7 +25,7 @@ const description = portfolio.hero.tagline;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="noindex" />
 		<meta name="description" content={description} />
-		<meta http-equiv="refresh" content="0;url=/es" />
+		<meta http-equiv="refresh" content={`0;url=${target}`} />
 		<link rel="canonical" href={canonical} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>{title}</title>
@@ -128,7 +129,7 @@ const description = portfolio.hero.tagline;
 			<div class="spinner" aria-hidden="true"></div>
 			<p class="label">Cargando portafolio</p>
 			<p class="fallback">
-				Si no redirige automáticamente, <a href="/es">continúa aquí</a>.
+				Si no redirige automáticamente, <a href={target}>continúa aquí</a>.
 			</p>
 		</div>
 	</body>

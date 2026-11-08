@@ -1,0 +1,23 @@
+---
+interface Props {
+	items: { href: string; id: string; label: string }[];
+	label: string;
+	currentPath: string;
+	class: string;
+}
+
+const { items, label, currentPath, class: className } = Astro.props;
+---
+
+<nav aria-label={label} class={className}>
+	{items.map((item) => (
+		<a
+			href={item.href}
+			data-section={item.id}
+			aria-current={item.href === currentPath ? "page" : undefined}
+			class="flex min-h-11 items-center whitespace-nowrap rounded-full px-3 py-1.5 font-mono text-sm text-secondary transition-colors hover:bg-surface-hover hover:text-primary [&[aria-current]]:bg-amber-bg [&[aria-current]]:text-amber sm:min-h-7 sm:px-2.5 sm:text-xs"
+		>
+			{item.label}
+		</a>
+	))}
+</nav>
