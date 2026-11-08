@@ -4,7 +4,9 @@ import { getLocalizedPath } from "../../i18n/utils";
 import {
 	type BlogPost,
 	formatBlogDate,
+	formatReadingTime,
 	getBlogPostPath,
+	getReadingTimeMinutes,
 	getSlugFromPostId,
 } from "../../lib/blog";
 import { changeTypeConfig } from "../../lib/changeTypeConfig";
@@ -39,6 +41,10 @@ const blogIndexPath = getLocalizedPath("/blog", lang);
 					post.data.publishedAt,
 					lang,
 				);
+				const readingTime = formatReadingTime(
+					getReadingTimeMinutes(post.body),
+					lang,
+				);
 
 				return (
 					<a
@@ -58,6 +64,7 @@ const blogIndexPath = getLocalizedPath("/blog", lang);
 							>
 								{formattedDate}
 							</time>
+							<span class="text-muted">{readingTime}</span>
 						</div>
 						<span class="font-display font-medium text-primary group-hover:text-amber transition-colors">
 							{post.data.title}

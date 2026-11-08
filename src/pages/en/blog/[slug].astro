@@ -7,6 +7,7 @@ import {
 	getAlternateBlogPostPath,
 	getBlogPostPath,
 	getPublishedBlogPosts,
+	getReadingTimeMinutes,
 	getSlugFromPostId,
 } from "../../../lib/blog";
 import {
@@ -33,6 +34,7 @@ const siteUrl = getSiteUrl(Astro.site);
 const pageUrl = absoluteUrl(siteUrl, path);
 const alternatePath = await getAlternateBlogPostPath(post, "en");
 const coverImage = post.data.coverImage ?? DEFAULT_OG_IMAGE;
+const readingTimeMinutes = getReadingTimeMinutes(post.body);
 const jsonLd = [
 	buildArticleJsonLd({
 		siteUrl,
@@ -44,6 +46,7 @@ const jsonLd = [
 		publishedAt: post.data.publishedAt,
 		updatedAt: post.data.updatedAt,
 		locale: "en",
+		readingTimeMinutes,
 	}),
 	buildBreadcrumbJsonLd([
 		{ name: "Home", url: absoluteUrl(siteUrl, getLocalizedPath("/", "en")) },

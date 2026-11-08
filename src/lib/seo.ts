@@ -68,6 +68,7 @@ export function buildArticleJsonLd(params: {
 	publishedAt: Date;
 	updatedAt?: Date;
 	locale: Locale;
+	readingTimeMinutes?: number;
 }) {
 	return {
 		"@context": "https://schema.org",
@@ -78,6 +79,9 @@ export function buildArticleJsonLd(params: {
 		url: params.url,
 		datePublished: formatIsoDate(params.publishedAt),
 		dateModified: formatIsoDate(params.updatedAt ?? params.publishedAt),
+		...(params.readingTimeMinutes
+			? { timeRequired: `PT${params.readingTimeMinutes}M` }
+			: {}),
 		inLanguage: params.locale === "es" ? "es-PE" : "en-US",
 		author: {
 			"@type": "Person",

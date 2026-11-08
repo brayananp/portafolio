@@ -12,6 +12,7 @@ interface Props {
 	lang: Locale;
 	publishedLabel: string;
 	updatedLabel: string;
+	readingTime?: string;
 }
 
 const {
@@ -22,6 +23,7 @@ const {
 	lang,
 	publishedLabel,
 	updatedLabel,
+	readingTime,
 } = Astro.props;
 
 const config = changeTypeConfig[changeType];
@@ -37,6 +39,11 @@ const formattedUpdated = updatedAt ? formatBlogDate(updatedAt, lang) : null;
 	<time datetime={publishedAt.toISOString()} class="text-muted">
 		{publishedLabel} {formattedPublished}
 	</time>
+	{
+		readingTime && (
+			<span class="text-muted">{readingTime}</span>
+		)
+	}
 	{
 		formattedUpdated && updatedAt && (
 			<time datetime={updatedAt.toISOString()} class="text-muted">

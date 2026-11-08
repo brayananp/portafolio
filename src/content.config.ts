@@ -13,6 +13,7 @@ const blog = defineCollection({
 		coverImage: z.string().optional(),
 		alternateSlug: z.string().optional(),
 		version: z.string().optional(),
+		assistedByAi: z.boolean().default(false),
 		changeType: z
 			.enum(["added", "fixed", "improved", "deprecated"])
 			.default("added"),

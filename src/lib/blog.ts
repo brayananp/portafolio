@@ -73,9 +73,43 @@ export function getAdjacentPosts(
 }
 
 export function formatBlogDate(date: Date, locale: Locale): string {
-	return date.toLocaleDateString(locale === "es" ? "es-PE" : "en-US", {
+	return new Intl.DateTimeFormat(locale === "es" ? "es-PE" : "en-US", {
 		year: "numeric",
 		month: "long",
 		day: "numeric",
-	});
+		timeZone: "UTC",
+	}).format(date);
+}
+
+const WORDS_PER_MINUTE = 200;
+
+function countReadableWords(markdown: string): number {
+	const plainText = markdown
+		.replace(/```[\s\S]*?```/g, " ")
+		.replace(/<[^>]+>/g, " ")
+		.replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+		.replace(/\[([^\]]*)]\([^)]*\)/g, "$1")
+		.replace(/[#>*_~`|]/g, " ");
+
+	return plainText
+		.trim()
+		.split(/\s+/)
+		.filter((word) => word.length > 0).length;
+}
+
+export function getReadingTimeMinutes(markdown: string | undefined): number {
+	if (!markdown?.trim()) {
+		return 1;
+	}
+
+	const words = countReadableWords(markdown);
+	return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+}
+
+export function formatReadingTime(minutes: number, locale: Locale): string {
+	if (locale === "es") {
+		return minutes === 1 ? "1 min de lectura" : `${minutes} min de lectura`;
+	}
+
+	return minutes === 1 ? "1 min read" : `${minutes} min read`;
 }
