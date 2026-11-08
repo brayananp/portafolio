@@ -4,18 +4,20 @@ import { getAlternateLang, getLocalizedPath } from "../../i18n/utils";
 import Layout from "../../layouts/Layout.astro";
 import { getPublishedBlogPosts } from "../../lib/blog";
 import { absoluteUrl, buildBreadcrumbJsonLd, getSiteUrl } from "../../lib/seo";
-import type { Locale } from "../../types/portfolio";
+import type { Locale, PortfolioData } from "../../types/portfolio";
 import Header from "../Header.astro";
+import Footer from "../sections/Footer.astro";
 import BlogPostCard from "./BlogPostCard.astro";
 
 interface Props {
 	lang: Locale;
 	title: string;
 	description: string;
-	authorName: string;
+	portfolio: PortfolioData;
 }
 
-const { lang, title, description, authorName } = Astro.props;
+const { lang, title, description, portfolio } = Astro.props;
+const { authorName } = portfolio;
 const t = useTranslations(lang);
 const alternateLang = getAlternateLang(lang);
 const [posts, alternatePosts] = await Promise.all([
@@ -82,4 +84,5 @@ const siteUrl = getSiteUrl(Astro.site);
 			}
 		</div>
 	</main>
+	<Footer data={portfolio} lang={lang} t={t} />
 </Layout>
