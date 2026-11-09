@@ -7,22 +7,13 @@ version: "v2026.11"
 changeType: "added"
 assistedByAi: true
 coverImage: "/images/blog/el-clic-que-tarda-cover.jpg"
+coverDetails:
+  alt: "Teléfono sobre fondo oscuro. Un botón ámbar espera, con una copia fantasma desplazada, junto a una línea de tres estados: toque, espera y fotograma pintado."
+  caption: "El hueco entre el toque y el siguiente fotograma es lo que INP resume en un solo número."
+  width: 1600
+  height: 900
 alternateSlug: "the-click-that-waits"
 ---
-
-<figure>
-  <img
-    src="/images/blog/el-clic-que-tarda-cover.jpg"
-    alt="Teléfono sobre fondo oscuro. Un botón ámbar espera, con una copia fantasma desplazada, junto a una línea de tres estados: toque, espera y fotograma pintado."
-    width="1600"
-    height="900"
-    loading="eager"
-    fetchpriority="high"
-  />
-  <figcaption>
-    El hueco entre el toque y el siguiente fotograma es lo que INP resume en un solo número.
-  </figcaption>
-</figure>
 
 En los sitios de catálogo que armo, el comentario que más se repite no habla del peso del archivo. Habla del botón.
 

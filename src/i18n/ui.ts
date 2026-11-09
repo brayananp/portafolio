@@ -39,6 +39,8 @@ export const ui = {
 		"blog.subtitle":
 			"Release notes técnicas sobre arquitectura, herramientas y decisiones de desarrollo.",
 		"blog.viewAll": "Ver todas las notas",
+		"blog.readArticle": "Leer artículo",
+		"blog.onThisPage": "En este artículo",
 		"blog.backToHome": "Volver al inicio",
 		"blog.backToBlog": "Volver al blog",
 		"blog.previous": "Anterior",
@@ -104,6 +106,8 @@ export const ui = {
 		"blog.subtitle":
 			"Technical release notes on architecture, tooling, and development decisions.",
 		"blog.viewAll": "View all notes",
+		"blog.readArticle": "Read article",
+		"blog.onThisPage": "In this article",
 		"blog.backToHome": "Back to home",
 		"blog.backToBlog": "Back to blog",
 		"blog.previous": "Previous",

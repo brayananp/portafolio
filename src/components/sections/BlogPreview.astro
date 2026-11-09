@@ -1,16 +1,9 @@
 ---
 import type { UiKey } from "../../i18n/ui";
 import { getLocalizedPath } from "../../i18n/utils";
-import {
-	type BlogPost,
-	formatBlogDate,
-	formatReadingTime,
-	getBlogPostPath,
-	getReadingTimeMinutes,
-	getSlugFromPostId,
-} from "../../lib/blog";
-import { changeTypeConfig } from "../../lib/changeTypeConfig";
+import type { BlogPost } from "../../lib/blog";
 import type { Locale } from "../../types/portfolio";
+import BlogPostCard from "../blog/BlogPostCard.astro";
 
 interface Props {
 	lang: Locale;
@@ -19,63 +12,27 @@ interface Props {
 }
 
 const { lang, t, posts } = Astro.props;
+const [featuredPost, ...otherPosts] = posts;
 const blogIndexPath = getLocalizedPath("/blog", lang);
 ---
 
-<section id="blog" class="px-6">
-	<div class="max-w-4xl mx-auto">
-		<span
-			class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
-		>
+<section id="blog" class="scroll-mt-28 px-6">
+	<div class="mx-auto max-w-4xl">
+		<span class="inline-block rounded-md bg-amber-bg px-2.5 py-0.5 font-mono text-xs text-amber">
 			{t("blog.badge")}
 		</span>
-		<h2 class="font-display font-medium text-2xl mt-3 mb-4 text-primary">
+		<h2 class="mt-3 mb-5 font-display text-2xl font-medium text-primary">
 			{t("blog.title")}
 		</h2>
 
-		<div class="space-y-1 mb-6">
-			{posts.map((post) => {
-				const slug = getSlugFromPostId(post.id);
-				const config = changeTypeConfig[post.data.changeType];
-				const formattedDate = formatBlogDate(
-					post.data.publishedAt,
-					lang,
-				);
-				const readingTime = formatReadingTime(
-					getReadingTimeMinutes(post.body),
-					lang,
-				);
-
-				return (
-					<a
-						href={getBlogPostPath(lang, slug)}
-						class="group flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 py-3 border-b border-border/60 hover:bg-surface-hover/50 -mx-3 px-3 rounded-lg transition-colors"
-					>
-						<div class="font-mono text-xs flex items-center gap-3 shrink-0">
-							{post.data.version && (
-								<span class="text-amber">{post.data.version}</span>
-							)}
-							<span class={config.className}>
-								{config.symbol} {config.label}
-							</span>
-							<time
-								datetime={post.data.publishedAt.toISOString()}
-								class="text-muted hidden sm:inline"
-							>
-								{formattedDate}
-							</time>
-							<span class="text-muted">{readingTime}</span>
-						</div>
-						<span class="font-display font-medium text-primary group-hover:text-amber transition-colors">
-							{post.data.title}
-						</span>
-					</a>
-				);
-			})}
+		<div class="space-y-3">
+			{featuredPost && <BlogPostCard post={featuredPost} lang={lang} featured />}
+			{otherPosts.map((post) => <BlogPostCard post={post} lang={lang} />)}
 		</div>
+
 		<a
 			href={blogIndexPath}
-			class="inline-flex items-center gap-1.5 font-mono text-xs text-amber hover:underline"
+			class="mt-4 inline-flex min-h-10 items-center gap-2 rounded-md font-mono text-xs text-amber hover:underline"
 		>
 			{t("blog.viewAll")}
 			<span aria-hidden="true">→</span>

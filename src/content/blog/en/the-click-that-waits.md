@@ -7,22 +7,13 @@ version: "v2026.11"
 changeType: "added"
 assistedByAi: true
 coverImage: "/images/blog/el-clic-que-tarda-cover.jpg"
+coverDetails:
+  alt: "A phone on a dark background. An amber button waits beside a faint offset copy, next to a three-step line: tap, pause, and painted frame."
+  caption: "The gap between the tap and the next frame is what INP collapses into one number."
+  width: 1600
+  height: 900
 alternateSlug: "el-clic-que-tarda"
 ---
-
-<figure>
-  <img
-    src="/images/blog/el-clic-que-tarda-cover.jpg"
-    alt="A phone on a dark background. An amber button waits beside a faint offset copy, next to a three-step line: tap, pause, and painted frame."
-    width="1600"
-    height="900"
-    loading="eager"
-    fetchpriority="high"
-  />
-  <figcaption>
-    The gap between the tap and the next frame is what INP collapses into one number.
-  </figcaption>
-</figure>
 
 On the catalog sites I build, the comment I hear most often is not about file size. It is about the button.
 

@@ -1,4 +1,5 @@
 ---
+import { useTranslations } from "../../i18n/ui";
 import {
 	type BlogPost,
 	formatBlogDate,
@@ -13,10 +14,15 @@ import type { Locale } from "../../types/portfolio";
 interface Props {
 	post: BlogPost;
 	lang: Locale;
+	featured?: boolean;
+	titleTag?: "h2" | "h3";
 }
 
-const { post, lang } = Astro.props;
+const { post, lang, featured = false, titleTag: Title = "h3" } = Astro.props;
+const t = useTranslations(lang);
 const slug = getSlugFromPostId(post.id);
+const titleId = `blog-card-${slug}`;
+const { coverImage, coverDetails } = post.data;
 const config = changeTypeConfig[post.data.changeType];
 const formattedDate = formatBlogDate(post.data.publishedAt, lang);
 const readingTime = formatReadingTime(
@@ -28,41 +34,60 @@ const readingTime = formatReadingTime(
 <article class="group">
 	<a
 		href={getBlogPostPath(lang, slug)}
-		class="block py-4 border-b border-border/60 hover:bg-surface-hover/50 -mx-3 px-3 rounded-lg transition-colors"
+		aria-labelledby={titleId}
+		class:list={[
+			"transition-colors",
+			featured
+				? "grid overflow-hidden rounded-2xl border border-border bg-surface hover:border-amber/50 hover:bg-surface-hover"
+				: "block rounded-xl border-b border-border/60 px-3 py-4 hover:bg-surface-hover/50",
+			featured && coverImage && "sm:grid-cols-[1.1fr_1fr]",
+		]}
 	>
-		<div class="font-mono text-xs flex items-center gap-3 mb-2 flex-wrap">
-			{post.data.version && (
-				<span class="text-amber">{post.data.version}</span>
-			)}
-			<span class={config.className}>
-				{config.symbol} {config.label}
-			</span>
-			<time
-				datetime={post.data.publishedAt.toISOString()}
-				class="text-muted"
+		{featured && coverImage && (
+			<div class="min-w-0 overflow-hidden border-b border-border bg-bg sm:border-r sm:border-b-0">
+				<img
+					src={coverImage}
+					alt=""
+					width={coverDetails?.width}
+					height={coverDetails?.height}
+					loading="lazy"
+					decoding="async"
+					class="block aspect-video h-full w-full object-contain"
+				/>
+			</div>
+		)}
+		<div class:list={["min-w-0", featured && "flex flex-col justify-center p-5 sm:p-7"]}>
+			<div class="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs">
+				{post.data.version && <span class="text-amber">{post.data.version}</span>}
+				<span class={config.className}>{config.symbol} {config.label}</span>
+				<time datetime={post.data.publishedAt.toISOString()} class="text-muted">{formattedDate}</time>
+				<span class="text-muted">{readingTime}</span>
+			</div>
+			<Title
+				id={titleId}
+				class:list={[
+					"font-display font-medium text-primary transition-colors group-hover:text-amber",
+					featured && "mt-2 text-2xl leading-tight text-balance sm:text-3xl",
+				]}
 			>
-				{formattedDate}
-			</time>
-			<span class="text-muted">{readingTime}</span>
-		</div>
-		<h3
-			class="font-display font-medium text-primary group-hover:text-amber transition-colors"
-		>
-			{post.data.title}
-		</h3>
-		<p class="text-secondary text-sm leading-relaxed mt-1.5">
-			{post.data.description}
-		</p>
-		{
-			post.data.tags.length > 0 && (
-				<div class="flex flex-wrap gap-2 mt-3">
+				{post.data.title}
+			</Title>
+			<p class:list={["text-sm leading-relaxed text-secondary", featured ? "mt-3" : "mt-1.5"]}>
+				{post.data.description}
+			</p>
+			{!featured && post.data.tags.length > 0 && (
+				<div class="mt-3 flex flex-wrap gap-2">
 					{post.data.tags.map((tag) => (
-						<span class="font-mono text-[11px] text-muted bg-surface-1 px-2 py-0.5 rounded-md">
-							{tag}
-						</span>
+						<span class="rounded-md bg-surface-1 px-2 py-0.5 font-mono text-[11px] text-muted">{tag}</span>
 					))}
 				</div>
-			)
-		}
+			)}
+			{featured && (
+				<span class="mt-5 inline-flex items-center gap-2 font-mono text-xs text-amber">
+					{t("blog.readArticle")}
+					<span aria-hidden="true">→</span>
+				</span>
+			)}
+		</div>
 	</a>
 </article>
