@@ -17,6 +17,7 @@ interface Props {
 	path: string;
 	image?: string;
 	imageAlt?: string;
+	imageDimensions?: { width: number; height: number };
 	ogType?: "website" | "article" | "profile";
 	publishedAt?: Date;
 	modifiedAt?: Date;
@@ -33,6 +34,7 @@ const {
 	path,
 	image,
 	imageAlt,
+	imageDimensions,
 	ogType,
 	publishedAt,
 	modifiedAt,
@@ -76,6 +78,7 @@ const alternateUrl = resolvedAlternatePath
 			siteUrl={siteUrl}
 			image={image}
 			imageAlt={imageAlt}
+			imageDimensions={imageDimensions}
 			ogType={ogType}
 			publishedAt={publishedAt}
 			modifiedAt={modifiedAt}
