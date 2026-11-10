@@ -7,17 +7,18 @@ interface Props {
 	data: PortfolioData;
 	lang: Locale;
 	t: (key: UiKey) => string;
+	showCv?: boolean;
 }
 
-const { data, lang, t } = Astro.props;
+const { data, lang, t, showCv = true } = Astro.props;
 const currentYear = new Date().getFullYear();
 const licenseUrl = "https://github.com/brayananp/portafolio/blob/HEAD/LICENSE";
 ---
 
 <footer class="px-6 pt-8 pb-12">
 	<div class="max-w-4xl mx-auto">
-		<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-			<ExportCvButton portfolio={data} lang={lang} t={t} />
+		<div class:list={["flex flex-col items-start gap-4 sm:flex-row sm:items-center", showCv && "justify-between"]}>
+			{showCv && <ExportCvButton portfolio={data} lang={lang} t={t} />}
 
 			<div class="flex items-center gap-4">
 				<a

@@ -10,28 +10,35 @@ interface Props {
 }
 
 const { data, lang, t } = Astro.props;
+const featuredProject = data.find((project) => project.caseStudy?.image);
+const otherProjects = data.filter((project) => project !== featuredProject);
 ---
 
-<section id="projects" class="px-6 scroll-mt-28">
-	<div class="max-w-4xl mx-auto">
-		<div data-reveal>
-			<span
-				class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
-			>
-				{t("projects.badge")}
-			</span>
-			<h2 class="font-display font-medium text-2xl mt-3 mb-2 text-primary">
+<section id="projects" tabindex="-1" aria-labelledby="projects-heading" class="scroll-mt-28 px-6">
+	<div class="mx-auto max-w-4xl">
+		<header class="mb-7 sm:mb-9">
+			<p class="flex items-center gap-2 font-mono text-xs text-amber">
+				<span aria-hidden="true">//</span> {t("projects.badge")}
+			</p>
+			<h2 id="projects-heading" class="mt-2 font-display text-4xl font-medium leading-tight tracking-tight text-primary sm:text-5xl">
 				{t("projects.title")}
 			</h2>
-			<p class="text-secondary text-sm max-w-2xl mb-8 leading-relaxed">
+			<p class="mt-2 max-w-lg text-sm leading-relaxed text-secondary sm:text-base">
 				{t("projects.subtitle")}
 			</p>
-		</div>
+		</header>
 
-		<div class="grid gap-4 sm:grid-cols-2">
-			{data.map((project, index) => (
-				<ProjectCard project={project} lang={lang} t={t} index={index} />
-			))}
-		</div>
+		{featuredProject && <ProjectCard project={featuredProject} lang={lang} t={t} featured />}
+		{otherProjects.length > 0 && (
+			<div class="mt-10 sm:mt-12">
+				<h3 class="mb-4 font-display text-2xl font-medium tracking-tight text-primary">{t("projects.other")}</h3>
+				{/* biome-ignore lint/a11y/noRedundantRoles: Keep list semantics in Safari when markers are hidden. */}
+				<ul class="divide-y divide-border border-y border-border" role="list">
+					{otherProjects.map((project) => (
+						<li><ProjectCard project={project} lang={lang} t={t} /></li>
+					))}
+				</ul>
+			</div>
+		)}
 	</div>
 </section>

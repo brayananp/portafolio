@@ -25,8 +25,8 @@ function getSectionHref(sectionId: string): string {
 }
 
 const navItems = [
-	{ href: getSectionHref("career"), id: "career", label: t("nav.career") },
 	{ href: getSectionHref("projects"), id: "projects", label: t("nav.projects") },
+	{ href: getSectionHref("career"), id: "career", label: t("nav.career") },
 	{ href: getSectionHref("about"), id: "about", label: t("nav.about") },
 	...(showBlog ? [{ href: blogPath, id: "blog", label: t("nav.blog") }] : []),
 	{ href: getSectionHref("contact"), id: "contact", label: t("nav.contact") },

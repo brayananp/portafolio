@@ -24,17 +24,11 @@ const posts = (await getPublishedBlogPosts(lang)).slice(0, 3);
 
 <Header lang={lang} showBlog={posts.length > 0} />
 <main id="main-content" tabindex="-1" class="flex flex-col gap-20 sm:gap-28 pb-16">
-	<Hero
-		data={portfolio.hero}
-		social={portfolio.social}
-		displayName={portfolio.displayName}
-		lang={lang}
-		t={t}
-	/>
+	<Hero portfolio={portfolio} lang={lang} t={t} />
+	<Projects data={portfolio.projects} lang={lang} t={t} />
 	<div data-reveal>
 		<Career data={portfolio.career} t={t} />
 	</div>
-	<Projects data={portfolio.projects} lang={lang} t={t} />
 	<div data-reveal data-reveal-delay="80">
 		<About data={portfolio.about} t={t} />
 	</div>
@@ -50,4 +44,4 @@ const posts = (await getPublishedBlogPosts(lang)).slice(0, 3);
 		<Contact data={portfolio.contact} t={t} />
 	</div>
 </main>
-<Footer data={portfolio} lang={lang} t={t} />
+<Footer data={portfolio} lang={lang} t={t} showCv={false} />

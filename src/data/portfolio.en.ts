@@ -4,11 +4,11 @@ export const portfolio: PortfolioData = {
 	authorName: "Brayan Alexis Nuñez Pesantes",
 	displayName: "Brayan Nuñez",
 	hero: {
-		version: "v2026.07",
+		version: "v2026.11",
 		role: "Full-Stack Developer",
 		tagline:
-			"I'm a Systems Engineer building business-focused web applications and sites. I work with React, Next.js, TanStack Start, Astro, and Node.js, backed by a foundation in Laravel, PHP, and MySQL. I've contributed to real institutional management projects and B2B sites already in production, combining development, structure, documentation, and a results-oriented mindset. I'm looking to keep growing as a junior full-stack developer by strengthening APIs, databases, and web deployment.",
-		releaseDate: "2026-07-06",
+			"I build B2B catalogs and management applications for businesses, from designing the workflow to developing and deploying the application.",
+		releaseDate: "2026-11-08",
 		avatar: {
 			src: "/images/avatar.webp",
 			alt: "Brayan Nuñez",
@@ -47,17 +47,112 @@ export const portfolio: PortfolioData = {
 	],
 	projects: [
 		{
+			id: "reactivos-quimicos-peru",
+			name: "Reactivos Químicos Perú",
+			version: "v2026.01",
+			summary:
+				"A B2B catalog for finding laboratory products and requesting quotes from product pages.",
+			details:
+				"The catalog is live. Visitors can filter by brand or category, review product details, and request a WhatsApp quote with the product already named.",
+			tags: ["B2B catalog", "search", "SEO", "quotes"],
+			access: "private-client",
+			links: {
+				demo: "https://reactivosquimicosperu.com/productos",
+			},
+			caseStudy: {
+				context:
+					"The client needed a catalog that helped customers identify the right laboratory reagent or equipment before asking about pricing and availability.",
+				contribution:
+					"I developed the commercial site and designed the path from browsing to requesting a quote. I implemented brand and category navigation, product pages, and access to WhatsApp from the catalog.",
+				workflowTitle: "From browsing to requesting a quote",
+				steps: [
+					{
+						title: "Find a product",
+						description: "Search by name or filter by category and brand.",
+					},
+					{
+						title: "Check the details",
+						description: "Confirm the product and review its specifications.",
+					},
+					{
+						title: "Request a quote",
+						description: "Open WhatsApp with the product named in the message.",
+					},
+				],
+				image: {
+					src: "/images/projects/reactivos-catalogo.webp",
+					alt: "Public catalog showing filters, product cards, and quote buttons.",
+					width: 1080,
+					height: 525,
+				},
+				relatedSites: [
+					{
+						name: "Insumos Químicos Perú",
+						specialty: "Industrial and food-grade chemicals",
+						description:
+							"Catalog of industrial and food-grade chemicals with product details and WhatsApp inquiries.",
+						href: "https://insumosquimicosperu.com/",
+					},
+					{
+						name: "Papel Filtro Perú",
+						specialty: "Filtration and measurement",
+						description:
+							"Catalog of filter paper, indicator paper, and measuring instruments, searchable by brand, category, or product.",
+						href: "https://www.papelfiltroperu.com/",
+					},
+					{
+						name: "Vidrio de Laboratorio Perú",
+						specialty: "Glassware and laboratory supplies",
+						description:
+							"Lab supplies catalog organized by category and brand, from flasks and pipettes to burettes and stands.",
+						href: "https://www.vidriodelaboratorioperu.com/",
+					},
+				],
+			},
+		},
+		{
+			id: "smartrent",
+			name: "SmartRent",
+			version: "v2025.02",
+			summary:
+				"A private dashboard for managing rentals, users, and operational tasks.",
+			details:
+				"The project provides a private entry point for the operations team and a foundation for organizing rental workflows and daily tasks.",
+			tags: ["dashboard", "admin", "rentals", "operations"],
+			access: "private-client",
+			caseStudy: {
+				context:
+					"Rental operations needed a private workspace that brought team access, users, and daily tasks together.",
+				contribution:
+					"I developed a private admin dashboard and organized the interface around the team's everyday operational tasks.",
+				workflowTitle: "Private dashboard workflow",
+				steps: [
+					{
+						title: "Private access",
+						description: "An entry point for the operations team.",
+					},
+					{
+						title: "Rental management",
+						description: "A workspace for rental workflows.",
+					},
+					{
+						title: "Internal operations",
+						description: "User management and team tasks.",
+					},
+				],
+			},
+		},
+		{
 			id: "portafolio",
 			name: "Portfolio",
-			version: "v2026.07",
+			version: "v2026.11",
 			summary:
 				"Open-source personal portfolio and blog with a changelog-inspired visual system.",
 			details:
-				"Bilingual site built with Astro 7, Tailwind CSS, and TypeScript. It includes project detail pages, PDF CV export, technical SEO, and an interface styled like a software release history.",
+				"A bilingual site built with Astro, Tailwind CSS, and TypeScript. It brings together project case studies, technical articles, and a downloadable CV.",
 			tags: ["astro", "typescript", "tailwindcss", "pdf-lib"],
 			access: "open-source",
 			links: {
-				demo: "https://brayan-nunez.pages.dev/en/",
 				repo: "https://github.com/brayananp/portafolio",
 			},
 		},
@@ -74,34 +169,6 @@ export const portfolio: PortfolioData = {
 			links: {
 				demo: "https://telso-app-example.vercel.app",
 				repo: "https://github.com/brayananp/telso-app",
-			},
-		},
-		{
-			id: "reactivos-quimicos-peru",
-			name: "Reactivos Químicos Perú",
-			version: "v2026.01",
-			summary:
-				"Production commercial website for catalog browsing, brand discovery, and lead capture in the laboratory supply sector.",
-			details:
-				"Private client project focused on sales and digital presence. The site presents product catalog pages, brand navigation, product detail views, commercial sections, and contact flows designed to convert visits into quote requests.",
-			tags: ["e-commerce", "catalog", "seo", "production"],
-			access: "private-client",
-			links: {
-				demo: "https://reactivosquimicosperu.com/",
-			},
-		},
-		{
-			id: "smartrent",
-			name: "SmartRent",
-			version: "v2025.02",
-			summary:
-				"Administrative dashboard for rental management with private access and an operations-first workflow.",
-			details:
-				"Private project designed for internal operations. It centralizes access to an admin panel and serves as a base for managing rental workflows, users, and operational tasks through a daily-use oriented interface.",
-			tags: ["dashboard", "admin", "private", "operations"],
-			access: "private-client",
-			links: {
-				demo: "https://rent-house-olive-ten.vercel.app/",
 			},
 		},
 	],

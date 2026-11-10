@@ -1,0 +1,32 @@
+---
+import type { RelatedProjectSite } from "../../types/portfolio";
+
+interface Props {
+	sites: RelatedProjectSite[];
+	showDescriptions?: boolean;
+}
+
+const { sites, showDescriptions = false } = Astro.props;
+---
+
+<!-- biome-ignore lint/a11y/noRedundantRoles: Keep list semantics in Safari when markers are hidden. -->
+<ul class="divide-y divide-border" role="list">
+	{sites.map((site) => (
+		<li>
+			<a
+				href={site.href}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group/site grid min-h-14 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 rounded-md py-3 text-primary transition-colors hover:text-amber"
+			>
+				<span class="min-w-0">
+					<span class="block font-display text-base font-medium leading-tight">{site.name}</span>
+					<span class="mt-1 block text-sm leading-snug text-secondary">
+						{showDescriptions ? site.description : site.specialty}
+					</span>
+				</span>
+				<span aria-hidden="true" class="text-base text-amber motion-safe:transition-transform motion-safe:group-hover/site:-translate-y-0.5 motion-safe:group-hover/site:translate-x-0.5">↗</span>
+			</a>
+		</li>
+	))}
+</ul>

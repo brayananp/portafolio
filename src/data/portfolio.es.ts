@@ -4,11 +4,11 @@ export const portfolio: PortfolioData = {
 	authorName: "Brayan Alexis Nuñez Pesantes",
 	displayName: "Brayan Nuñez",
 	hero: {
-		version: "v2026.07",
+		version: "v2026.11",
 		role: "Desarrollador Full Stack",
 		tagline:
-			"Soy Ingeniero de Sistemas y desarrollo aplicaciones y sitios web orientados a negocio. Trabajo con React, Next.js, TanStack Start, Astro y Node.js, y cuento con base en Laravel, PHP y MySQL. He participado en proyectos reales de gestión institucional y en sitios B2B en producción, combinando desarrollo, estructura, documentación y enfoque en resultados. Busco seguir creciendo como desarrollador full stack junior, fortaleciendo APIs, bases de datos y despliegue web.",
-		releaseDate: "2026-07-06",
+			"Desarrollo catálogos B2B y aplicaciones de gestión para empresas. Diseño el recorrido, construyo la aplicación y la llevo a producción.",
+		releaseDate: "2026-11-08",
 		avatar: {
 			src: "/images/avatar.webp",
 			alt: "Brayan Nuñez",
@@ -47,17 +47,113 @@ export const portfolio: PortfolioData = {
 	],
 	projects: [
 		{
+			id: "reactivos-quimicos-peru",
+			name: "Reactivos Químicos Perú",
+			version: "v2026.01",
+			summary:
+				"Catálogo B2B para encontrar productos de laboratorio y solicitar cotizaciones desde sus fichas.",
+			details:
+				"El catálogo está en producción. Los visitantes pueden filtrar por marca o categoría, consultar una ficha y solicitar una cotización por WhatsApp con el producto identificado.",
+			tags: ["catálogo B2B", "búsqueda", "SEO", "cotizaciones"],
+			access: "private-client",
+			links: {
+				demo: "https://reactivosquimicosperu.com/productos",
+			},
+			caseStudy: {
+				context:
+					"El cliente necesitaba mostrar reactivos y equipos de laboratorio en un catálogo que ayudara a identificar un producto antes de consultar precio y disponibilidad.",
+				contribution:
+					"Desarrollé el sitio comercial y organicé el recorrido del catálogo a la cotización. Implementé la navegación por marcas y categorías, las fichas de producto y el acceso a WhatsApp desde el catálogo.",
+				workflowTitle: "Del catálogo a la cotización",
+				steps: [
+					{
+						title: "Encontrar",
+						description: "Buscar por nombre o filtrar por categoría y marca.",
+					},
+					{
+						title: "Revisar la ficha",
+						description: "Confirmar el producto y sus características.",
+					},
+					{
+						title: "Cotizar",
+						description:
+							"Abrir WhatsApp con el producto indicado en el mensaje.",
+					},
+				],
+				image: {
+					src: "/images/projects/reactivos-catalogo.webp",
+					alt: "Catálogo público con filtros, fichas de productos y botones para cotizar.",
+					width: 1080,
+					height: 525,
+				},
+				relatedSites: [
+					{
+						name: "Insumos Químicos Perú",
+						specialty: "Químicos industriales y alimentarios",
+						description:
+							"Catálogo de insumos químicos de grado industrial y alimentario, con fichas de producto y consultas por WhatsApp.",
+						href: "https://insumosquimicosperu.com/",
+					},
+					{
+						name: "Papel Filtro Perú",
+						specialty: "Filtración y medición",
+						description:
+							"Catálogo de papel filtro, papel indicador e instrumentos de medición, con búsqueda por marca, categoría o producto.",
+						href: "https://www.papelfiltroperu.com/",
+					},
+					{
+						name: "Vidrio de Laboratorio Perú",
+						specialty: "Vidriería y material de laboratorio",
+						description:
+							"Catálogo de material de laboratorio con navegación por categoría y marca, desde matraces y pipetas hasta buretas y soportes.",
+						href: "https://www.vidriodelaboratorioperu.com/",
+					},
+				],
+			},
+		},
+		{
+			id: "smartrent",
+			name: "SmartRent",
+			version: "v2025.02",
+			summary:
+				"Panel privado para reunir la gestión de alquileres, usuarios y tareas operativas.",
+			details:
+				"El proyecto entrega un punto de entrada privado para el trabajo del equipo y una base para organizar los flujos de alquiler y las tareas de operación.",
+			tags: ["dashboard", "administración", "alquileres", "operaciones"],
+			access: "private-client",
+			caseStudy: {
+				context:
+					"La gestión de alquileres requería un espacio de trabajo interno para reunir el acceso, los usuarios y las tareas del equipo.",
+				contribution:
+					"Desarrollé un panel de administración de acceso privado y estructuré la interfaz alrededor de las tareas habituales de la operación.",
+				workflowTitle: "Esquema del panel privado",
+				steps: [
+					{
+						title: "Acceso privado",
+						description: "Punto de entrada para el equipo de operación.",
+					},
+					{
+						title: "Gestión de alquileres",
+						description: "Área de trabajo para los flujos de alquiler.",
+					},
+					{
+						title: "Operación interna",
+						description: "Gestión de usuarios y tareas del equipo.",
+					},
+				],
+			},
+		},
+		{
 			id: "portafolio",
 			name: "Portafolio",
-			version: "v2026.07",
+			version: "v2026.11",
 			summary:
 				"Portafolio y blog personal en código abierto con enfoque visual tipo changelog.",
 			details:
-				"Sitio bilingüe desarrollado con Astro 7, Tailwind CSS y TypeScript. Incluye páginas de detalle para proyectos, exportación de CV en PDF, SEO técnico y una interfaz inspirada en historiales de versiones de software.",
+				"Sitio bilingüe construido con Astro, Tailwind CSS y TypeScript. Reúne casos de proyecto, artículos técnicos y un CV descargable.",
 			tags: ["astro", "typescript", "tailwindcss", "pdf-lib"],
 			access: "open-source",
 			links: {
-				demo: "https://brayan-nunez.pages.dev/es/",
 				repo: "https://github.com/brayananp/portafolio",
 			},
 		},
@@ -74,34 +170,6 @@ export const portfolio: PortfolioData = {
 			links: {
 				demo: "https://telso-app-example.vercel.app",
 				repo: "https://github.com/brayananp/telso-app",
-			},
-		},
-		{
-			id: "reactivos-quimicos-peru",
-			name: "Reactivos Químicos Perú",
-			version: "v2026.01",
-			summary:
-				"Sitio comercial en producción para catálogo, marcas y captación de clientes del sector laboratorio.",
-			details:
-				"Proyecto privado orientado a ventas y presencia digital. La web muestra catálogo de productos, navegación por marcas, fichas de producto, secciones comerciales y formularios de contacto pensados para convertir visitas en cotizaciones.",
-			tags: ["e-commerce", "catalogo", "seo", "produccion"],
-			access: "private-client",
-			links: {
-				demo: "https://reactivosquimicosperu.com/",
-			},
-		},
-		{
-			id: "smartrent",
-			name: "SmartRent",
-			version: "v2025.02",
-			summary:
-				"Panel de administración para la gestión de alquileres con acceso privado y enfoque operativo.",
-			details:
-				"Proyecto privado pensado para operaciones internas. Centraliza el acceso al panel de administración y sirve como base para gestionar flujos de alquiler, usuarios y tareas operativas desde una interfaz enfocada en uso diario.",
-			tags: ["dashboard", "admin", "private", "operaciones"],
-			access: "private-client",
-			links: {
-				demo: "https://rent-house-olive-ten.vercel.app/",
 			},
 		},
 	],

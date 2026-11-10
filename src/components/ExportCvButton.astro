@@ -17,7 +17,7 @@ const locale = lang === "es" ? "es-PE" : "en-US";
 <button
 	id="export-cv-btn"
 	type="button"
-	class="font-mono text-xs text-primary border border-border rounded-md px-4 py-2 hover:border-amber/50 hover:bg-surface-hover transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+	class="inline-flex min-h-11 items-center justify-center rounded-lg border border-border px-4 py-2 font-mono text-xs text-primary transition-colors hover:border-amber/50 hover:bg-surface-hover cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
 	data-portfolio={JSON.stringify(portfolio)}
 	data-labels={JSON.stringify(labels)}
 	data-locale={locale}
@@ -83,15 +83,6 @@ const locale = lang === "es" ? "es-PE" : "en-US";
 		});
 	}
 
-	function scheduleWhenIdle(callback: () => void) {
-		if ("requestIdleCallback" in window) {
-			requestIdleCallback(callback, { timeout: 2000 });
-			return;
-		}
-
-		setTimeout(callback, 1);
-	}
-
-	scheduleWhenIdle(initExportCvButton);
+	initExportCvButton();
 	document.addEventListener("astro:after-swap", initExportCvButton);
 </script>

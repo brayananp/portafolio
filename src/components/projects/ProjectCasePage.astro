@@ -1,0 +1,129 @@
+---
+import { portfolio as english } from "../../data/portfolio.en";
+import { portfolio as spanish } from "../../data/portfolio.es";
+import { useTranslations } from "../../i18n/ui";
+import { getAlternateLang, getLocalizedPath, getProjectPath } from "../../i18n/utils";
+import Layout from "../../layouts/Layout.astro";
+import { getPublishedBlogPosts } from "../../lib/blog";
+import type { Locale, Project } from "../../types/portfolio";
+import Header from "../Header.astro";
+import Footer from "../sections/Footer.astro";
+import RelatedProjectSites from "./RelatedProjectSites.astro";
+
+interface Props {
+	project: Project & Required<Pick<Project, "caseStudy">>;
+	lang: Locale;
+}
+
+const { project, lang } = Astro.props;
+const t = useTranslations(lang);
+const { caseStudy } = project;
+const relatedSites = caseStudy.relatedSites ?? [];
+const portfolio = lang === "es" ? spanish : english;
+const otherPortfolio = lang === "es" ? english : spanish;
+const alternatePath = otherPortfolio.projects.some((other) => other.id === project.id && other.caseStudy)
+	? getProjectPath(project.id, getAlternateLang(lang))
+	: undefined;
+const homePath = getLocalizedPath("/", lang);
+const hasBlog = (await getPublishedBlogPosts(lang)).length > 0;
+---
+
+<Layout
+	title={`${project.name} — ${t("projects.title")} · ${portfolio.displayName}`}
+	description={project.summary}
+	lang={lang}
+	path={getProjectPath(project.id, lang)}
+	authorName={portfolio.authorName}
+	alternatePath={alternatePath}
+>
+	<Header lang={lang} showBlog={hasBlog} alternatePath={alternatePath} />
+	<main id="main-content" tabindex="-1" class="px-6 pt-28 pb-16">
+		<article class="mx-auto max-w-4xl">
+			<a href={`${homePath}#projects`} class="mb-6 inline-flex min-h-11 items-center gap-2 rounded-md font-mono text-xs text-muted transition-colors hover:text-amber">
+				<span aria-hidden="true">←</span>
+				{t("projects.backToProjects")}
+			</a>
+
+			<header class="mb-7">
+				<div class="flex flex-wrap items-center gap-3 font-mono text-xs">
+					<span class="rounded-md bg-amber-bg px-2.5 py-0.5 text-amber">{t("projects.badge")}</span>
+					<span class="text-amber">{project.version}</span>
+					<span class="text-muted">{t(project.access === "open-source" ? "projects.openSource" : "projects.privateClient")}</span>
+				</div>
+				<h1 class="mt-4 font-display text-4xl leading-tight font-medium tracking-tight text-balance text-primary sm:text-6xl">{project.name}</h1>
+				<p class="mt-3 max-w-2xl text-base leading-relaxed text-secondary sm:text-lg">{project.summary}</p>
+				<div class="mt-5 flex flex-wrap gap-2">
+					{project.links?.demo && (
+						<a href={project.links.demo} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2 rounded-lg bg-amber-bg px-4 text-sm font-medium text-amber transition-colors hover:bg-surface-hover">
+							{t("projects.demo")}
+							<span aria-hidden="true">↗</span>
+						</a>
+					)}
+					{relatedSites.length > 0 && (
+						<a href="#related-sites" class="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border px-4 text-sm font-medium text-primary transition-colors hover:border-amber/50 hover:text-amber">
+							{t("projects.relatedSites")}
+							<span aria-hidden="true">↓</span>
+						</a>
+					)}
+				</div>
+			</header>
+
+			{caseStudy.image && (
+				<img
+					src={caseStudy.image.src}
+					alt={caseStudy.image.alt}
+					width={caseStudy.image.width}
+					height={caseStudy.image.height}
+					fetchpriority="high"
+					class="mb-8 block h-auto w-full rounded-2xl border border-border"
+				/>
+			)}
+
+			<div class="grid gap-5 border-y border-border py-5 sm:py-6 md:grid-cols-3 md:gap-7">
+				<section>
+					<h2 class="mb-2 font-display text-xl font-medium text-primary">{t("projects.context")}</h2>
+					<p class="text-sm leading-relaxed text-secondary">{caseStudy.context}</p>
+				</section>
+				<section>
+					<h2 class="mb-2 font-display text-xl font-medium text-primary">{t("projects.contribution")}</h2>
+					<p class="text-sm leading-relaxed text-secondary">{caseStudy.contribution}</p>
+				</section>
+				<section>
+					<h2 class="mb-2 font-display text-xl font-medium text-primary">{t("projects.result")}</h2>
+					<p class="text-sm leading-relaxed text-secondary">{project.details}</p>
+				</section>
+			</div>
+
+			<section class="mt-8 rounded-2xl border border-border border-t-amber/50 bg-surface p-5 sm:p-6">
+				<h2 class="font-display text-xl font-medium text-primary">{caseStudy.workflowTitle}</h2>
+				<!-- biome-ignore lint/a11y/noRedundantRoles: Keep list semantics in Safari when markers are hidden. -->
+				<ol class="mt-5 grid gap-4 sm:grid-cols-3" role="list">
+					{caseStudy.steps.map((step, index) => (
+						<li class="flex items-start gap-3 border-t border-border pt-3">
+							<span aria-hidden="true" class="pt-0.5 font-mono text-xs text-amber">{String(index + 1).padStart(2, "0")}</span>
+							<div>
+								<h3 class="font-display text-base font-medium text-primary">{step.title}</h3>
+								<p class="mt-1 text-sm leading-relaxed text-secondary">{step.description}</p>
+							</div>
+						</li>
+					))}
+				</ol>
+			</section>
+
+			{relatedSites.length > 0 && (
+				<section id="related-sites" tabindex="-1" class="mt-10 scroll-mt-28" aria-labelledby="related-sites-heading">
+					<h2 id="related-sites-heading" class="mb-4 font-display text-2xl font-medium tracking-tight text-primary">{t("projects.relatedSites")}</h2>
+					<div class="border-y border-border">
+						<RelatedProjectSites sites={relatedSites} showDescriptions />
+					</div>
+				</section>
+			)}
+
+			<a href={`${homePath}#contact`} class="mt-7 inline-flex min-h-11 items-center gap-2 rounded-lg border border-border px-4 font-mono text-xs text-primary transition-colors hover:border-amber/50 hover:bg-surface-hover">
+				{t("hero.contact")}
+				<span aria-hidden="true">→</span>
+			</a>
+		</article>
+	</main>
+	<Footer data={portfolio} lang={lang} t={t} />
+</Layout>

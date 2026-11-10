@@ -6,6 +6,13 @@ export interface StackCategory {
 	items: string[];
 }
 
+export interface RelatedProjectSite {
+	name: string;
+	specialty: string;
+	description: string;
+	href: string;
+}
+
 export interface Project {
 	id: string;
 	name: string;
@@ -17,6 +24,19 @@ export interface Project {
 	links?: {
 		demo?: string;
 		repo?: string;
+	};
+	caseStudy?: {
+		context: string;
+		contribution: string;
+		workflowTitle: string;
+		steps: { title: string; description: string }[];
+		relatedSites?: RelatedProjectSite[];
+		image?: {
+			src: string;
+			alt: string;
+			width: number;
+			height: number;
+		};
 	};
 }
 

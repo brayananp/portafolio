@@ -1,0 +1,15 @@
+---
+import ProjectCasePage from "../../../components/projects/ProjectCasePage.astro";
+import { portfolio } from "../../../data/portfolio.en";
+
+export function getStaticPaths() {
+	return portfolio.projects.flatMap((project) => project.caseStudy ? [{
+		params: { slug: project.id },
+		props: { project: { ...project, caseStudy: project.caseStudy } },
+	}] : []);
+}
+
+const { project } = Astro.props;
+---
+
+<ProjectCasePage project={project} lang="en" />

@@ -14,3 +14,10 @@ export function getLocalizedPath(path: string, lang: Locale): string {
 export function getAlternateLang(lang: Locale): Locale {
 	return lang === "es" ? "en" : "es";
 }
+
+export function getProjectPath(id: string, lang: Locale): string {
+	return getLocalizedPath(
+		`${lang === "es" ? "proyectos" : "projects"}/${id}`,
+		lang,
+	);
+}

@@ -12,6 +12,7 @@ interface Props {
 }
 
 const { data, t } = Astro.props;
+const emailAddress = data.email.replace(/^mailto:/, "").split("?")[0];
 
 type ContactIconKey = "email" | "whatsapp" | "linkedin" | "github";
 
@@ -30,7 +31,7 @@ const links: { href: string; label: string; icon: ContactIconKey }[] = [
 ];
 ---
 
-<section id="contact" class="px-6 scroll-mt-28">
+<section id="contact" tabindex="-1" class="px-6 scroll-mt-28">
 	<div class="max-w-4xl mx-auto">
 		<span
 			class="inline-block font-mono text-xs text-amber bg-amber-bg px-2.5 py-0.5 rounded-md"
@@ -42,7 +43,7 @@ const links: { href: string; label: string; icon: ContactIconKey }[] = [
 		</h2>
 		<p class="text-secondary text-sm mb-5 max-w-2xl">{t("contact.subtitle")}</p>
 
-		<ul class="flex flex-wrap gap-x-5 gap-y-2 font-mono text-sm">
+		<ul class="flex flex-wrap gap-2 font-mono text-xs">
 			{
 				links.map((link) => {
 					const Icon = iconMap[link.icon];
@@ -51,12 +52,16 @@ const links: { href: string; label: string; icon: ContactIconKey }[] = [
 						<li>
 							<a
 								href={link.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="inline-flex items-center gap-1.5 text-secondary hover:text-amber transition-colors"
+								target={link.icon === "email" ? undefined : "_blank"}
+								rel={link.icon === "email" ? undefined : "noopener noreferrer"}
+								class="inline-flex min-h-11 max-w-full items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2 text-secondary transition-colors hover:border-amber/50 hover:text-amber"
 							>
 								<Icon class="shrink-0" aria-hidden="true" />
-								{link.label}
+								{link.icon === "email" ? (
+									<span class="min-w-0 break-all">
+										<span class="sr-only">{link.label} · </span>{emailAddress}
+									</span>
+								) : link.label}
 							</a>
 						</li>
 					);
