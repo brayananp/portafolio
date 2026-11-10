@@ -1,0 +1,37 @@
+---
+import { useTranslations } from "../i18n/ui";
+import { getLocalizedPath } from "../i18n/utils";
+import Layout from "../layouts/Layout.astro";
+import { getPublishedBlogPosts } from "../lib/blog";
+
+const locales = ["es", "en"] as const;
+const links = await Promise.all(locales.map(async (lang) => ({
+	lang,
+	t: useTranslations(lang),
+	hasBlog: (await getPublishedBlogPosts(lang)).length > 0,
+})));
+---
+
+<Layout title="Página no encontrada · Page not found | Brayan Nuñez" lang="es" path="/404.html" noindex>
+	<main id="main-content" tabindex="-1" class="grid min-h-svh place-items-center px-6 py-14">
+		<div class="w-full max-w-xl">
+			<span class="inline-block rounded-md bg-amber-bg px-2.5 py-0.5 font-mono text-xs text-amber">404</span>
+			<h1 class="mt-4 font-display text-4xl font-medium tracking-tight text-primary sm:text-5xl">Página no encontrada</h1>
+			<p lang="en" class="mt-2 text-lg text-secondary">Page not found</p>
+			<div class="mt-7 flex flex-col gap-3 sm:flex-row">
+				{links.map(({ lang, t, hasBlog }) => (
+					<nav lang={lang} aria-label={lang === "es" ? "Español" : "English"} class="flex flex-wrap gap-2">
+						<a href={getLocalizedPath("/", lang)} class="inline-flex min-h-11 items-center gap-2 rounded-lg bg-amber-bg px-4 font-mono text-xs text-amber hover:bg-surface-hover">
+							<span aria-hidden="true">←</span>{t("nav.home")}
+						</a>
+						{hasBlog && (
+							<a href={getLocalizedPath("/blog", lang)} class="inline-flex min-h-11 items-center rounded-lg border border-border px-4 font-mono text-xs text-primary hover:bg-surface-hover">
+								{t("nav.blog")} <span class="ml-2 text-muted">{lang.toUpperCase()}</span>
+							</a>
+						)}
+					</nav>
+				))}
+			</div>
+		</div>
+	</main>
+</Layout>
