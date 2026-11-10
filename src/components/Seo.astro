@@ -109,7 +109,7 @@ const localeTag = lang === "es" ? "es_PE" : "en_US";
 	jsonLd.length > 0 && (
 		<script
 			type="application/ld+json"
-			set:html={JSON.stringify(jsonLd.length === 1 ? jsonLd[0] : jsonLd)}
+			set:html={JSON.stringify(jsonLd.length === 1 ? jsonLd[0] : jsonLd).replaceAll("<", "\\u003c")}
 		/>
 	)
 }
